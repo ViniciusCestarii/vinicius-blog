@@ -25,3 +25,12 @@ body {
     text-wrap: balance;
   }
 }
+
+h1 {
+  @apply text-3xl font-bold text-gray-100;
+}
+
+p {
+  @apply text-base leading-relaxed text-gray-200;
+}
+
