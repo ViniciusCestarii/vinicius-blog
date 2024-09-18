@@ -23,5 +23,5 @@ export default function IbgeChart({ url }: IbgeChartProps) {
 
   const urlWithTheme = `${url}&theme=${actualTheme}`
 
-  return <iframe src={urlWithTheme} width="100%" height="880" />
+  return <iframe src={urlWithTheme} width="100%" height="880" title="Gráfico" />
 }
