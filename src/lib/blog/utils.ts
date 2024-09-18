@@ -8,27 +8,34 @@ type Metadata = {
   title: string
   description: string
   publishedAt: string
-  status: string
+  status: 'published' | 'draft'
   slug: string
   tags: string[]
   image?: string
 }
 
-type Post = {
+export type Post = {
   metadata: Metadata
   content: string
 }
 
 const postsDirectory = path.resolve('src/content/posts')
 
-export const getAllPosts = async (): Promise<Post[]> => {
+export const getAllPublishedPosts = async (): Promise<Post[]> => {
   const filenames = await fs.readdir(postsDirectory)
 
   const allPosts = await Promise.all(
     filenames.map(async (filename) => getPost(filename.replace('.mdx', ''))),
   )
 
-  return allPosts.filter((post) => post !== null)
+  const allPublishedPosts: Post[] = allPosts.filter(
+    (post): post is Post =>
+      post !== null && post.metadata.status === 'published',
+  )
+
+  return allPublishedPosts.sort((a, b) => {
+    return a.metadata.publishedAt > b.metadata.publishedAt ? -1 : 1
+  })
 }
 
 export const getPost = async (slug: string): Promise<Post | null> => {
@@ -39,7 +46,7 @@ export const getPost = async (slug: string): Promise<Post | null> => {
     const { data, content } = matter(fileContent)
 
     const post: Post = {
-      metadata: data as Metadata,
+      metadata: { ...data, slug } as Metadata,
       content,
     }
 

@@ -9,7 +9,7 @@ export default function PostLayout({
   return (
     <>
       <header className="flex justify-between">
-        <PageTitle component="span">Vinicius Cestari</PageTitle>
+        <PageTitle component="a">Vinicius Cestari</PageTitle>
         <ThemeToggle />
       </header>
       {children}

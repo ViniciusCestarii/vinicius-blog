@@ -78,7 +78,7 @@
   .article-body {
     @apply prose dark:prose-invert text-foreground prose-sky;
 
-    @apply prose-headings:font-geist-mono prose-headings:tracking-tighter;
+    @apply prose-headings:font-geist-mono prose-headings:tracking-tighter ;
   }
 }
 

@@ -1,17 +1,15 @@
-import { getAllPosts } from '@/lib/blog/utils'
+import { getAllPublishedPosts } from '@/lib/blog/utils'
+import PostItem from '../../components/ui/post/post-item'
 
 export default async function Home() {
-  const allPosts = await getAllPosts()
+  const allPosts = await getAllPublishedPosts()
 
-  console.log(allPosts)
   return (
     <div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-10 w-full px-4">
           {allPosts.map((post) => (
-            <li key={post.metadata.title}>
-              <a href={`/blog/${post.metadata.slug}`}>{post.metadata.title}</a>
-            </li>
+            <PostItem key={post.metadata.title} post={post} />
           ))}
         </ul>
       </main>
