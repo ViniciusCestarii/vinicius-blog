@@ -15,7 +15,7 @@ export default function PostItem({ post }: PostItemProps) {
         <article className="flex flex-col gap-3 bg-card hover:bg-muted-foreground/10 dark:hover:bg-muted-foreground/20 p-4 rounded-md">
           <header className="flex flex-col">
             <h2 className="text-3xl font-semibold">{post.metadata.title}</h2>
-            <div className="flex justify-between flex-wrap items-center gap-8">
+            <div className="flex justify-between flex-wrap flex-col sm:flex-row sm:items-center gap-1">
               <PostViewsLike slug={post.metadata.slug} />
               <PostTime date={post.metadata.publishedAt} />
             </div>
