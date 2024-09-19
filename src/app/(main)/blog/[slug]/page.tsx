@@ -2,7 +2,7 @@ import { getAllPublishedPosts, getPost } from '@/lib/blog/utils'
 import { notFound } from 'next/navigation'
 import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
-import PostTime from '../../../components/ui/post/post-time'
+import PostTime from '@/components/ui/post/post-time'
 
 interface PostPageProps {
   params: {

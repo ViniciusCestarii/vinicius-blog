@@ -2,7 +2,7 @@ import HeaderContainer from '@/components/ui/header-container'
 import PageHeaderButtons from '@/components/ui/page-header-buttons'
 import PageTitle from '@/components/ui/page-title'
 
-export default function HomeLayout({
+export default function PostLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -10,7 +10,7 @@ export default function HomeLayout({
   return (
     <>
       <HeaderContainer>
-        <PageTitle>Vinicius Cestari</PageTitle>
+        <PageTitle component="a">Vinicius Cestari</PageTitle>
         <PageHeaderButtons />
       </HeaderContainer>
       {children}

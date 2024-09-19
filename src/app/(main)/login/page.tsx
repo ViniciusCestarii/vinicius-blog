@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   return (
     <main className="flex flex-col gap-8">
-      <h2 className="text-4xl w-full text-center">Login</h2>
+      <h1 className="text-4xl w-full text-center">Login</h1>
       <form
         className="flex flex-col gap-4 max-w-72 w-full mx-auto"
         onSubmit={handleSubmit}
