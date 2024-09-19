@@ -24,11 +24,15 @@ export default function LoginPage() {
       >
         <label>
           <span>Email</span>
-          <Input name="username" />
+          <Input name="username" autoComplete="username" />
         </label>
         <label>
           <span>Password</span>
-          <Input type="password" name="password" />
+          <Input
+            type="password"
+            name="password"
+            autoComplete="current-password"
+          />
         </label>
         <Button type="submit">Login</Button>
       </form>
