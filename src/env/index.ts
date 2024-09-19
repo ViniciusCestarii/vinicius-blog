@@ -3,6 +3,8 @@ import { z } from 'zod'
 const envSchema = z.object({
   ADM_USERNAME: z.string(),
   ADM_PASSWORD: z.string(),
+  REDIS_URL: z.string().url(),
+  REDIS_PASSWORD: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
