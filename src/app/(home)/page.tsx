@@ -1,15 +1,19 @@
 import { getAllPublishedPosts } from '@/lib/blog/utils'
 import BlogList from './blog-list'
-import { Suspense } from 'react'
+import { searchParamsCache } from './search-params'
 
-export default async function Home() {
-  const allPosts = await getAllPublishedPosts()
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>
+}) {
+  const parsedSearchParams = searchParamsCache.parse(searchParams)
+
+  const posts = await getAllPublishedPosts(parsedSearchParams.search)
 
   return (
-    <main className="flex flex-col gap-8 items-center sm:items-start">
-      <Suspense fallback={null}>
-        <BlogList allPosts={allPosts} />
-      </Suspense>
+    <main>
+      <BlogList posts={posts} />
     </main>
   )
 }

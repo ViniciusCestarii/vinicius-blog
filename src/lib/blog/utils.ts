@@ -21,7 +21,9 @@ export type Post = {
 
 const postsDirectory = path.resolve('src/content/posts')
 
-export const getAllPublishedPosts = async (): Promise<Post[]> => {
+export const getAllPublishedPosts = async (
+  search?: string,
+): Promise<Post[]> => {
   const filenames = await fs.readdir(postsDirectory)
 
   const allPosts = await Promise.all(
@@ -33,7 +35,19 @@ export const getAllPublishedPosts = async (): Promise<Post[]> => {
       post !== null && post.metadata.status === 'published',
   )
 
-  return allPublishedPosts.sort((a, b) => {
+  const filteredPosts = search
+    ? allPublishedPosts.filter((post) => {
+        const { metadata } = post
+        const searchLower = search.toLowerCase()
+        return (
+          metadata.title.toLowerCase().includes(searchLower) ||
+          metadata.description.toLowerCase().includes(searchLower) ||
+          metadata.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+        )
+      })
+    : allPublishedPosts
+
+  return filteredPosts.sort((a, b) => {
     return a.metadata.publishedAt > b.metadata.publishedAt ? -1 : 1
   })
 }
