@@ -7,7 +7,7 @@ interface PostItemProps {
   post: Post
 }
 
-export default async function PostItem({ post }: PostItemProps) {
+export default function PostItem({ post }: PostItemProps) {
   return (
     <li key={post.metadata.title}>
       <Link href={`/blog/${post.metadata.slug}`}>

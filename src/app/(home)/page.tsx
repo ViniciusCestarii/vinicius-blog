@@ -1,5 +1,6 @@
 import { getAllPublishedPosts } from '@/lib/blog/utils'
-import PostItem from '../../components/ui/post/post-item'
+import BlogList from './blog-list'
+import { Suspense } from 'react'
 
 export default async function Home() {
   const allPosts = await getAllPublishedPosts()
@@ -7,11 +8,9 @@ export default async function Home() {
   return (
     <div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <ul className="flex flex-col gap-10 w-full px-4">
-          {allPosts.map((post) => (
-            <PostItem key={post.metadata.title} post={post} />
-          ))}
-        </ul>
+        <Suspense fallback={null}>
+          <BlogList allPosts={allPosts} />
+        </Suspense>
       </main>
     </div>
   )
