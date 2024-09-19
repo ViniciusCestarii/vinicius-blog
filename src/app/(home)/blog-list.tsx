@@ -9,7 +9,11 @@ interface BlogListProps {
 const BlogList = ({ posts }: BlogListProps) => {
   return (
     <div className="flex flex-col gap-8 items-center sm:items-start">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="bg-card rounded-md border border-input w-full h-9" />
+        }
+      >
         <BlogSearch />
       </Suspense>
       {posts.length > 0 ? (
