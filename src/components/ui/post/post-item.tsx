@@ -1,6 +1,7 @@
 import { Post } from '@/lib/blog/utils'
 import Link from 'next/link'
 import PostTime from './post-time'
+import { Badge } from '../badge'
 
 interface PostItemProps {
   post: Post
@@ -16,11 +17,9 @@ export default async function PostItem({ post }: PostItemProps) {
             <PostTime date={post.metadata.publishedAt} />
           </header>
           <p>{post.metadata.description}</p>
-          <span>
+          <span className="flex flex-wrap gap-2">
             {post.metadata.tags.map((tag) => (
-              <span key={tag} className="mr-2">
-                {tag}
-              </span>
+              <Badge key={tag}>{tag}</Badge>
             ))}
           </span>
         </article>
