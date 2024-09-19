@@ -6,12 +6,12 @@ interface PostLikesProps {
   slug: string
 }
 
-export const PostLikeTemplate = ({ likes }: { likes: number }) => (
+export const PostLikeTemplate = ({ likes }: { likes?: number }) => (
   <div className="flex items-center gap-2" title="Likes">
     <dt className="m-0">
       <span className="sr-only">Likes</span> <Heart className="size-icon" />
     </dt>
-    <dd className="p-0 m-0 text-sm">{likes}</dd>
+    <dd className="p-0 m-0 text-sm min-w-7">{likes}</dd>
   </div>
 )
 

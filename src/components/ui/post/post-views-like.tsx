@@ -9,10 +9,10 @@ interface PostViewsLikeProps {
 const PostViewsLike = ({ slug }: PostViewsLikeProps) => {
   return (
     <dl className="flex gap-4 m-0">
-      <Suspense fallback={<PostViewTemplate views={0} />}>
+      <Suspense fallback={<PostViewTemplate />}>
         <PostViews slug={slug} />
       </Suspense>
-      <Suspense fallback={<PostLikeTemplate likes={0} />}>
+      <Suspense fallback={<PostLikeTemplate />}>
         <PostLikes slug={slug} />
       </Suspense>
     </dl>
