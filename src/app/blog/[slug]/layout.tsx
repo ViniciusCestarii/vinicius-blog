@@ -1,5 +1,5 @@
-import { ThemeToggle } from '@/components/theme/toggle'
 import HeaderContainer from '@/components/ui/header-container'
+import PageHeaderButtons from '@/components/ui/page-header-buttons'
 import PageTitle from '@/components/ui/page-title'
 
 export default function PostLayout({
@@ -11,7 +11,7 @@ export default function PostLayout({
     <>
       <HeaderContainer>
         <PageTitle component="a">Vinicius Cestari</PageTitle>
-        <ThemeToggle />
+        <PageHeaderButtons />
       </HeaderContainer>
       {children}
     </>

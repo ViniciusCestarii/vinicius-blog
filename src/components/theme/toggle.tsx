@@ -20,8 +20,8 @@ export function ThemeToggle() {
       className="group"
       onClick={handleThemeChange}
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] group-hover:rotate-90 transition-all block dark:hidden" />
-      <Moon className="h-[1.2rem] w-[1.2rem] group-hover:rotate-45 -rotate-90 transition-all dark:rotate-0 hidden dark:block p-[0.001rem]" />
+      <Sun className="size-icon group-hover:rotate-90 transition-transform block dark:hidden" />
+      <Moon className="size-icon group-hover:rotate-45 -rotate-90 transition-transform dark:rotate-0 hidden dark:block p-[0.05px]" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   )

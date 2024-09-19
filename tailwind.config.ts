@@ -55,6 +55,9 @@ const config: Config = {
         lg: '64em',
         xl: '80em',
       },
+      size: {
+        icon: '1.2rem',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
