@@ -1,4 +1,5 @@
 import { ThemeToggle } from '@/components/theme/toggle'
+import HeaderContainer from '@/components/ui/header-container'
 import PageTitle from '@/components/ui/page-title'
 
 export default function HomeLayout({
@@ -8,10 +9,10 @@ export default function HomeLayout({
 }>) {
   return (
     <>
-      <header className="flex justify-between">
+      <HeaderContainer>
         <PageTitle>Vinicius Cestari</PageTitle>
         <ThemeToggle />
-      </header>
+      </HeaderContainer>
       {children}
     </>
   )

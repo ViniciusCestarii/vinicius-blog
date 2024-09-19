@@ -49,6 +49,12 @@ const config: Config = {
           },
         },
       }),
+      screens: {
+        sm: '40em',
+        md: '48em',
+        lg: '64em',
+        xl: '80em',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
