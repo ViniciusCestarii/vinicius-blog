@@ -1,5 +1,6 @@
 'use client'
 
+import { Input } from '@/components/ui/input'
 import PostItem from '@/components/ui/post/post-item'
 import { Post } from '@/lib/blog/utils'
 import { Search } from 'lucide-react'
@@ -26,17 +27,17 @@ const BlogList = ({ allPosts }: BlogListProps) => {
   })
   return (
     <>
-      <div className="flex w-full items-center bg-card">
-        <label htmlFor="blog-search" className="flex-shrink-0 px-2">
+      <div className="flex w-full items-center bg-card rounded-md border border-input">
+        <label htmlFor="blog-search" className="flex-shrink-0 pl-2 pr-1">
           <span className="sr-only">Search for blog post</span>
           <Search />
         </label>
 
-        <input
+        <Input
           id="blog-search"
           type="search"
           placeholder="Search by title, description or tag"
-          className="w-full p-2 bg-card flex-1"
+          className="w-full p-2 bg-card flex-1 border-none"
           value={search}
           onChange={({ target }) =>
             !target.value ? setSearch(null) : setSearch(target.value)
