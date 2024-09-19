@@ -11,7 +11,7 @@ export const PostLikeTemplate = ({ likes }: { likes: number }) => (
     <dt className="m-0">
       <span className="sr-only">Likes</span> <Heart className="size-icon" />
     </dt>
-    <dd className="p-0 m-0">{likes}</dd>
+    <dd className="p-0 m-0 text-sm">{likes}</dd>
   </div>
 )
 
