@@ -1,23 +1,27 @@
 import { getLikes } from '@/server/storage'
-import { Heart } from 'lucide-react'
 import React from 'react'
+import PostLikeTemplate from './post-like-template'
+import { getLikedBlogs } from '@/lib/cookie'
 
 interface PostLikesProps {
   slug: string
+  likeable?: boolean
 }
 
-export const PostLikeTemplate = ({ likes }: { likes?: number }) => (
-  <div className="flex items-center gap-2" title="Likes">
-    <dt className="m-0">
-      <span className="sr-only">Likes</span> <Heart className="size-icon" />
-    </dt>
-    <dd className="p-0 m-0 text-sm min-w-7">{likes}</dd>
-  </div>
-)
+const PostLikes = async ({ slug, likeable }: PostLikesProps) => {
+  const promises = Promise.all([getLikes(slug), getLikedBlogs()])
 
-const PostLikes = async ({ slug }: PostLikesProps) => {
-  const likes = await getLikes(slug)
-  return <PostLikeTemplate likes={likes} />
+  const [likes, likedBlogs] = await promises
+
+  const isLiked = !!likedBlogs?.includes(slug)
+
+  return (
+    <PostLikeTemplate
+      likes={likes}
+      isLiked={isLiked}
+      likeable={likeable ? { slug } : undefined}
+    />
+  )
 }
 
 export default PostLikes

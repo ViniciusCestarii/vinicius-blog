@@ -13,7 +13,6 @@ interface PostPageProps {
 }
 
 export const dynamicParams = false
-export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const posts = await getAllPublishedPosts()
@@ -38,7 +37,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <header>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostViewsLike slug={slug} />
+          <PostViewsLike slug={slug} likeable />
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>

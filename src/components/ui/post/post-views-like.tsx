@@ -1,19 +1,21 @@
 import React, { Suspense } from 'react'
 import PostViews, { PostViewTemplate } from './post-views'
-import PostLikes, { PostLikeTemplate } from './post-likes'
+import PostLikes from './post-likes'
+import PostLikeTemplate from './post-like-template'
 
 interface PostViewsLikeProps {
   slug: string
+  likeable?: boolean
 }
 
-const PostViewsLike = ({ slug }: PostViewsLikeProps) => {
+const PostViewsLike = (props: PostViewsLikeProps) => {
   return (
     <dl className="flex gap-4 m-0">
       <Suspense fallback={<PostViewTemplate />}>
-        <PostViews slug={slug} />
+        <PostViews {...props} />
       </Suspense>
       <Suspense fallback={<PostLikeTemplate />}>
-        <PostLikes slug={slug} />
+        <PostLikes {...props} />
       </Suspense>
     </dl>
   )

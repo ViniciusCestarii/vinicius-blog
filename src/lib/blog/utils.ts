@@ -3,6 +3,9 @@
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
+import { decrementLikes, incrementLikes } from '@/server/storage'
+import { setLikedBlogs } from '@/server/cookie'
+import { getLikedBlogs } from '../cookie'
 
 type Metadata = {
   title: string
@@ -69,4 +72,22 @@ export const getPost = async (slug: string): Promise<Post | null> => {
     console.error(error)
     return null
   }
+}
+
+export const likeBlog = async (slug: string) => {
+  const likedBlogs = getLikedBlogs() ?? []
+
+  likedBlogs.push(slug)
+
+  setLikedBlogs(likedBlogs)
+  incrementLikes(slug)
+}
+
+export const unlikeBlog = async (slug: string) => {
+  const likedBlogs = (await getLikedBlogs()) ?? []
+
+  const newLikedBlogs = likedBlogs.filter((blog) => blog !== slug)
+
+  setLikedBlogs(newLikedBlogs)
+  decrementLikes(slug)
 }
