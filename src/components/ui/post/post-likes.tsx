@@ -1,12 +1,13 @@
 'use client'
 
-import { getLikes, toggleLike } from '@/server/storage'
+import { toggleLike } from '@/server/storage'
 import React from 'react'
 
 import { cn } from '@/lib/style/utils'
 
 import { Heart } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { fetchLikes } from '@/lib/blog/fetch'
 
 interface PostLikesDisplayProps {
   likes?: number
@@ -81,7 +82,7 @@ interface PostLikesProps {
 const PostLikes = ({ slug, likeable, isLiked }: PostLikesProps) => {
   const query = useQuery({
     queryKey: ['likes', slug],
-    queryFn: () => getLikes(slug),
+    queryFn: () => fetchLikes(slug),
     staleTime: 1000 * 60 * 60,
   })
 
