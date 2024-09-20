@@ -53,6 +53,9 @@ const PostLikeable = ({
       )
       return { previousViews }
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['likes', slug] })
+    },
     onError: (_err, _newViews, context) => {
       queryClient.setQueryData(['likes', slug], context?.previousViews)
     },
