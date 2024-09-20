@@ -1,9 +1,13 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { authenticate } from '@/server/auth'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
+  const router = useRouter()
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -12,7 +16,12 @@ export default function LoginPage() {
     const password = formData.get('password') as string
 
     const success = await authenticate({ username, password })
-    alert(success ? 'Authenticated' : 'Authentication failed')
+
+    if (success) {
+      router.push('/admin/blog/list')
+    } else {
+      alert('Authentication failed')
+    }
   }
 
   return (

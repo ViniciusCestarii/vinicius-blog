@@ -3,6 +3,7 @@ import { z } from 'zod'
 const envSchema = z.object({
   ADM_USERNAME: z.string(),
   ADM_PASSWORD: z.string(),
+  JWT_SECRET: z.string(),
   REDIS_URL: z.string().url(),
   REDIS_PASSWORD: z.string(),
 })

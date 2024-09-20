@@ -36,6 +36,7 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
     "@tanstack/eslint-plugin-query": "^5.56.1",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/mdx": "^2.0.13",
     "@types/node": "^20",
     "@types/react": "^18",
