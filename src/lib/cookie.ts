@@ -6,7 +6,7 @@ export const getLikedBlogs = () => {
   const likedBlogsCookie = cookies().get(cookieLikeBlogs)
 
   if (!likedBlogsCookie) {
-    return undefined
+    return []
   }
 
   const parsedValue = JSON.parse(likedBlogsCookie.value)

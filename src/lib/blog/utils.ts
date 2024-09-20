@@ -80,14 +80,14 @@ export const likeBlog = async (slug: string) => {
   likedBlogs.push(slug)
 
   setLikedBlogs(likedBlogs)
-  incrementLikes(slug)
+  return await incrementLikes(slug)
 }
 
 export const unlikeBlog = async (slug: string) => {
-  const likedBlogs = (await getLikedBlogs()) ?? []
+  const likedBlogs = getLikedBlogs() ?? []
 
   const newLikedBlogs = likedBlogs.filter((blog) => blog !== slug)
 
   setLikedBlogs(newLikedBlogs)
-  decrementLikes(slug)
+  return await decrementLikes(slug)
 }

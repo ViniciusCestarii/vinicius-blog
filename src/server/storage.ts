@@ -26,14 +26,14 @@ export const getLikes = async (slug: string): Promise<number> => {
   return likes ? Number(likes) : 0
 }
 
-export const toggleLike = (slug: string) => {
+export const toggleLike = async (slug: string) => {
   const likedBlogs = getLikedBlogs() ?? []
 
   const isLiked = likedBlogs.includes(slug)
 
   if (isLiked) {
-    unlikeBlog(slug)
+    return await unlikeBlog(slug)
   } else {
-    likeBlog(slug)
+    return await likeBlog(slug)
   }
 }

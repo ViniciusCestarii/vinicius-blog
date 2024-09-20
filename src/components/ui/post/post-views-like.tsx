@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import PostViews from './post-views'
 import PostLikes from './post-likes'
-import PostLikeTemplate from './post-like-template'
+import { getLikedBlogs } from '@/lib/cookie'
 
 interface PostViewsLikeProps {
   slug: string
@@ -18,12 +18,12 @@ const PostViewsLike = ({
   viewsProps,
   ...props
 }: PostViewsLikeProps) => {
+  const likedPosts = getLikedBlogs()
+  const isLiked = likedPosts.includes(props.slug)
   return (
     <dl className="flex gap-4 m-0">
       <PostViews {...props} {...viewsProps} />
-      <Suspense fallback={<PostLikeTemplate />}>
-        <PostLikes {...props} {...likesProps} />
-      </Suspense>
+      <PostLikes {...props} {...likesProps} isLiked={isLiked} />
     </dl>
   )
 }

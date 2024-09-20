@@ -15,7 +15,7 @@ export const PostViewTemplate = ({ views }: { views?: number }) => (
     <dt className="m-0">
       <span className="sr-only">Views</span> <Eye className="size-icon" />
     </dt>
-    <dd className="p-0 m-0 text-sm min-w-7">{views}</dd>
+    <dd className="p-0 m-0 text-sm leading-4 min-w-8 text-start">{views}</dd>
   </div>
 )
 
