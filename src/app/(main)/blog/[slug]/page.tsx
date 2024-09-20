@@ -1,4 +1,4 @@
-import { getAllPublishedPosts, getPost } from '@/lib/blog/utils'
+import { getAllPosts, getPost } from '@/lib/blog/action'
 import { notFound } from 'next/navigation'
 import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
@@ -14,7 +14,7 @@ interface PostPageProps {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const posts = await getAllPublishedPosts()
+  const posts = await getAllPosts()
 
   return posts.map((post) => ({
     slug: post.metadata.slug,

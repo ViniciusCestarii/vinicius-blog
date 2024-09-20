@@ -1,6 +1,6 @@
 'use server'
 
-import { likeBlog, unlikeBlog } from '@/lib/blog/utils'
+import { likeBlog, unlikeBlog } from '@/lib/blog/action'
 import client from './redis-client'
 import { getLikedBlogs } from '@/lib/cookie'
 

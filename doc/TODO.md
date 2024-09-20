@@ -1,3 +1,3 @@
-- [ ] use react-query for likes and views for client side fetch instead of server action
+- [ ] use react-query for likes and views for client side fetch instead of server action and start it with initial data
 
-- [ ] use mutation to like intead of action
+- [X] use mutation to like intead of action

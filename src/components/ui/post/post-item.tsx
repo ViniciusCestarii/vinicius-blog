@@ -1,9 +1,9 @@
-import { Post } from '@/lib/blog/utils'
 import Link from 'next/link'
 import PostTime from './post-time'
 import { Badge } from '../badge'
 import PostViewsLike from './post-views-like'
 import PostTitle from './post-title'
+import { Post } from '@/lib/blog/utils'
 
 interface PostItemProps {
   post: Post

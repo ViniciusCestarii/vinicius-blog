@@ -1,7 +1,7 @@
 import PostItem from '@/components/ui/post/post-item'
-import { Post } from '@/lib/blog/utils'
 import BlogSearch from './blog-search'
 import { Suspense } from 'react'
+import { Post } from '@/lib/blog/utils'
 interface BlogListProps {
   posts: Post[]
 }
