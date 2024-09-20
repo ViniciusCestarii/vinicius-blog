@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme/provider'
 import { AuthProvider } from '@/context/auth-context'
 import QueryClientProvider from '@/context/react-query-context'
+import { Analytics } from '@vercel/analytics/react'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -45,6 +46,7 @@ export default async function RootLayout({
             </AuthProvider>
           </QueryClientProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
