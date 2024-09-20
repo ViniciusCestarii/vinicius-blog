@@ -39,14 +39,23 @@ const PostLikeable = ({
   const mutation = useMutation({
     mutationFn: () => toggleLike(slug),
     onMutate: () => {
-      const previousViews = likes ?? 0
+      const previousLikes = likes ?? 0
+      const previousIsLiked = postLikesDisplayProps.isLiked
+
       queryClient.setQueryData(['likes', slug], () =>
-        postLikesDisplayProps.isLiked ? previousViews - 1 : previousViews + 1,
+        postLikesDisplayProps.isLiked ? previousLikes - 1 : previousLikes + 1,
       )
-      return { previousViews }
+
+      queryClient.setQueryData(
+        ['isLiked', slug],
+        () => !postLikesDisplayProps.isLiked,
+      )
+
+      return { previousLikes, previousIsLiked }
     },
     onError: (_err, _newViews, context) => {
-      queryClient.setQueryData(['likes', slug], context?.previousViews)
+      queryClient.setQueryData(['likes', slug], context?.previousLikes)
+      queryClient.setQueryData(['isLiked', slug], context?.previousIsLiked)
     },
   })
 
@@ -76,18 +85,32 @@ const PostLikes = ({
   likeable,
   isLiked,
 }: PostLikesProps) => {
-  const query = useQuery({
+  const likesQuery = useQuery({
     queryKey: ['likes', slug],
     queryFn: () => fetchLikes(slug),
     staleTime: 1000 * 60 * 60,
     initialData: initialLikes,
   })
 
+  const isLikedQuery = useQuery({
+    queryKey: ['isLiked', slug],
+    staleTime: Infinity,
+    initialData: isLiked,
+  })
+
   if (likeable) {
-    return <PostLikeable slug={slug} likes={query.data} isLiked={isLiked} />
+    return (
+      <PostLikeable
+        slug={slug}
+        likes={likesQuery.data}
+        isLiked={isLikedQuery.data}
+      />
+    )
   }
 
-  return <PostLikesDisplay likes={query.data} isLiked={isLiked} />
+  return (
+    <PostLikesDisplay likes={likesQuery.data} isLiked={isLikedQuery.data} />
+  )
 }
 
 export default PostLikes
