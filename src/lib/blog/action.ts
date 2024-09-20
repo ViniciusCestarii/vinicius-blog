@@ -44,13 +44,23 @@ export const getAllPosts = async (search?: string): Promise<Post[]> => {
   })
 }
 
-export const getAllPostsBasedOnAuth = async (
+export const getAllPostsBasedOnUser = async (
   search?: string,
 ): Promise<Post[]> => {
   const allPosts = await getAllPosts(search)
 
+  const likedBlogs = getLikedBlogs() ?? []
+
+  const postsWithIsLiked = allPosts.map((post) => ({
+    ...post,
+    metadata: {
+      ...post.metadata,
+      isLiked: likedBlogs.includes(post.metadata.slug),
+    },
+  }))
+
   if (await isAuthenticated()) {
-    return allPosts.sort((a, b) => {
+    return postsWithIsLiked.sort((a, b) => {
       const isAPublished = isPostPublished(a)
       const isBPublished = isPostPublished(b)
 
@@ -58,7 +68,7 @@ export const getAllPostsBasedOnAuth = async (
     })
   }
 
-  return allPosts.filter(isPostPublished)
+  return postsWithIsLiked.filter(isPostPublished)
 }
 
 export const getPost = async (slug: string): Promise<Post | null> => {
@@ -80,6 +90,26 @@ export const getPost = async (slug: string): Promise<Post | null> => {
   } catch (error) {
     console.error(error)
     return null
+  }
+}
+
+export const getPostBasedOnUser = async (
+  slug: string,
+): Promise<Post | null> => {
+  const post = await getPost(slug)
+
+  if (!post) {
+    return null
+  }
+
+  const likedBlogs = getLikedBlogs() ?? []
+
+  return {
+    ...post,
+    metadata: {
+      ...post.metadata,
+      isLiked: likedBlogs.includes(post.metadata.slug),
+    },
   }
 }
 

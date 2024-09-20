@@ -1,4 +1,4 @@
-import { getAllPosts, getPost } from '@/lib/blog/action'
+import { getAllPosts, getPost, getPostBasedOnUser } from '@/lib/blog/action'
 import { notFound } from 'next/navigation'
 import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
@@ -11,8 +11,6 @@ interface PostPageProps {
   }
 }
 
-export const dynamicParams = false
-
 export async function generateStaticParams() {
   const posts = await getAllPosts()
 
@@ -23,7 +21,7 @@ export async function generateStaticParams() {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = params
-  const post = await getPost(slug)
+  const post = await getPostBasedOnUser(slug)
 
   if (!post) {
     notFound()

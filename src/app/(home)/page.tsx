@@ -1,4 +1,4 @@
-import { getAllPostsBasedOnAuth } from '@/lib/blog/action'
+import { getAllPostsBasedOnUser } from '@/lib/blog/action'
 import BlogList from './blog-list'
 import { searchParamsCache } from './search-params'
 
@@ -9,7 +9,7 @@ export default async function Home({
 }) {
   const parsedSearchParams = searchParamsCache.parse(searchParams)
 
-  const posts = await getAllPostsBasedOnAuth(parsedSearchParams.search)
+  const posts = await getAllPostsBasedOnUser(parsedSearchParams.search)
 
   return (
     <main>

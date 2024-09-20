@@ -8,6 +8,7 @@ export type PostMetadata = {
   image?: string
   likes: number
   views: number
+  isLiked?: boolean
 }
 
 export type Post = {
