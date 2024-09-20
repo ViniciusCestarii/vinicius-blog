@@ -17,11 +17,9 @@ interface PostLikesDisplayProps {
 const PostLikesDisplay = ({ isLiked, likes }: PostLikesDisplayProps) => {
   return (
     <div className="flex items-center gap-2" title="Likes">
-      <dt className="m-0">
-        <span className="sr-only">Likes</span>
-        <Heart className={cn('size-icon', isLiked && 'text-red-500')} />
-      </dt>
-      <dd className="p-0 m-0 text-sm leading-4 min-w-8 text-start">{likes}</dd>
+      <span className="sr-only">Likes</span>
+      <Heart className={cn('size-icon', isLiked && 'text-red-500')} />
+      <span className="text-sm leading-4 min-w-8 text-start">{likes}</span>
     </div>
   )
 }

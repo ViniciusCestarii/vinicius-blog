@@ -6,21 +6,23 @@ import { Post } from '@/lib/blog/utils'
 
 interface PostViewsLikeProps {
   post: Post
+  likeable?: boolean
 }
 
-const PostViewsLike = ({ post }: PostViewsLikeProps) => {
+const PostViewsLike = ({ post, likeable }: PostViewsLikeProps) => {
   const { metadata } = post
   const likedPosts = getLikedBlogs()
   const isLiked = likedPosts.includes(metadata.slug)
   return (
-    <ul className="flex gap-4 m-0">
+    <span className="flex gap-4">
       <PostViews initialViews={metadata.views} slug={metadata.slug} />
       <PostLikes
         initialLikes={metadata.likes}
         slug={metadata.slug}
         isLiked={isLiked}
+        likeable={likeable}
       />
-    </ul>
+    </span>
   )
 }
 

@@ -48,12 +48,8 @@ const PostViews = ({ slug, initialViews, increment }: PostViewsProps) => {
 
   return (
     <div className="flex items-center gap-2" title="Views">
-      <dt className="m-0">
-        <span className="sr-only">Views</span> <Eye className="size-icon" />
-      </dt>
-      <dd className="p-0 m-0 text-sm leading-4 min-w-8 text-start">
-        {query.data}
-      </dd>
+      <span className="sr-only">Views</span> <Eye className="size-icon" />
+      {query.data}
     </div>
   )
 }
