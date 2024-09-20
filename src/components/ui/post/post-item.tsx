@@ -3,6 +3,7 @@ import Link from 'next/link'
 import PostTime from './post-time'
 import { Badge } from '../badge'
 import PostViewsLike from './post-views-like'
+import PostTitle from './post-title'
 
 interface PostItemProps {
   post: Post
@@ -14,7 +15,7 @@ export default function PostItem({ post }: PostItemProps) {
       <Link href={`/blog/${post.metadata.slug}`}>
         <article className="flex flex-col gap-3 bg-card hover:bg-muted-foreground/10 dark:hover:bg-muted-foreground/20 p-4 rounded-md">
           <header className="flex flex-col">
-            <h2 className="text-3xl font-semibold">{post.metadata.title}</h2>
+            <PostTitle>{post.metadata.title}</PostTitle>
             <div className="flex justify-between flex-wrap flex-col sm:flex-row sm:items-center gap-1">
               <PostViewsLike slug={post.metadata.slug} />
               <PostTime date={post.metadata.publishedAt} />

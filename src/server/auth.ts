@@ -3,8 +3,7 @@
 import env from '@/env'
 import { cookies } from 'next/headers'
 import * as jose from 'jose'
-
-interface Authenticate {
+export interface Authenticate {
   username: string
   password: string
 }
@@ -19,7 +18,12 @@ export const authenticate = async ({ password, username }: Authenticate) => {
     .setExpirationTime('3h')
     .sign(new TextEncoder().encode(env.JWT_SECRET))
 
-  cookies().set('token', token)
+  cookies().set('token', token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'lax',
+    path: '/',
+  })
 
   return true
 }
@@ -36,4 +40,8 @@ export const isAuthenticated = async () => {
     console.error('Authentication failed', error)
     return false
   }
+}
+
+export const removeAuthToken = () => {
+  cookies().delete('token')
 }

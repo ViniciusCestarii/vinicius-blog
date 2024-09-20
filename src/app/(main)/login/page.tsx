@@ -2,11 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { authenticate } from '@/server/auth'
+import { useAuth } from '@/context/auth-context'
 import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -15,10 +16,10 @@ export default function LoginPage() {
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    const success = await authenticate({ username, password })
+    const success = await login({ username, password })
 
     if (success) {
-      router.push('/admin/blog/list')
+      router.push('/')
     } else {
       alert('Authentication failed')
     }

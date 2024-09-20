@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname === '/login') {
     if (authenticated) {
-      return NextResponse.redirect(new URL('/admin/blog/list', request.url))
+      return NextResponse.redirect(new URL('/', request.url))
     }
     return NextResponse.next()
   }

@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme/provider'
 import QueryClientProvider from '@/components/react-query/provider'
+import { AuthProvider } from '@/context/auth-context'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   description: 'A blog about web development and other cool stuff',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -39,7 +40,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <QueryClientProvider>
-            <div className="px-4 max-w-screen-md mx-auto">{children}</div>
+            <AuthProvider>
+              <div className="px-4 max-w-screen-md mx-auto">{children}</div>
+            </AuthProvider>
           </QueryClientProvider>
         </ThemeProvider>
       </body>
