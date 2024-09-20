@@ -34,15 +34,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <header>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostViewsLike
-            slug={slug}
-            likesProps={{
-              likeable: true,
-            }}
-            viewsProps={{
-              increment: true,
-            }}
-          />
+          <PostViewsLike post={post} />
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>

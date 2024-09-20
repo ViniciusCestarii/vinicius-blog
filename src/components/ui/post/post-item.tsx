@@ -17,7 +17,7 @@ export default function PostItem({ post }: PostItemProps) {
           <header className="flex flex-col">
             <PostTitle>{post.metadata.title}</PostTitle>
             <div className="flex justify-between flex-wrap flex-col sm:flex-row sm:items-center gap-1">
-              <PostViewsLike slug={post.metadata.slug} />
+              <PostViewsLike post={post} />
               <PostTime date={post.metadata.publishedAt} />
             </div>
           </header>

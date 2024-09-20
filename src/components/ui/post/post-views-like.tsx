@@ -2,29 +2,25 @@ import React from 'react'
 import PostViews from './post-views'
 import PostLikes from './post-likes'
 import { getLikedBlogs } from '@/lib/cookie'
+import { Post } from '@/lib/blog/utils'
 
 interface PostViewsLikeProps {
-  slug: string
-  viewsProps?: {
-    increment?: boolean
-  }
-  likesProps?: {
-    likeable?: boolean
-  }
+  post: Post
 }
 
-const PostViewsLike = ({
-  likesProps,
-  viewsProps,
-  ...props
-}: PostViewsLikeProps) => {
+const PostViewsLike = ({ post }: PostViewsLikeProps) => {
+  const { metadata } = post
   const likedPosts = getLikedBlogs()
-  const isLiked = likedPosts.includes(props.slug)
+  const isLiked = likedPosts.includes(metadata.slug)
   return (
-    <dl className="flex gap-4 m-0">
-      <PostViews {...props} {...viewsProps} />
-      <PostLikes {...props} {...likesProps} isLiked={isLiked} />
-    </dl>
+    <ul className="flex gap-4 m-0">
+      <PostViews initialViews={metadata.views} slug={metadata.slug} />
+      <PostLikes
+        initialLikes={metadata.likes}
+        slug={metadata.slug}
+        isLiked={isLiked}
+      />
+    </ul>
   )
 }
 

@@ -69,13 +69,20 @@ interface PostLikesProps {
   slug: string
   likeable?: boolean
   isLiked?: boolean
+  initialLikes: number
 }
 
-const PostLikes = ({ slug, likeable, isLiked }: PostLikesProps) => {
+const PostLikes = ({
+  slug,
+  initialLikes,
+  likeable,
+  isLiked,
+}: PostLikesProps) => {
   const query = useQuery({
     queryKey: ['likes', slug],
     queryFn: () => fetchLikes(slug),
     staleTime: 1000 * 60 * 60,
+    initialData: initialLikes,
   })
 
   if (likeable) {

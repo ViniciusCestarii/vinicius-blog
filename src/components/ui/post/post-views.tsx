@@ -8,14 +8,16 @@ import React, { useEffect } from 'react'
 
 interface PostViewsProps {
   slug: string
+  initialViews: number
   increment?: boolean
 }
 
-const PostViews = ({ slug, increment }: PostViewsProps) => {
+const PostViews = ({ slug, initialViews, increment }: PostViewsProps) => {
   const query = useQuery({
     queryKey: ['views', slug],
     queryFn: () => fetchViews(slug),
     staleTime: 1000 * 60 * 60,
+    initialData: initialViews,
   })
 
   const queryClient = useQueryClient()

@@ -6,6 +6,8 @@ export type PostMetadata = {
   slug: string
   tags: string[]
   image?: string
+  likes: number
+  views: number
 }
 
 export type Post = {

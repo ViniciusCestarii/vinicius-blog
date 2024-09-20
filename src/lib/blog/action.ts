@@ -3,7 +3,12 @@
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
-import { decrementLikes, incrementLikes } from '@/server/storage'
+import {
+  decrementLikes,
+  getLikes,
+  getViews,
+  incrementLikes,
+} from '@/server/storage'
 import { setLikedBlogs } from '@/server/cookie'
 import { getLikedBlogs } from '../cookie'
 import { isAuthenticated } from '@/server/auth'
@@ -63,8 +68,11 @@ export const getPost = async (slug: string): Promise<Post | null> => {
 
     const { data, content } = matter(fileContent)
 
+    const likes = await getLikes(slug)
+    const views = await getViews(slug)
+
     const post: Post = {
-      metadata: { ...data, slug } as PostMetadata,
+      metadata: { ...data, slug, likes, views } as PostMetadata,
       content,
     }
 
