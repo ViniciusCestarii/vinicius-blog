@@ -13,7 +13,7 @@ export const incrementLikes = async (slug: string) => {
 }
 
 export const decrementLikes = async (slug: string) => {
-  client.decr(`likes:${slug}`)
+  return await client.decr(`likes:${slug}`)
 }
 
 export const getViews = async (slug: string): Promise<number> => {
