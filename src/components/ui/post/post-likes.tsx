@@ -54,9 +54,6 @@ const PostLikeable = ({
       )
       return { previousViews }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['likes', slug] })
-    },
     onError: (_err, _newViews, context) => {
       queryClient.setQueryData(['likes', slug], context?.previousViews)
     },
@@ -64,10 +61,12 @@ const PostLikeable = ({
 
   return (
     <button
+      disabled={mutation.isPending}
       className="flex items-center gap-2"
       onClick={() => mutation.mutate()}
       aria-label="Like this post"
     >
+      {mutation.isPending}
       <PostLikesDisplay {...postLikesDisplayProps} />
     </button>
   )
