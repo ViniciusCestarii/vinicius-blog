@@ -25,10 +25,7 @@ const PostViews = ({ slug, initialViews, increment }: PostViewsProps) => {
   const mutation = useMutation({
     mutationFn: () => incrementViews(slug),
     onMutate: () => {
-      if (!query.data) {
-        return
-      }
-      const previousViews = query.data
+      const previousViews = query.data ?? 0
       queryClient.setQueryData(['views', slug], (data: number) =>
         data ? data + 1 : undefined,
       )
