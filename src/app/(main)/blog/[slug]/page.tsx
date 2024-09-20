@@ -32,7 +32,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <header>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostViewsLike post={post} likeable />
+          <PostViewsLike post={post} likeable incrementViews />
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
