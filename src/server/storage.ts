@@ -5,47 +5,25 @@ import client from './redis-client'
 import { getLikedBlogs } from '@/lib/cookie'
 
 export const incrementViews = async (slug: string) => {
-  try {
-    client.incr(`views:${slug}`)
-  } catch (error) {
-    console.error('Error incrementing views:', error)
-  }
+  return await client.incr(`views:${slug}`)
 }
 
 export const incrementLikes = async (slug: string) => {
-  try {
-    client.incr(`likes:${slug}`)
-  } catch (error) {
-    console.error('Error incrementing likes:', error)
-  }
+  return await client.incr(`likes:${slug}`)
 }
 
 export const decrementLikes = async (slug: string) => {
-  try {
-    client.decr(`likes:${slug}`)
-  } catch (error) {
-    console.error('Error decrementing likes:', error)
-  }
+  client.decr(`likes:${slug}`)
 }
 
 export const getViews = async (slug: string): Promise<number> => {
-  try {
-    const views = await client.get(`views:${slug}`)
-    return views ? Number(views) : 0
-  } catch (error) {
-    console.error('Error getting views:', error)
-    return 0
-  }
+  const views = await client.get(`views:${slug}`)
+  return views ? Number(views) : 0
 }
 
 export const getLikes = async (slug: string): Promise<number> => {
-  try {
-    const likes = await client.get(`likes:${slug}`)
-    return likes ? Number(likes) : 0
-  } catch (error) {
-    console.error('Error getting likes:', error)
-    return 0
-  }
+  const likes = await client.get(`likes:${slug}`)
+  return likes ? Number(likes) : 0
 }
 
 export const toggleLike = (slug: string) => {

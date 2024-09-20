@@ -2,6 +2,7 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "@rocketseat/eslint-config/react"
-  ]
+    "@rocketseat/eslint-config/react",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+    ]
 }

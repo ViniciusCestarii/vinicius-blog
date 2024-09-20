@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme/provider'
+import QueryClientProvider from '@/components/react-query/provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -37,7 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="px-4 max-w-screen-md mx-auto">{children}</div>
+          <QueryClientProvider>
+            <div className="px-4 max-w-screen-md mx-auto">{children}</div>
+          </QueryClientProvider>
         </ThemeProvider>
       </body>
     </html>

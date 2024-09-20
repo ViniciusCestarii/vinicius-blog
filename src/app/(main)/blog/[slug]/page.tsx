@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
-import { incrementViews } from '@/server/storage'
 import PostViewsLike from '@/components/ui/post/post-views-like'
 
 interface PostPageProps {
@@ -30,14 +29,20 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
-  incrementViews(slug)
-
   return (
     <article className="article-body">
       <header>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostViewsLike slug={slug} likeable />
+          <PostViewsLike
+            slug={slug}
+            likesProps={{
+              likeable: true,
+            }}
+            viewsProps={{
+              increment: true,
+            }}
+          />
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
