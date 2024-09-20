@@ -10,7 +10,8 @@ const GithubLink = () => {
         href="https://github.com/ViniciusCestarii"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Vinicius Cestarii Github"
+        aria-label="Visit Vinicius Cestarii Github"
+        title="Visit Vinicius Cestarii Github"
       >
         <Github className="size-icon group-hover:animate-spin p-[0.05px]" />
       </Link>

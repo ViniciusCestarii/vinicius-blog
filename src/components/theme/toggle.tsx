@@ -18,6 +18,8 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       className="group"
+      aria-label="Toggle theme"
+      title="Toggle theme"
       onClick={handleThemeChange}
     >
       <Sun className="size-icon group-hover:rotate-90 transition-transform block dark:hidden" />
