@@ -4,6 +4,7 @@ import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
 import PostViewsLike from '@/components/ui/post/post-views-like'
+import { isAuthenticated } from '@/server/auth'
 
 interface PostPageProps {
   params: {
@@ -27,12 +28,24 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
+  if (post.metadata.status !== 'published') {
+    const authenticated = await isAuthenticated()
+
+    if (!authenticated) {
+      notFound()
+    }
+  }
+
   return (
     <article className="article-body">
       <header>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostViewsLike post={post} likeable incrementViews />
+          <PostViewsLike
+            post={post}
+            likeable={post.metadata.status === 'published'}
+            incrementViews={post.metadata.status === 'published'}
+          />
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
@@ -47,6 +60,10 @@ export async function generateMetadata({
   const post = await getPost(params.slug)
 
   const { metadata } = post!
+
+  if (metadata.status !== 'published') {
+    return {}
+  }
 
   return {
     title: metadata.title,
