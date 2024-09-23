@@ -74,12 +74,16 @@ export const getAllPostsBasedOnUser = async (
 export const getPost = async (slug: string): Promise<Post | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
-    const fileContent = await fs.readFile(filePath, 'utf8')
+
+    const promises: [Promise<string>, Promise<number>, Promise<number>] = [
+      fs.readFile(filePath, 'utf8'),
+      getLikes(slug),
+      getViews(slug),
+    ]
+
+    const [fileContent, likes, views] = await Promise.all(promises)
 
     const { data, content } = matter(fileContent)
-
-    const likes = await getLikes(slug)
-    const views = await getViews(slug)
 
     const post: Post = {
       metadata: { ...data, slug, likes, views } as PostMetadata,
