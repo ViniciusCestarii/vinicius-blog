@@ -24,9 +24,11 @@ export const createPostTemplate = (
   metadata: Partial<PostMetadata>,
   content: string,
 ) => {
-  const tags = metadata.tags
+  const mappedTags = metadata.tags
     ? metadata.tags.map((tag) => `- "${tag}"`).join('\n')
-    : ''
+    : null
+
+  const tags = mappedTags ? `\n${mappedTags}` : '[]'
 
   return `---
 title: "${metadata.title}"
@@ -34,7 +36,7 @@ slug: "${metadata.slug}"
 description: "${metadata.description}"
 publishedAt: "${metadata.publishedAt}"
 status: "${metadata.status}"
-tags: ${tags ? '\n' + tags : ''}
+tags: ${tags}
 ---
 
 ${content}
