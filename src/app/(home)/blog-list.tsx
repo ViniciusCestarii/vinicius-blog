@@ -1,7 +1,6 @@
 import PostItem from '@/components/ui/post/post-item'
-import BlogSearch from './blog-search'
-import { Suspense } from 'react'
 import { Post } from '@/lib/blog/utils'
+import BlogListHeader from './blog-list-header'
 interface BlogListProps {
   posts: Post[]
 }
@@ -9,13 +8,7 @@ interface BlogListProps {
 const BlogList = ({ posts }: BlogListProps) => {
   return (
     <div className="flex flex-col gap-8 items-center sm:items-start">
-      <Suspense
-        fallback={
-          <div className="bg-card rounded-md border border-input w-full h-9" />
-        }
-      >
-        <BlogSearch />
-      </Suspense>
+      <BlogListHeader />
       {posts.length > 0 ? (
         <ul className="flex flex-col gap-10 w-full px-4">
           {posts.map((post) => (

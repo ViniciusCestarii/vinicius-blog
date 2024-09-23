@@ -6,6 +6,10 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   REDIS_URL: z.string().url(),
   REDIS_PASSWORD: z.string(),
+  GITHUB_API_URL: z.string().url(),
+  GITHUB_ACCESS_TOKEN: z.string(),
+  COMMITER_NAME: z.string().default('UPDATE-bot'),
+  COMMITER_EMAIL: z.string().default('update-bot@example.com'),
 })
 
 const _env = envSchema.safeParse(process.env)
