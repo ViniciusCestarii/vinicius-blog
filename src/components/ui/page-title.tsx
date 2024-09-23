@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import AdminOnly from '../auth/admin-only'
 import LogoutButton from '../auth/logout-button'
 
 export default function PageTitle({
@@ -13,19 +12,14 @@ export default function PageTitle({
     return (
       <div className="text-2xl font-medium flex items-center gap-1">
         <Link href="/">{children}</Link>
-        <AdminOnly>
-          <LogoutButton />
-        </AdminOnly>
+        <LogoutButton />
       </div>
     )
   }
 
   return (
     <h1 className="text-2xl font-medium flex items-center gap-1">
-      {children}{' '}
-      <AdminOnly>
-        <LogoutButton />
-      </AdminOnly>
+      {children} <LogoutButton />
     </h1>
   )
 }

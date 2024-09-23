@@ -3,8 +3,9 @@
 import { useAuth } from '@/context/auth-context'
 import { Button } from '../ui/button'
 import { DoorOpen } from 'lucide-react'
+import AdminOnly from './admin-only'
 
-const LogoutButton = () => {
+const LogoutButtonBase = () => {
   const { logout } = useAuth()
 
   return (
@@ -17,6 +18,14 @@ const LogoutButton = () => {
     >
       <DoorOpen className="size-icon group-hover:animate-ping" />
     </Button>
+  )
+}
+
+const LogoutButton = () => {
+  return (
+    <AdminOnly>
+      <LogoutButtonBase />
+    </AdminOnly>
   )
 }
 
