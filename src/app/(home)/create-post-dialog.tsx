@@ -12,26 +12,31 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { createPostCommit } from '@/lib/github/create-blog'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
+
+// TODO: add toast for feedback
 
 export const CreatePostDialog = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [title, setTitle] = useState('')
+  const [isPending, startTransition] = useTransition()
 
-  const createBlogPost = async () => {
-    const trimmedTitle = title.trim()
+  const createBlogPost = () =>
+    startTransition(async () => {
+      const trimmedTitle = title.trim()
 
-    if (!trimmedTitle) return
+      if (!trimmedTitle) return
 
-    try {
-      await createPostCommit({
-        title: trimmedTitle,
-      })
-      setOpenDialog(false)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+      try {
+        await createPostCommit({
+          title: trimmedTitle,
+        })
+        setOpenDialog(false)
+      } catch (error) {
+        console.error(error)
+      }
+    })
+
   return (
     <Dialog open={openDialog} onOpenChange={(open) => setOpenDialog(open)}>
       <DialogTrigger asChild>
@@ -58,7 +63,7 @@ export const CreatePostDialog = () => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={createBlogPost}>
+          <Button type="submit" disabled={isPending} onClick={createBlogPost}>
             Create post
           </Button>
         </DialogFooter>
