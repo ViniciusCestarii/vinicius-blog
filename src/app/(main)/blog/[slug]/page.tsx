@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
 import PostViewsLike from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
+import EditBlog from './edit-blog'
 
 interface PostPageProps {
   params: {
@@ -47,6 +48,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
+      <EditBlog post={post} />
       <MdxViewer source={post.content} />
     </article>
   )
