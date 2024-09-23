@@ -13,8 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { createPostCommit } from '@/lib/github/create-blog'
 import { useState, useTransition } from 'react'
-
-// TODO: add toast for feedback
+import { toast } from 'sonner'
 
 export const CreatePostDialog = () => {
   const [openDialog, setOpenDialog] = useState(false)
@@ -32,8 +31,13 @@ export const CreatePostDialog = () => {
           title: trimmedTitle,
         })
         setOpenDialog(false)
+        toast.success(`Post ${trimmedTitle} created!`, {
+          description: 'It may take a few seconds to appear on the site',
+        })
+        setTitle('')
       } catch (error) {
         console.error(error)
+        toast.error(`Couldn't create post ${trimmedTitle}!`)
       }
     })
 

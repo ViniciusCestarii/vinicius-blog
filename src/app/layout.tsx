@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme/provider'
 import { AuthProvider } from '@/context/auth-context'
 import QueryClientProvider from '@/context/react-query-context'
 import { Analytics } from '@vercel/analytics/react'
+import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -45,6 +46,7 @@ export default async function RootLayout({
               <div className="px-4 max-w-screen-md mx-auto">{children}</div>
             </AuthProvider>
           </QueryClientProvider>
+          <Toaster closeButton />
         </ThemeProvider>
         <Analytics />
       </body>
