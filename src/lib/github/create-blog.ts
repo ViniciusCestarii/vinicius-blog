@@ -27,7 +27,9 @@ export const createPostCommit = async ({ title }: CreateBlogParams) => {
       status: 'draft',
       tags: [],
     },
-    'Basic paragraph',
+    `# First topic
+
+Basic paragraph`,
   )
 
   const filename = `${slug}.mdx`
