@@ -1,5 +1,6 @@
 'use client'
 
+import AdminOnly from '@/components/auth/admin-only'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,7 +16,7 @@ import { createPostCommit } from '@/lib/github/blog'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
-export const CreatePostDialog = () => {
+export const CreatePostDialogBase = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [title, setTitle] = useState('')
   const [isPending, startTransition] = useTransition()
@@ -75,3 +76,13 @@ export const CreatePostDialog = () => {
     </Dialog>
   )
 }
+
+const CreatePostDialog = () => {
+  return (
+    <AdminOnly>
+      <CreatePostDialogBase />
+    </AdminOnly>
+  )
+}
+
+export default CreatePostDialog

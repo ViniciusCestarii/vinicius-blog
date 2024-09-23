@@ -1,5 +1,6 @@
 'use client'
 
+import AdminOnly from '@/components/auth/admin-only'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -21,7 +22,7 @@ interface DeletePostDialogProps {
   title: string
 }
 
-export const DeletePostDialog = ({ slug, title }: DeletePostDialogProps) => {
+const DeletePostDialogBase = ({ slug, title }: DeletePostDialogProps) => {
   const [openDialog, setOpenDialog] = useState(false)
   const [titleToConfirm, setTitleToConfirm] = useState('')
   const [isPending, startTransition] = useTransition()
@@ -87,3 +88,13 @@ export const DeletePostDialog = ({ slug, title }: DeletePostDialogProps) => {
     </Dialog>
   )
 }
+
+const DeletePostDialog = (props: DeletePostDialogProps) => {
+  return (
+    <AdminOnly>
+      <DeletePostDialogBase {...props} />
+    </AdminOnly>
+  )
+}
+
+export default DeletePostDialog

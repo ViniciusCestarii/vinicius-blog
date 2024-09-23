@@ -1,11 +1,8 @@
-'use client'
 import { Suspense } from 'react'
 import BlogSearch from './blog-search'
-import { useAuth } from '@/context/auth-context'
-import { CreatePostDialog } from './create-post-dialog'
+import CreatePostDialog from './create-post-dialog'
 
 const BlogListHeader = () => {
-  const { isAdmin } = useAuth()
   return (
     <div className="flex w-full items-center">
       <Suspense
@@ -15,7 +12,7 @@ const BlogListHeader = () => {
       >
         <BlogSearch />
       </Suspense>
-      {isAdmin && <CreatePostDialog />}
+      <CreatePostDialog />
     </div>
   )
 }

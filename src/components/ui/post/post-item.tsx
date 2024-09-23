@@ -5,6 +5,7 @@ import PostViewsLike from './post-views-like'
 import PostTitle from './post-title'
 import { Post } from '@/lib/blog/utils'
 import PostStatus from './post-status'
+import AdminOnly from '@/components/auth/admin-only'
 
 interface PostItemProps {
   post: Post
@@ -28,7 +29,9 @@ export default function PostItem({ post }: PostItemProps) {
               <Badge key={tag}>{tag}</Badge>
             ))}
           </span>
-          <PostStatus status={post.metadata.status} />
+          <AdminOnly>
+            <PostStatus status={post.metadata.status} />
+          </AdminOnly>
         </article>
       </Link>
     </li>

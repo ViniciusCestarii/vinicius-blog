@@ -4,8 +4,7 @@ import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
 import PostViewsLike from '@/components/ui/post/post-views-like'
-import { isAuthenticated } from '@/server/auth'
-import { DeletePostDialog } from '@/app/(home)/delete-post-dialog'
+import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 
 interface PostPageProps {
   params: {
@@ -27,14 +26,6 @@ export default async function PostPage({ params }: PostPageProps) {
 
   if (!post) {
     notFound()
-  }
-
-  if (post.metadata.status !== 'published') {
-    const authenticated = await isAuthenticated()
-
-    if (!authenticated) {
-      notFound()
-    }
   }
 
   return (

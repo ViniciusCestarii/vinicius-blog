@@ -11,10 +11,7 @@ interface CreateBlogParams {
 }
 
 export const createPostCommit = async ({ title }: CreateBlogParams) => {
-  const isAdmin = await isAuthenticated()
-  if (!isAdmin) {
-    throw new Error('Unauthorized')
-  }
+  await checkAdmin()
 
   const slug = slugify(title)
 
@@ -86,10 +83,7 @@ export const deletePostCommit = async (slug: string) => {
 }
 
 const getFileJson = async (slug: string) => {
-  const isAdmin = await isAuthenticated()
-  if (!isAdmin) {
-    throw new Error('Unauthorized')
-  }
+  await checkAdmin()
 
   const filename = `${slug}.mdx`
 
@@ -109,4 +103,12 @@ const getFileJson = async (slug: string) => {
   const fileData = await getFileResponse.json()
 
   return fileData
+}
+
+const checkAdmin = async () => {
+  const isAdmin = await isAuthenticated()
+
+  if (!isAdmin) {
+    throw new Error('Unauthorized')
+  }
 }

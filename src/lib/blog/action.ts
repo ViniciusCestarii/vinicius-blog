@@ -106,6 +106,14 @@ export const getPostBasedOnUser = async (
     return null
   }
 
+  if (post.metadata.status !== 'published') {
+    const authenticated = await isAuthenticated()
+
+    if (!authenticated) {
+      return null
+    }
+  }
+
   const likedBlogs = getLikedBlogs() ?? []
 
   return {
