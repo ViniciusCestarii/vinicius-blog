@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
 import PostViewsLike from '@/components/ui/post/post-views-like'
 import { isAuthenticated } from '@/server/auth'
+import { DeletePostDialog } from '@/app/(home)/delete-post-dialog'
 
 interface PostPageProps {
   params: {
@@ -39,6 +40,12 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <article className="article-body">
       <header>
+        <div className="flex justify-end">
+          <DeletePostDialog
+            slug={post.metadata.slug}
+            title={post.metadata.title}
+          />
+        </div>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
           <PostViewsLike

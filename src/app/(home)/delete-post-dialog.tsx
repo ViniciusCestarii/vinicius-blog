@@ -11,46 +11,53 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import { createPostCommit } from '@/lib/github/blog'
+import { deletePostCommit } from '@/lib/github/blog'
+import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
-export const CreatePostDialog = () => {
+interface DeletePostDialogProps {
+  slug: string
+  title: string
+}
+
+export const DeletePostDialog = ({ slug, title }: DeletePostDialogProps) => {
   const [openDialog, setOpenDialog] = useState(false)
-  const [title, setTitle] = useState('')
+  const [titleToConfirm, setTitleToConfirm] = useState('')
   const [isPending, startTransition] = useTransition()
 
-  const createBlogPost = () =>
-    startTransition(async () => {
-      const trimmedTitle = title.trim()
+  const router = useRouter()
 
-      if (!trimmedTitle) return
+  const trimmedTitleToConfirm = titleToConfirm.trim()
+
+  const deleteBlogPost = () =>
+    startTransition(async () => {
+      if (!trimmedTitleToConfirm || trimmedTitleToConfirm !== title) return
 
       try {
-        await createPostCommit({
-          title: trimmedTitle,
+        await deletePostCommit(slug)
+        toast.success(`Post ${title} deleted!`, {
+          description: 'It may take a few seconds to disappear from the site',
         })
-        toast.success(`Post ${trimmedTitle} created!`, {
-          description: 'It may take a few seconds to appear on the site',
-        })
-        setTitle('')
+        setTitleToConfirm('')
         setOpenDialog(false)
+        router.push('/')
       } catch (error) {
         console.error(error)
-        toast.error(`Couldn't create post ${trimmedTitle}!`)
+        toast.error(`Couldn't delete post ${title}!`)
       }
     })
 
   return (
     <Dialog open={openDialog} onOpenChange={(open) => setOpenDialog(open)}>
       <DialogTrigger asChild>
-        <Button>Create new post</Button>
+        <Button variant="destructive">Delete post</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create new post</DialogTitle>
+          <DialogTitle>Delete post {title}</DialogTitle>
           <DialogDescription>
-            Fill in the form below to create a new post
+            Confirm the title of the post to delete
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -61,14 +68,19 @@ export const CreatePostDialog = () => {
             <Input
               id="title"
               className="col-span-3"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={titleToConfirm}
+              onChange={(e) => setTitleToConfirm(e.target.value)}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" disabled={isPending} onClick={createBlogPost}>
-            Create post
+          <Button
+            type="submit"
+            variant="destructive"
+            disabled={isPending || trimmedTitleToConfirm !== title}
+            onClick={deleteBlogPost}
+          >
+            Delete post
           </Button>
         </DialogFooter>
       </DialogContent>
