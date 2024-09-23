@@ -15,6 +15,7 @@ import { createPostCommit } from '@/lib/github/create-blog'
 import { useState } from 'react'
 
 export const CreatePostDialog = () => {
+  const [openDialog, setOpenDialog] = useState(false)
   const [title, setTitle] = useState('')
 
   const createBlogPost = async () => {
@@ -26,12 +27,13 @@ export const CreatePostDialog = () => {
       await createPostCommit({
         title: trimmedTitle,
       })
+      setOpenDialog(false)
     } catch (error) {
       console.error(error)
     }
   }
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={(open) => setOpenDialog(open)}>
       <DialogTrigger asChild>
         <Button>Create new post</Button>
       </DialogTrigger>
