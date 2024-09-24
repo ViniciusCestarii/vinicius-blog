@@ -4,5 +4,11 @@
     "next/typescript",
     "@rocketseat/eslint-config/react",
     "plugin:@tanstack/eslint-plugin-query/recommended"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": [
+        "warn", 
+        { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+      ]
+    }
 }
