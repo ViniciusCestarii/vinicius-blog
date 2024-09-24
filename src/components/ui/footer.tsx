@@ -10,7 +10,7 @@ const Footer = () => {
           <a
             className="underline"
             target="_blank"
-            href="https://github.com/ViniciusCestarii/ibge-dados-web/blob/main/LICENSE"
+            href="https://github.com/ViniciusCestarii/vinicius-blog/blob/main/LICENSE"
             rel="noopener noreferrer"
           >
             Licença MIT
