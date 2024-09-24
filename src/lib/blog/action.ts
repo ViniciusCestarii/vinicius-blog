@@ -12,19 +12,19 @@ import {
 import { setLikedBlogs } from '@/server/cookie'
 import { getLikedBlogs } from '../cookie'
 import { isAuthenticated } from '@/server/auth'
-import { isPostPublished, Post, PostMetadata } from './utils'
+import { isPostPublished, PostView, PostViewMetadata } from './utils'
 
 const postsDirectory = path.resolve('src/content/posts')
 
-export const getAllPosts = async (search?: string): Promise<Post[]> => {
+export const getAllPosts = async (search?: string): Promise<PostView[]> => {
   const filenames = await fs.readdir(postsDirectory)
 
   const allPosts = await Promise.all(
     filenames.map(async (filename) => getPost(filename.replace('.mdx', ''))),
   )
 
-  const allValidPosts: Post[] = allPosts.filter(
-    (post): post is Post => post !== null,
+  const allValidPosts: PostView[] = allPosts.filter(
+    (post): post is PostView => post !== null,
   )
 
   const filteredPosts = search
@@ -46,7 +46,7 @@ export const getAllPosts = async (search?: string): Promise<Post[]> => {
 
 export const getAllPostsBasedOnUser = async (
   search?: string,
-): Promise<Post[]> => {
+): Promise<PostView[]> => {
   const allPosts = await getAllPosts(search)
 
   const likedBlogs = getLikedBlogs() ?? []
@@ -71,7 +71,7 @@ export const getAllPostsBasedOnUser = async (
   return postsWithIsLiked.filter(isPostPublished)
 }
 
-export const getPost = async (slug: string): Promise<Post | null> => {
+export const getPost = async (slug: string): Promise<PostView | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
 
@@ -85,8 +85,8 @@ export const getPost = async (slug: string): Promise<Post | null> => {
 
     const { data, content } = matter(fileContent)
 
-    const post: Post = {
-      metadata: { ...data, slug, likes, views } as PostMetadata,
+    const post: PostView = {
+      metadata: { ...data, slug, likes, views } as PostViewMetadata,
       content,
     }
 
@@ -99,7 +99,7 @@ export const getPost = async (slug: string): Promise<Post | null> => {
 
 export const getPostBasedOnUser = async (
   slug: string,
-): Promise<Post | null> => {
+): Promise<PostView | null> => {
   const post = await getPost(slug)
 
   if (!post) {

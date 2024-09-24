@@ -1,8 +1,8 @@
 import PostItem from '@/components/ui/post/post-item'
-import { Post } from '@/lib/blog/utils'
+import { PostView } from '@/lib/blog/utils'
 import BlogListHeader from './blog-list-header'
 interface BlogListProps {
-  posts: Post[]
+  posts: PostView[]
 }
 
 const BlogList = ({ posts }: BlogListProps) => {

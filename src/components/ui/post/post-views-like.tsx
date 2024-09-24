@@ -1,10 +1,10 @@
 import React from 'react'
 import PostViews from './post-views'
 import PostLikes from './post-likes'
-import { Post } from '@/lib/blog/utils'
+import { PostView } from '@/lib/blog/utils'
 
 interface PostViewsLikeProps {
-  post: Post
+  post: PostView
   likeable?: boolean
   incrementViews?: boolean
 }

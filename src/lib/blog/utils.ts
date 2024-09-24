@@ -6,6 +6,9 @@ export type PostMetadata = {
   slug: string
   tags: string[]
   image?: string
+}
+
+export type PostViewMetadata = PostMetadata & {
   likes: number
   views: number
   isLiked?: boolean
@@ -13,6 +16,11 @@ export type PostMetadata = {
 
 export type Post = {
   metadata: PostMetadata
+  content: string
+}
+
+export type PostView = {
+  metadata: PostViewMetadata
   content: string
 }
 

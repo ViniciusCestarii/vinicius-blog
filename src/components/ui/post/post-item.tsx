@@ -3,12 +3,12 @@ import PostTime from './post-time'
 import { Badge } from '../badge'
 import PostViewsLike from './post-views-like'
 import PostTitle from './post-title'
-import { Post } from '@/lib/blog/utils'
+import { PostView } from '@/lib/blog/utils'
 import PostStatus from './post-status'
 import AdminOnly from '@/components/auth/admin-only'
 
 interface PostItemProps {
-  post: Post
+  post: PostView
 }
 
 export default function PostItem({ post }: PostItemProps) {
