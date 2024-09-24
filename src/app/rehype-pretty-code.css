@@ -30,11 +30,6 @@ figure[data-rehype-pretty-code-figure] pre {
 }
 
 .line-highlighted {
-  background-color: hsla(var(--primary) / 0.4) !important;
-}
-
-
-html.dark .line-highlighted {
   background-color: hsla(var(--primary) / 0.2) !important;
 }
 

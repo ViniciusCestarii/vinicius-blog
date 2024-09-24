@@ -25,6 +25,7 @@ export function rehypePrettyCodeClasses() {
 }
 
 // see https://rehype-pretty.pages.dev/
+// see themes https://shiki.style/themes#themes
 
 export const rehypePrettyCodeOptions: Partial<Options> = {
   theme: {
