@@ -6,6 +6,7 @@ import PostTime from '@/components/ui/post/post-time'
 import PostViewsLike from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
+import CopyBehavior from './copy-behavior'
 
 interface PostPageProps {
   params: {
@@ -34,6 +35,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <header>
         <div className="flex justify-end gap-2 pb-2">
           <EditBlogDialog post={post} />
+          <CopyBehavior />
           <DeletePostDialog
             slug={post.metadata.slug}
             title={post.metadata.title}
