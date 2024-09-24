@@ -27,7 +27,10 @@ export function rehypePrettyCodeClasses() {
 // see https://rehype-pretty.pages.dev/
 
 export const rehypePrettyCodeOptions: Partial<Options> = {
-  theme: 'catppuccin-macchiato',
+  theme: {
+    dark: 'github-dark-dimmed',
+    light: 'github-light',
+  },
   onVisitHighlightedLine(node) {
     node.properties.className = node.properties.className || []
     node.properties.className.push('line-highlighted')

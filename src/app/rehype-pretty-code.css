@@ -4,6 +4,7 @@ figure[data-rehype-pretty-code-figure] {
   font-size: 0.875rem;
   background-color: var(--card);
   border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
   overflow: hidden;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -12,14 +13,15 @@ figure[data-rehype-pretty-code-figure] {
 figcaption[data-rehype-pretty-code-title],
 div[data-rehype-pretty-code-title] {
   font-size: 0.875rem;
-  background-color:#24273a;
+  border-bottom: 1px solid hsl(var(--border));
   padding-left: 0.25rem;
-  color: hsl(var(--background));
+  color: hsl(var(--primary));
 }
 
 figcaption[data-rehype-pretty-code-caption],
 div[data-rehype-pretty-code-caption] {
   font-size: 0.8rem;
+  padding-left: 0.25rem;
   color: var(--muted-foreground);
 }
 
@@ -56,4 +58,16 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 
 code[data-line-numbers-max-digits="4"] > [data-line]::before {
   width: 2.25rem;
+}
+
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+
+html.dark code[data-theme*=" "],
+html.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: transparent;
 }
