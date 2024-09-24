@@ -8,6 +8,7 @@ const GithubLink = () => {
     <Button asChild size="icon" variant="ghost" className="group">
       <Link
         href="https://github.com/ViniciusCestarii"
+        prefetch={false}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Visit Vinicius Cestarii Github"
