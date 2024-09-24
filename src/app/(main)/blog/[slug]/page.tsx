@@ -32,7 +32,7 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <article className="article-body">
       <header>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-2 pb-2">
           <EditBlogDialog post={post} />
           <DeletePostDialog
             slug={post.metadata.slug}

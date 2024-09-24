@@ -32,7 +32,6 @@ export const createPostTemplate = (
 
   return `---
 title: "${metadata.title}"
-slug: "${metadata.slug}"
 description: "${metadata.description}"
 publishedAt: "${metadata.publishedAt}"
 status: "${metadata.status}"

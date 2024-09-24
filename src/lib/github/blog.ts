@@ -1,7 +1,7 @@
 'use server'
 
 import env from '@/env'
-import { createPostTemplate, PostMetadata, slugify } from '../blog/utils'
+import { createPostTemplate, Post, PostMetadata, slugify } from '../blog/utils'
 import { isAuthenticated } from '@/server/auth'
 
 const POST_GITHUB_URL = `${env.GITHUB_API_URL}/contents/src/content/posts`
@@ -17,7 +17,6 @@ export const createPostCommit = async ({ title }: CreateBlogParams) => {
 
   const content = createPostTemplate(
     {
-      slug,
       title,
       description: '',
       publishedAt: new Date().toISOString(),
@@ -54,6 +53,38 @@ Basic paragraph`,
   }
 }
 
+export const updatePostCommit = async (post: Post) => {
+  await checkAdmin()
+
+  const fileData = await getFileJson(post.metadata.slug)
+
+  const content = createPostTemplate(post.metadata, post.content)
+
+  const filename = `${post.metadata.slug}.mdx`
+
+  const response = await fetch(`${POST_GITHUB_URL}/${filename}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `token ${env.GITHUB_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      message: `Update new post ${post.metadata.slug}`,
+      content: Buffer.from(content).toString('base64'),
+      sha: fileData.sha,
+      committer: {
+        name: env.COMMITER_NAME,
+        email: env.COMMITER_EMAIL,
+      },
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to create post commit with status ${response.status}`,
+    )
+  }
+}
 export const deletePostCommit = async (slug: string) => {
   const fileData = await getFileJson(slug)
 

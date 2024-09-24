@@ -20,8 +20,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Post } from '@/lib/blog/utils'
+import { updatePostCommit } from '@/lib/github/blog'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
 
 interface EditBlogDialogProps {
   post: Post
@@ -39,7 +41,32 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
   const [publishedAt, setPublishedAt] = useState(post.metadata.publishedAt)
   const [tags, setTags] = useState(post.metadata.tags)
   const [openDialog, setOpenDialog] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
+  const updateBlogPost = () =>
+    startTransition(async () => {
+      const { title } = post.metadata
+      try {
+        await updatePostCommit({
+          metadata: {
+            ...post.metadata,
+            description,
+            status,
+            publishedAt,
+            tags,
+          },
+          content,
+        })
+        toast.success(`Post ${title} updated!`, {
+          description:
+            'It may take a few seconds to see the changes on the site',
+        })
+        setOpenDialog(false)
+      } catch (error) {
+        console.error(error)
+        toast.error(`Couldn't update post ${title}!`)
+      }
+    })
   return (
     <Dialog open={openDialog} onOpenChange={(open) => setOpenDialog(open)}>
       <DialogTrigger asChild>
@@ -117,7 +144,9 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
           </article>
         </div>
         <DialogFooter>
-          <Button type="submit" /* disabled={isPending} */>Edit post</Button>
+          <Button type="submit" disabled={isPending} onClick={updateBlogPost}>
+            Edit post
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
