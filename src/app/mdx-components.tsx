@@ -2,8 +2,13 @@ import { MDXComponents } from 'next-mdx-remote-client'
 import IbgeChart from '@/components/ui/ibge-chart'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
+import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { MDXRemoteProps } from 'next-mdx-remote-client/rsc'
+import {
+  rehypePrettyCodeClasses,
+  rehypePrettyCodeOptions,
+} from '@/lib/rehype/rehype-pretty-code'
 
 export const mdxComponents: MDXComponents = {
   IbgeChart,
@@ -17,8 +22,11 @@ export const HEADING_LINK_ANCHOR =
 
 export const mdxOptions: MDXRemoteProps['options'] = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    remarkPlugins: [remarkGfm as any],
     rehypePlugins: [
+      [rehypePrettyCode, rehypePrettyCodeOptions],
+      [rehypePrettyCodeClasses],
       [rehypeSlug],
       [
         rehypeAutolinkHeadings,

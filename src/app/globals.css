@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./rehype-pretty-code.css";
 
   @layer base {
     :root {
@@ -81,4 +82,3 @@
     @apply prose-headings:font-geist-mono prose-headings:tracking-tighter ;
   }
 }
-
