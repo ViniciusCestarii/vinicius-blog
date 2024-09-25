@@ -4,8 +4,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
 import { decrementLikes, incrementLikes } from '@/server/storage'
-import { setLikedBlogs } from '@/server/cookie'
-import { getLikedBlogs } from '../cookie'
+import { setLikedBlogs, getLikedBlogs } from '@/server/cookie'
 import { isAuthenticated } from '@/server/auth'
 import { isPostPublished } from './utils'
 import { PostDTOs, PostDTOsMetadata } from './types'
@@ -45,7 +44,11 @@ export const getAllPostsBasedOnUser = async (
 ): Promise<PostDTOs[]> => {
   const allPosts = await getAllPosts(search)
 
-  const likedBlogs = getLikedBlogs() ?? []
+  console.time('getAllPostsBasedOnUser')
+
+  const likedBlogs = (await getLikedBlogs()) ?? []
+
+  console.timeEnd('getAllPostsBasedOnUser')
 
   const postsWithIsLiked = allPosts.map((post) => ({
     ...post,
@@ -103,8 +106,7 @@ export const getPostBasedOnUser = async (
       return null
     }
   }
-
-  const likedBlogs = getLikedBlogs() ?? []
+  const likedBlogs = (await getLikedBlogs()) ?? []
 
   return {
     ...post,
@@ -116,7 +118,7 @@ export const getPostBasedOnUser = async (
 }
 
 export const toggleLike = async (slug: string) => {
-  const likedBlogs = getLikedBlogs() ?? []
+  const likedBlogs = (await getLikedBlogs()) ?? []
   const isLiked = likedBlogs.includes(slug)
 
   if (isLiked) {
