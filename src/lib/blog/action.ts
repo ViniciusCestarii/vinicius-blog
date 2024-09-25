@@ -46,7 +46,7 @@ export const getAllPostsBasedOnUser = async (
 
   console.time('getAllPostsBasedOnUser')
 
-  const likedBlogs = (await getLikedBlogs()) ?? []
+  const likedBlogs = getLikedBlogs() ?? []
 
   console.timeEnd('getAllPostsBasedOnUser')
 
@@ -106,7 +106,7 @@ export const getPostBasedOnUser = async (
       return null
     }
   }
-  const likedBlogs = (await getLikedBlogs()) ?? []
+  const likedBlogs = getLikedBlogs() ?? []
 
   return {
     ...post,
@@ -118,7 +118,7 @@ export const getPostBasedOnUser = async (
 }
 
 export const toggleLike = async (slug: string) => {
-  const likedBlogs = (await getLikedBlogs()) ?? []
+  const likedBlogs = getLikedBlogs() ?? []
   const isLiked = likedBlogs.includes(slug)
 
   if (isLiked) {
