@@ -10,8 +10,25 @@ import {
   rehypePrettyCodeOptions,
 } from '@/lib/rehype/rehype-pretty-code'
 
+import Children from 'react-children-utilities'
+import CopyButton from '@/components/ui/copy-button'
+import { cn } from '@/lib/style/utils'
+
 export const mdxComponents: MDXComponents = {
   IbgeChart,
+  pre: ({ children, className, ...props }) => {
+    const code = Children.onlyText(children)
+
+    return (
+      <pre {...props} className={cn(className, 'relative group')}>
+        <CopyButton
+          content={code}
+          className="absolute right-0 hidden group-hover:inline-flex"
+        />
+        {children}
+      </pre>
+    )
+  },
   h1: (props) => <h2 {...props} />,
   h2: (props) => <h3 {...props} />,
   h3: (props) => <h4 {...props} />,
