@@ -1,10 +1,9 @@
-'use server'
-
+import 'server-only'
 import { cookies } from 'next/headers'
 
 const cookieLikeBlogs = 'likedBlogs'
 
-export const setLikedBlogs = async (likedBlogs: string[]) => {
+export const setLikedBlogs = (likedBlogs: string[]) => {
   const expires = new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000) // 10 years from now
 
   cookies().set(cookieLikeBlogs, JSON.stringify([...likedBlogs]), {
@@ -12,7 +11,7 @@ export const setLikedBlogs = async (likedBlogs: string[]) => {
   })
 }
 
-export const getLikedBlogs = async () => {
+export const getLikedBlogs = () => {
   const likedBlogsCookie = cookies().get(cookieLikeBlogs)
 
   if (!likedBlogsCookie) {
