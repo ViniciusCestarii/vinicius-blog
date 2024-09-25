@@ -1,4 +1,4 @@
-import { PostMetadata } from '@/lib/blog/utils'
+import { PostMetadata } from '@/lib/blog/types'
 import { Badge } from '../badge'
 
 interface PostStatusProps {

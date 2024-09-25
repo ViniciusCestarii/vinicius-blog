@@ -1,24 +1,24 @@
 import React from 'react'
-import PostViews from './post-views'
+import PostDTOss from './post-views'
 import PostLikes from './post-likes'
-import { PostView } from '@/lib/blog/utils'
+import { PostDTOs } from '@/lib/blog/types'
 
-interface PostViewsLikeProps {
-  post: PostView
+interface PostDTOssLikeProps {
+  post: PostDTOs
   likeable?: boolean
   incrementViews?: boolean
 }
 
-const PostViewsLike = ({
+const PostDTOssLike = ({
   post,
   likeable,
   incrementViews,
-}: PostViewsLikeProps) => {
+}: PostDTOssLikeProps) => {
   const { metadata } = post
 
   return (
     <span className="flex gap-4">
-      <PostViews slug={metadata.slug} increment={incrementViews} />
+      <PostDTOss slug={metadata.slug} increment={incrementViews} />
       <PostLikes
         slug={metadata.slug}
         isLiked={metadata.isLiked}
@@ -28,4 +28,4 @@ const PostViewsLike = ({
   )
 }
 
-export default PostViewsLike
+export default PostDTOssLike

@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Post } from '@/lib/blog/utils'
+import { Post } from '@/lib/blog/types'
 import { updatePostCommit } from '@/lib/github/blog'
 import dynamic from 'next/dynamic'
 import { useState, useTransition } from 'react'

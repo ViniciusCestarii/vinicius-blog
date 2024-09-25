@@ -1,8 +1,9 @@
 'use server'
 
 import env from '@/env'
-import { createPostTemplate, Post, PostMetadata, slugify } from '../blog/utils'
+import { createPostTemplate, slugify } from '../blog/utils'
 import { isAuthenticated } from '@/server/auth'
+import { Post, PostMetadata } from '../blog/types'
 
 const POST_GITHUB_URL = `${env.GITHUB_API_URL}/contents/src/content/posts`
 

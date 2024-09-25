@@ -1,26 +1,4 @@
-export type PostMetadata = {
-  title: string
-  description: string
-  publishedAt: string
-  status: 'published' | 'draft'
-  slug: string
-  tags: string[]
-  image?: string
-}
-
-export type PostViewMetadata = PostMetadata & {
-  isLiked?: boolean
-}
-
-export type Post = {
-  metadata: PostMetadata
-  content: string
-}
-
-export type PostView = {
-  metadata: PostViewMetadata
-  content: string
-}
+import { Post, PostMetadata } from './types'
 
 export const isPostPublished = (post: Post) => {
   return post.metadata.status === 'published'

@@ -1,8 +1,8 @@
 import PostItem from '@/components/ui/post/post-item'
-import { PostView } from '@/lib/blog/utils'
+import { PostDTOs } from '@/lib/blog/types'
 import BlogListHeader from './blog-list-header'
 interface BlogListProps {
-  posts: PostView[]
+  posts: PostDTOs[]
 }
 
 const BlogList = ({ posts }: BlogListProps) => {

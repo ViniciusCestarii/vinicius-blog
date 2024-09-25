@@ -3,28 +3,24 @@
 import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
-import {
-  decrementLikes,
-  getLikes,
-  getViews,
-  incrementLikes,
-} from '@/server/storage'
+import { decrementLikes, incrementLikes } from '@/server/storage'
 import { setLikedBlogs } from '@/server/cookie'
 import { getLikedBlogs } from '../cookie'
 import { isAuthenticated } from '@/server/auth'
-import { isPostPublished, PostView, PostViewMetadata } from './utils'
+import { isPostPublished } from './utils'
+import { PostDTOs, PostDTOsMetadata } from './types'
 
 const postsDirectory = path.resolve('src/content/posts')
 
-export const getAllPosts = async (search?: string): Promise<PostView[]> => {
+export const getAllPosts = async (search?: string): Promise<PostDTOs[]> => {
   const filenames = await fs.readdir(postsDirectory)
 
   const allPosts = await Promise.all(
     filenames.map(async (filename) => getPost(filename.replace('.mdx', ''))),
   )
 
-  const allValidPosts: PostView[] = allPosts.filter(
-    (post): post is PostView => post !== null,
+  const allValidPosts: PostDTOs[] = allPosts.filter(
+    (post): post is PostDTOs => post !== null,
   )
 
   const filteredPosts = search
@@ -46,7 +42,7 @@ export const getAllPosts = async (search?: string): Promise<PostView[]> => {
 
 export const getAllPostsBasedOnUser = async (
   search?: string,
-): Promise<PostView[]> => {
+): Promise<PostDTOs[]> => {
   const allPosts = await getAllPosts(search)
 
   const likedBlogs = getLikedBlogs() ?? []
@@ -71,7 +67,7 @@ export const getAllPostsBasedOnUser = async (
   return postsWithIsLiked.filter(isPostPublished)
 }
 
-export const getPost = async (slug: string): Promise<PostView | null> => {
+export const getPost = async (slug: string): Promise<PostDTOs | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
 
@@ -79,8 +75,8 @@ export const getPost = async (slug: string): Promise<PostView | null> => {
 
     const { data, content } = matter(fileContent)
 
-    const post: PostView = {
-      metadata: { ...data, slug } as PostViewMetadata,
+    const post: PostDTOs = {
+      metadata: { ...data, slug } as PostDTOsMetadata,
       content,
     }
 
@@ -93,7 +89,7 @@ export const getPost = async (slug: string): Promise<PostView | null> => {
 
 export const getPostBasedOnUser = async (
   slug: string,
-): Promise<PostView | null> => {
+): Promise<PostDTOs | null> => {
   const post = await getPost(slug)
 
   if (!post) {
