@@ -115,20 +115,15 @@ export const getPostBasedOnUser = async (
   }
 }
 
-export const likeBlog = async (slug: string) => {
+export const toggleLike = async (slug: string) => {
   const likedBlogs = getLikedBlogs() ?? []
+  const isLiked = likedBlogs.includes(slug)
 
-  likedBlogs.push(slug)
-
-  setLikedBlogs(likedBlogs)
-  return await incrementLikes(slug)
-}
-
-export const unlikeBlog = async (slug: string) => {
-  const likedBlogs = getLikedBlogs() ?? []
-
-  const newLikedBlogs = likedBlogs.filter((blog) => blog !== slug)
-
-  setLikedBlogs(newLikedBlogs)
-  return await decrementLikes(slug)
+  if (isLiked) {
+    await decrementLikes(slug)
+    setLikedBlogs(likedBlogs.filter((likedSlug) => likedSlug !== slug))
+  } else {
+    await incrementLikes(slug)
+    setLikedBlogs([...likedBlogs, slug])
+  }
 }

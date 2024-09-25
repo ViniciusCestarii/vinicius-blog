@@ -1,12 +1,11 @@
 /* eslint-disable no-var */
 'use server'
 
-import { likeBlog, unlikeBlog } from '@/lib/blog/action'
-import { getLikedBlogs } from '@/lib/cookie'
 import env from '@/env'
 import * as redis from 'redis'
-
 // see https://dev.to/rainforss/using-redis-cloud-in-your-nextjs-application-39f2
+
+// remember: Serverless functions are stateless, so we need to manage the connection to Redis ourselves.
 declare global {
   var redis: redis.RedisClientType | undefined
 }
@@ -53,6 +52,7 @@ export const incrementViews = async (slug: string) => {
 
 export const incrementLikes = async (slug: string) => {
   try {
+    await connect()
     const result = await client.incr(`likes:${slug}`)
     return result
   } finally {
@@ -87,16 +87,5 @@ export const getLikes = async (slug: string): Promise<number> => {
     return likes ? Number(likes) : 0
   } finally {
     await disconnect()
-  }
-}
-
-export const toggleLike = async (slug: string) => {
-  const likedBlogs = getLikedBlogs() ?? []
-  const isLiked = likedBlogs.includes(slug)
-
-  if (isLiked) {
-    return await unlikeBlog(slug)
-  } else {
-    return await likeBlog(slug)
   }
 }

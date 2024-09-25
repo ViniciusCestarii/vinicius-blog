@@ -1,6 +1,5 @@
 'use client'
 
-import { toggleLike } from '@/server/storage'
 import React from 'react'
 
 import { cn } from '@/lib/style/utils'
@@ -8,6 +7,7 @@ import { cn } from '@/lib/style/utils'
 import { Heart } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchLikes } from '@/lib/blog/fetch'
+import { toggleLike } from '@/lib/blog/action'
 
 interface PostLikesDisplayProps {
   likes?: number
