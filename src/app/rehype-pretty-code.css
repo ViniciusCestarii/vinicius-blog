@@ -14,14 +14,14 @@ figcaption[data-rehype-pretty-code-title],
 div[data-rehype-pretty-code-title] {
   font-size: 0.875rem;
   border-bottom: 1px solid hsl(var(--border));
-  padding-left: 0.25rem;
+  padding-left: 0.5rem;
   color: hsl(var(--primary));
 }
 
 figcaption[data-rehype-pretty-code-caption],
 div[data-rehype-pretty-code-caption] {
   font-size: 0.8rem;
-  padding-left: 0.25rem;
+  padding-left: 0.5rem;
   color: var(--muted-foreground);
 }
 
