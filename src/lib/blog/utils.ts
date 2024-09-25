@@ -9,8 +9,6 @@ export type PostMetadata = {
 }
 
 export type PostViewMetadata = PostMetadata & {
-  likes: number
-  views: number
   isLiked?: boolean
 }
 

@@ -8,16 +8,14 @@ import React, { useEffect } from 'react'
 
 interface PostViewsProps {
   slug: string
-  initialViews: number
   increment?: boolean
 }
 
-const PostViews = ({ slug, initialViews, increment }: PostViewsProps) => {
+const PostViews = ({ slug, increment }: PostViewsProps) => {
   const query = useQuery({
     queryKey: ['views', slug],
     queryFn: () => fetchViews(slug),
     staleTime: 1000 * 60 * 60,
-    initialData: initialViews,
   })
 
   const queryClient = useQueryClient()
@@ -35,14 +33,17 @@ const PostViews = ({ slug, initialViews, increment }: PostViewsProps) => {
   })
 
   useEffect(() => {
-    if (increment) {
+    if (increment && !query.isLoading) {
       mutation.mutate()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [query.isLoading])
 
   return (
-    <div className="flex items-center gap-2" title="Views">
+    <div
+      className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
+      title="Views"
+    >
       <span className="sr-only">Views</span> <Eye className="size-icon" />
       {query.data}
     </div>

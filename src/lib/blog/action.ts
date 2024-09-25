@@ -75,18 +75,12 @@ export const getPost = async (slug: string): Promise<PostView | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
 
-    const promises: [Promise<string>, Promise<number>, Promise<number>] = [
-      fs.readFile(filePath, 'utf8'),
-      getLikes(slug),
-      getViews(slug),
-    ]
-
-    const [fileContent, likes, views] = await Promise.all(promises)
+    const fileContent = await fs.readFile(filePath, 'utf8')
 
     const { data, content } = matter(fileContent)
 
     const post: PostView = {
-      metadata: { ...data, slug, likes, views } as PostViewMetadata,
+      metadata: { ...data, slug } as PostViewMetadata,
       content,
     }
 

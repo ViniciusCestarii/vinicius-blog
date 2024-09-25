@@ -108,7 +108,7 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      height: {
+      minHeight: {
         main: 'calc(100vh - 3.75rem)',
       },
       keyframes: {

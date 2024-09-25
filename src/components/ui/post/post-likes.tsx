@@ -16,7 +16,10 @@ interface PostLikesDisplayProps {
 
 const PostLikesDisplay = ({ isLiked, likes }: PostLikesDisplayProps) => {
   return (
-    <div className="flex items-center gap-2" title="Likes">
+    <div
+      className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
+      title="Likes"
+    >
       <span className="sr-only">Likes</span>
       <Heart className={cn('size-icon', isLiked && 'text-red-500')} />
       {likes}
@@ -62,7 +65,7 @@ const PostLikeable = ({
   return (
     <button
       disabled={mutation.isPending}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
       onClick={() => mutation.mutate()}
       aria-label="Like this post"
     >
@@ -76,20 +79,13 @@ interface PostLikesProps {
   slug: string
   likeable?: boolean
   isLiked?: boolean
-  initialLikes: number
 }
 
-const PostLikes = ({
-  slug,
-  initialLikes,
-  likeable,
-  isLiked,
-}: PostLikesProps) => {
+const PostLikes = ({ slug, likeable, isLiked }: PostLikesProps) => {
   const likesQuery = useQuery({
     queryKey: ['likes', slug],
     queryFn: () => fetchLikes(slug),
     staleTime: 1000 * 60 * 60,
-    initialData: initialLikes,
   })
 
   const isLikedQuery = useQuery({

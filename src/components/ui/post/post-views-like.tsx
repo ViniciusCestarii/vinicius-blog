@@ -18,13 +18,8 @@ const PostViewsLike = ({
 
   return (
     <span className="flex gap-4">
-      <PostViews
-        initialViews={metadata.views}
-        slug={metadata.slug}
-        increment={incrementViews}
-      />
+      <PostViews slug={metadata.slug} increment={incrementViews} />
       <PostLikes
-        initialLikes={metadata.likes}
         slug={metadata.slug}
         isLiked={metadata.isLiked}
         likeable={likeable}

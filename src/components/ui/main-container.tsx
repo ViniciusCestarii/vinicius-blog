@@ -3,7 +3,7 @@ interface MainContainerProps {
 }
 
 const MainContainer = ({ children }: MainContainerProps) => {
-  return <main className="h-main">{children}</main>
+  return <main className="min-h-main">{children}</main>
 }
 
 export default MainContainer
