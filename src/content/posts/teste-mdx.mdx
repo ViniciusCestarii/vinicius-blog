@@ -6,6 +6,79 @@ status: "draft"
 tags: []
 ---
 
-# First topic
+# Welcome to my MDX page!
 
-Basic paragraph
+## This is a subheading
+
+### This is a subsubheading
+ 
+This is some **bold** and _italics_ text.
+ 
+This is a list in markdown:
+ 
+- One
+- Two
+- Three
+
+~~strikethrough~~  
+
+> Blockquote  
+
+**strong**  
+*italics*  
+[Gmail](https://gmail.com)  
+***
+1. ordered list
+2. ordered list
+- unordered list
+- unordered list  
+***
+
+## Sample code
+
+```css title="css" showLineNumbers
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  display: inline-block;
+  width: 0.75rem;
+  margin-right: 2rem;
+  text-align: right;
+  color: gray;
+}
+
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
+  width: 1.25rem;
+}
+
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
+  width: 1.75rem;
+}
+
+code[data-line-numbers-max-digits="4"] > [data-line]::before {
+  width: 2.25rem;
+}
+```
+
+```ts showLineNumbers title="pages/blog/[slug].tsx"  caption="little caption" {1-2}
+const superFunction = (a: number, b: number): number => {
+  return a + b;
+};
+```
+
+```html showLineNumbers {2}
+<div class="bg-blue-500 text-white p-4">
+  <p>Hello, world!</p>
+</div>
+```
+
+# heading 1
+## heading 2
+### heading 3
+
+
