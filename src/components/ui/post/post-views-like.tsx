@@ -3,17 +3,17 @@ import PostDTOss from './post-views'
 import PostLikes from './post-likes'
 import { PostDTOs } from '@/lib/blog/types'
 
-interface PostDTOssLikeProps {
+interface PostViewsLikesProps {
   post: PostDTOs
   likeable?: boolean
   incrementViews?: boolean
 }
 
-const PostDTOssLike = ({
+const PostViewsLikes = ({
   post,
   likeable,
   incrementViews,
-}: PostDTOssLikeProps) => {
+}: PostViewsLikesProps) => {
   const { metadata } = post
 
   return (
@@ -28,4 +28,4 @@ const PostDTOssLike = ({
   )
 }
 
-export default PostDTOssLike
+export default PostViewsLikes

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import PostTime from './post-time'
 import { Badge } from '../badge'
-import PostDTOssLike from './post-views-like'
+import PostViewsLikes from './post-views-like'
 import PostTitle from './post-title'
 import { PostDTOs } from '@/lib/blog/types'
 import PostStatus from './post-status'
@@ -19,7 +19,7 @@ export default function PostItem({ post }: PostItemProps) {
           <header className="flex flex-col">
             <PostTitle>{post.metadata.title}</PostTitle>
             <div className="flex justify-between flex-wrap flex-col sm:flex-row sm:items-center gap-1">
-              <PostDTOssLike post={post} />
+              <PostViewsLikes post={post} />
               <PostTime date={post.metadata.publishedAt} />
             </div>
           </header>

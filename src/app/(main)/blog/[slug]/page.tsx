@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { MdxViewer } from '@/app/mdx-viewer'
 import { Metadata } from 'next'
 import PostTime from '@/components/ui/post/post-time'
-import PostDTOssLike from '@/components/ui/post/post-views-like'
+import PostViewsLikes from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
 
@@ -41,7 +41,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
-          <PostDTOssLike
+          <PostViewsLikes
             post={post}
             likeable={post.metadata.status === 'published'}
             incrementViews={post.metadata.status === 'published'}
