@@ -29,9 +29,6 @@ export const mdxComponents: MDXComponents = {
       </pre>
     )
   },
-  h1: (props) => <h2 {...props} />,
-  h2: (props) => <h3 {...props} />,
-  h3: (props) => <h4 {...props} />,
 }
 
 export const HEADING_LINK_ANCHOR =
