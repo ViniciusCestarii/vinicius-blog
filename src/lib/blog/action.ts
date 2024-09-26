@@ -4,7 +4,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import matter from 'gray-matter'
 import { decrementLikes, incrementLikes } from '@/server/storage'
-import { setLikedBlogs, getLikedBlogs } from '@/server/cookie'
+import { setLikedPosts, getLikedPosts } from '@/server/cookie'
 import { isAuthenticated } from '@/server/auth'
 import { isPostPublished } from './utils'
 import { PostDTOs, PostDTOsMetadata } from './types'
@@ -44,13 +44,13 @@ export const getAllPostsBasedOnUser = async (
 ): Promise<PostDTOs[]> => {
   const allPosts = await getAllPosts(search)
 
-  const likedBlogs = getLikedBlogs() ?? []
+  const likedPosts = getLikedPosts() ?? []
 
   const postsWithIsLiked = allPosts.map((post) => ({
     ...post,
     metadata: {
       ...post.metadata,
-      isLiked: likedBlogs.includes(post.metadata.slug),
+      isLiked: likedPosts.includes(post.metadata.slug),
     },
   }))
 
@@ -102,26 +102,26 @@ export const getPostBasedOnUser = async (
       return null
     }
   }
-  const likedBlogs = getLikedBlogs() ?? []
+  const likedPosts = getLikedPosts() ?? []
 
   return {
     ...post,
     metadata: {
       ...post.metadata,
-      isLiked: likedBlogs.includes(post.metadata.slug),
+      isLiked: likedPosts.includes(post.metadata.slug),
     },
   }
 }
 
 export const toggleLike = async (slug: string) => {
-  const likedBlogs = getLikedBlogs() ?? []
-  const isLiked = likedBlogs.includes(slug)
+  const likedPosts = getLikedPosts() ?? []
+  const isLiked = likedPosts.includes(slug)
 
   if (isLiked) {
     await decrementLikes(slug)
-    setLikedBlogs(likedBlogs.filter((likedSlug) => likedSlug !== slug))
+    setLikedPosts(likedPosts.filter((likedSlug) => likedSlug !== slug))
   } else {
     await incrementLikes(slug)
-    setLikedBlogs([...likedBlogs, slug])
+    setLikedPosts([...likedPosts, slug])
   }
 }
