@@ -1,5 +1,4 @@
-import { getAllPostsBasedOnUser } from '@/lib/blog/action'
-import BlogList from './blog-list'
+import PostListContainer from './post-list-container'
 import { searchParamsCache } from './search-params'
 
 export default async function Home({
@@ -9,11 +8,9 @@ export default async function Home({
 }) {
   const parsedSearchParams = searchParamsCache.parse(searchParams)
 
-  const posts = await getAllPostsBasedOnUser(parsedSearchParams.search)
-
   return (
     <main>
-      <BlogList posts={posts} />
+      <PostListContainer search={parsedSearchParams.search} />
     </main>
   )
 }

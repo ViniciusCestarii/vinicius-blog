@@ -6,7 +6,7 @@ import { useQueryState } from 'nuqs'
 import React from 'react'
 import { searchParamsParsers } from './search-params'
 
-const BlogSearch = () => {
+const PostSearch = () => {
   const [search, setSearch] = useQueryState(
     'search',
     searchParamsParsers.search,
@@ -14,13 +14,13 @@ const BlogSearch = () => {
 
   return (
     <div className="flex w-full items-center bg-card rounded-md border border-input">
-      <label htmlFor="blog-search" className="flex-shrink-0 pl-2 pr-1">
+      <label htmlFor="post-search" className="flex-shrink-0 pl-2 pr-1">
         <span className="sr-only">Search for blog post</span>
         <Search />
       </label>
 
       <Input
-        id="blog-search"
+        id="post-search"
         type="search"
         placeholder="Search by title, description or tag"
         className="w-full p-2 bg-card flex-1 border-none"
@@ -33,4 +33,4 @@ const BlogSearch = () => {
   )
 }
 
-export default BlogSearch
+export default PostSearch

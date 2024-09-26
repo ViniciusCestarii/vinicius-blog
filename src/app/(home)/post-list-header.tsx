@@ -1,8 +1,8 @@
 import { Suspense } from 'react'
-import BlogSearch from './blog-search'
+import PostSearch from './post-search'
 import CreatePostDialog from './create-post-dialog'
 
-const BlogListHeader = () => {
+const PostListHeader = () => {
   return (
     <div className="flex w-full items-center">
       <Suspense
@@ -10,11 +10,11 @@ const BlogListHeader = () => {
           <div className="bg-card rounded-md border border-input w-full h-9" />
         }
       >
-        <BlogSearch />
+        <PostSearch />
       </Suspense>
       <CreatePostDialog />
     </div>
   )
 }
 
-export default BlogListHeader
+export default PostListHeader

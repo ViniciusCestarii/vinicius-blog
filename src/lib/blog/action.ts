@@ -44,11 +44,7 @@ export const getAllPostsBasedOnUser = async (
 ): Promise<PostDTOs[]> => {
   const allPosts = await getAllPosts(search)
 
-  console.time('getAllPostsBasedOnUser')
-
   const likedBlogs = getLikedBlogs() ?? []
-
-  console.timeEnd('getAllPostsBasedOnUser')
 
   const postsWithIsLiked = allPosts.map((post) => ({
     ...post,
