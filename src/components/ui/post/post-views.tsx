@@ -6,12 +6,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Eye } from 'lucide-react'
 import React, { useEffect } from 'react'
 
-interface PostDTOssProps {
+interface PostsProps {
   slug: string
   increment?: boolean
 }
 
-const PostDTOss = ({ slug, increment }: PostDTOssProps) => {
+const Posts = ({ slug, increment }: PostsProps) => {
   const query = useQuery({
     queryKey: ['views', slug],
     queryFn: () => fetchViews(slug),
@@ -50,4 +50,4 @@ const PostDTOss = ({ slug, increment }: PostDTOssProps) => {
   )
 }
 
-export default PostDTOss
+export default Posts

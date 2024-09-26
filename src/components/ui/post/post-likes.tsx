@@ -6,7 +6,7 @@ import { cn } from '@/lib/style/utils'
 
 import { Heart } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { fetchLikes } from '@/lib/blog/fetch'
+import { fetchIsLiked, fetchLikes } from '@/lib/blog/fetch'
 import { toggleLike } from '@/lib/blog/action'
 
 interface PostLikesDisplayProps {
@@ -64,7 +64,9 @@ const PostLikeable = ({
 
   return (
     <button
-      disabled={mutation.isPending}
+      disabled={
+        mutation.isPending || postLikesDisplayProps.isLiked === undefined
+      }
       className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
       onClick={() => mutation.mutate()}
       aria-label="Like this post"
@@ -78,10 +80,9 @@ const PostLikeable = ({
 interface PostLikesProps {
   slug: string
   likeable?: boolean
-  isLiked?: boolean
 }
 
-const PostLikes = ({ slug, likeable, isLiked }: PostLikesProps) => {
+const PostLikes = ({ slug, likeable }: PostLikesProps) => {
   const likesQuery = useQuery({
     queryKey: ['likes', slug],
     queryFn: () => fetchLikes(slug),
@@ -90,8 +91,8 @@ const PostLikes = ({ slug, likeable, isLiked }: PostLikesProps) => {
 
   const isLikedQuery = useQuery({
     queryKey: ['isLiked', slug],
-    staleTime: Infinity,
-    initialData: isLiked,
+    queryFn: () => fetchIsLiked(slug),
+    staleTime: 1000 * 60 * 60,
   })
 
   if (likeable) {

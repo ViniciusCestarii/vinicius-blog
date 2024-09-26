@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import PostListHeader from './post-list-header'
 
 interface PostContainerProps {
-  search: string
+  search?: string
 }
 
 const PostListContainer = ({ search }: PostContainerProps) => {

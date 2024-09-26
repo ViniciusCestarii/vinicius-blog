@@ -8,16 +8,7 @@ export type PostMetadata = {
   image?: string
 }
 
-export type PostDTOsMetadata = PostMetadata & {
-  isLiked?: boolean
-}
-
 export type Post = {
   metadata: PostMetadata
-  content: string
-}
-
-export type PostDTOs = {
-  metadata: PostDTOsMetadata
   content: string
 }

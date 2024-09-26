@@ -7,19 +7,19 @@ import { decrementLikes, incrementLikes } from '@/server/storage'
 import { setLikedPosts, getLikedPosts } from '@/server/cookie'
 import { isAuthenticated } from '@/server/auth'
 import { isPostPublished } from './utils'
-import { PostDTOs, PostDTOsMetadata } from './types'
+import { Post, PostMetadata } from './types'
 
 const postsDirectory = path.resolve('src/content/posts')
 
-export const getAllPosts = async (search?: string): Promise<PostDTOs[]> => {
+export const getAllPosts = async (search?: string): Promise<Post[]> => {
   const filenames = await fs.readdir(postsDirectory)
 
   const allPosts = await Promise.all(
     filenames.map(async (filename) => getPost(filename.replace('.mdx', ''))),
   )
 
-  const allValidPosts: PostDTOs[] = allPosts.filter(
-    (post): post is PostDTOs => post !== null,
+  const allValidPosts: Post[] = allPosts.filter(
+    (post): post is Post => post !== null,
   )
 
   const filteredPosts = search
@@ -39,34 +39,7 @@ export const getAllPosts = async (search?: string): Promise<PostDTOs[]> => {
   })
 }
 
-export const getAllPostsBasedOnUser = async (
-  search?: string,
-): Promise<PostDTOs[]> => {
-  const allPosts = await getAllPosts(search)
-
-  const likedPosts = getLikedPosts() ?? []
-
-  const postsWithIsLiked = allPosts.map((post) => ({
-    ...post,
-    metadata: {
-      ...post.metadata,
-      isLiked: likedPosts.includes(post.metadata.slug),
-    },
-  }))
-
-  if (await isAuthenticated()) {
-    return postsWithIsLiked.sort((a, b) => {
-      const isAPublished = isPostPublished(a)
-      const isBPublished = isPostPublished(b)
-
-      return isAPublished === isBPublished ? 0 : isAPublished ? 1 : -1
-    })
-  }
-
-  return postsWithIsLiked.filter(isPostPublished)
-}
-
-export const getPost = async (slug: string): Promise<PostDTOs | null> => {
+export const getPost = async (slug: string): Promise<Post | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
 
@@ -74,8 +47,8 @@ export const getPost = async (slug: string): Promise<PostDTOs | null> => {
 
     const { data, content } = matter(fileContent)
 
-    const post: PostDTOs = {
-      metadata: { ...data, slug } as PostDTOsMetadata,
+    const post: Post = {
+      metadata: { ...data, slug } as PostMetadata,
       content,
     }
 
@@ -86,9 +59,26 @@ export const getPost = async (slug: string): Promise<PostDTOs | null> => {
   }
 }
 
+export const getAllPostsBasedOnUser = async (
+  search?: string,
+): Promise<Post[]> => {
+  const allPosts = await getAllPosts(search)
+
+  if (await isAuthenticated()) {
+    return allPosts.sort((a, b) => {
+      const isAPublished = isPostPublished(a)
+      const isBPublished = isPostPublished(b)
+
+      return isAPublished === isBPublished ? 0 : isAPublished ? 1 : -1
+    })
+  }
+
+  return allPosts.filter(isPostPublished)
+}
+
 export const getPostBasedOnUser = async (
   slug: string,
-): Promise<PostDTOs | null> => {
+): Promise<Post | null> => {
   const post = await getPost(slug)
 
   if (!post) {
@@ -102,15 +92,8 @@ export const getPostBasedOnUser = async (
       return null
     }
   }
-  const likedPosts = getLikedPosts() ?? []
 
-  return {
-    ...post,
-    metadata: {
-      ...post.metadata,
-      isLiked: likedPosts.includes(post.metadata.slug),
-    },
-  }
+  return post
 }
 
 export const toggleLike = async (slug: string) => {
