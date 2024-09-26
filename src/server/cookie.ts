@@ -3,11 +3,11 @@ import { cookies } from 'next/headers'
 
 const cookieLikeBlogs = 'likedBlogs'
 
-export const setLikedBlogs = (likedBlogs: string[]) => {
-  const expires = new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000) // 10 years from now
+const MAX_COOKIE_SESSION_TIME = 2147483647
 
+export const setLikedBlogs = (likedBlogs: string[]) => {
   cookies().set(cookieLikeBlogs, JSON.stringify([...likedBlogs]), {
-    maxAge: Number(expires.toUTCString()),
+    maxAge: MAX_COOKIE_SESSION_TIME,
   })
 }
 
