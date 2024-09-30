@@ -59,7 +59,10 @@ export const updatePostCommit = async (post: Post) => {
 
   const fileData = await getFileJson(post.metadata.slug)
 
-  const content = createPostTemplate(post.metadata, post.content)
+  const content = createPostTemplate(
+    { ...post.metadata, updatedAt: new Date().toISOString() },
+    post.content,
+  )
 
   const filename = `${post.metadata.slug}.mdx`
 

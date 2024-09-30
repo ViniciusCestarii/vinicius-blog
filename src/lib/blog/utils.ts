@@ -18,6 +18,7 @@ export const createPostTemplate = (
 title: "${metadata.title}"
 description: "${metadata.description}"
 publishedAt: "${metadata.publishedAt}"
+updatedAt: "${metadata.updatedAt ?? metadata.publishedAt}"
 status: "${metadata.status}"
 tags: ${tags}
 ---

@@ -39,6 +39,12 @@ export const getAllPosts = async (search?: string): Promise<Post[]> => {
   })
 }
 
+export const getAllPublishedPosts = async (): Promise<Post[]> => {
+  const allPosts = await getAllPosts()
+
+  return allPosts.filter(isPostPublished)
+}
+
 export const getPost = async (slug: string): Promise<Post | null> => {
   try {
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
