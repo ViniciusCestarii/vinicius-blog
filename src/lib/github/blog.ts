@@ -70,7 +70,7 @@ export const updatePostCommit = async (post: Post) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      message: `Update new post ${post.metadata.slug}`,
+      message: `Update post ${post.metadata.slug}`,
       content: Buffer.from(content).toString('base64'),
       sha: fileData.sha,
       committer: {
@@ -128,7 +128,7 @@ const getFileJson = async (slug: string) => {
 
   if (!getFileResponse.ok) {
     throw new Error(
-      `Failed to retrieve file for deletion with status ${getFileResponse.status}`,
+      `Failed to retrieve file with status ${getFileResponse.status}`,
     )
   }
 
