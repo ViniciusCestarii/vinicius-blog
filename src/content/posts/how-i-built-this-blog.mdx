@@ -15,9 +15,9 @@ Welcome to my blog! I wanted to take a moment to share the journey that led to i
 
 ## The inspiration
 
-This blog was born from my passion for **creating** and sharing knowledge. I recognized a need to document and share what I’ve learned, so I decided to build a platform where I could have full control over the content. Here are some of the key features I implemented:
+This blog was born from my passion for **creating** and **sharing knowledge**. I recognized a need to document and share what I’ve learned, so I decided to build a platform where I could have full control over the content. Here are some of the key features I implemented:
 
-- **Storage Visualization** - Easily see the status of each post.
+- **Storage Visualization** - Increment and persist the number of views of each post.
 - **User Engagement:** - Allow readers to like posts and interact with the content.
 - **Admin Access** - Manage posts from anywhere, ensuring I can keep the blog updated on the go.
 
@@ -28,3 +28,31 @@ Choosing the right technologies was crucial for me. I focused on three main conc
 - **Developer and User Experience** - I aimed for a seamless experience for both myself as a developer and my readers.
 - **Speed** - I prioritized tools that would allow for quick development, avoiding those with steep learning curves.
 - **Learning Opportunities** - I wanted to finish this project with new skills and insights that I could share with others.
+
+### Next.js
+
+**Next.js** is the backbone of my blog's development. It’s a powerful React-based framework that allows for **server-side rendering** (SSR) and **static site generation** (SSG), which are crucial for fast load times and SEO optimization. I particularly like how Next.js makes it easy to build **dynamic routes** for posts and handle API routes for backend logic, making it a versatile tool for both frontend and backend tasks.
+
+### MDX
+
+I chose **MDX** because it allows me to write posts in Markdown while embedding custom React components directly into the content. This provides me with the **flexibility** to add interactive features or dynamic components, such as charts, code snippets, or custom UI elements, without leaving the **simplicity** of Markdown.
+
+### Redis
+
+For handling the post interaction features (like incrementing post views and storing likes), I used **Redis**. Redis is perfect for quickly managing counts and caching. Its **in-memory data store** allows for fast reads and writes, which is key for maintaining **smooth user interaction**.
+
+### Tailwind CSS
+
+For styling the blog, I opted for **Tailwind CSS**. It offers a utility-first approach, meaning I can **style components directly** in my JSX without needing to switch between files. This speeds up development significantly, allowing me to quickly prototype and customize the look and feel of the blog. Tailwind's flexibility also makes it easy to create responsive designs with **minimal effort**.
+
+### shadcn/ui
+
+I incorporated **shadcn/ui** for pre-built, accessible UI components that follow a design system. It helped me maintain a **consistent visual style** throughout the blog and saved time on designing basic components like buttons, modals, and forms. Shadcn also works smoothly with Tailwind, making it easier to adapt and customize components.
+
+---
+
+### Why this Stack?
+
+Together, these tools gave me a **powerful yet efficient development experience**. I was able to build a fast, scalable blog with modern UI components, interactive features, and an easy-to-maintain backend. Plus, the use of MDX allowed me to experiment with React components directly in my posts, ensuring that the blog can grow as my content becomes more complex.
+
+
