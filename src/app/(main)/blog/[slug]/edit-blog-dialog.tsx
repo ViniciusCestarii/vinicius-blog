@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import PostContariner from '@/components/ui/post/post-container'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -152,9 +153,9 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
             </ResizablePanel>
             <ResizableHandle />
             <ResizablePanel defaultSize={50}>
-              <article className="border-b sm:border-none h-full overflow-auto article-body">
+              <PostContariner className="border-b sm:border-none h-full overflow-auto">
                 <ClientMdxViewer source={content} />
-              </article>
+              </PostContariner>
             </ResizablePanel>
           </ResizablePanelGroup>
           <DialogFooter>

@@ -30,7 +30,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased font-geist-sans`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

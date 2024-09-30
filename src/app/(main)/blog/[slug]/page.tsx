@@ -6,6 +6,7 @@ import PostTime from '@/components/ui/post/post-time'
 import PostViewsLikes from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
+import PostContariner from '@/components/ui/post/post-container'
 
 interface PostPageProps {
   params: {
@@ -30,7 +31,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="article-body">
+    <PostContariner>
       <header>
         <div className="flex justify-end gap-2 pb-2">
           <EditBlogDialog post={post} />
@@ -50,7 +51,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </header>
       <MdxViewer source={post.content} />
-    </article>
+    </PostContariner>
   )
 }
 
