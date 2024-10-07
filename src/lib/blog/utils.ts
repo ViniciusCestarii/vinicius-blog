@@ -36,3 +36,18 @@ export const slugify = (title: string) => {
     .replace(/--+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
+const regXHeader = /(?<flag>#{1,6})\s+(?<content>.+)/g
+
+export const getHeadings = (raw: string) => {
+  const headings = Array.from(raw.matchAll(regXHeader)).map(({ groups }) => {
+    const flag = groups?.flag
+    const content = groups?.content
+    return {
+      heading: flag?.length,
+      text: content,
+      slug: content ? slugify(content) : undefined,
+    }
+  })
+
+  return headings
+}

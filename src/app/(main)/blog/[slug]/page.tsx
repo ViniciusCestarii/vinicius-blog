@@ -7,6 +7,8 @@ import PostViewsLikes from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
 import PostContariner from '@/components/ui/post/post-container'
+import { getHeadings } from '@/lib/blog/utils'
+import PostListOfContents from '@/components/ui/post/post-list-of-contents'
 
 interface PostPageProps {
   params: {
@@ -50,6 +52,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
+      <PostListOfContents content={post.content} />
       <MdxViewer source={post.content} />
     </PostContariner>
   )

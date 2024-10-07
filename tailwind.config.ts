@@ -153,7 +153,7 @@ const config: Config = {
 
       addUtilities({
         '.page-layout': {
-          '@apply sm:grid sm:!col-start-1 xl:layout-xl xl:[&>*]:col-start-3 xl:col-span-5 sm:layout-sm sm:[&>*]:col-start-2 sm:col-span-3':
+          '@apply sm:grid sm:!col-start-1 xl:layout-xl xl:[&>*]:col-start-3 xl:col-span-5 sm:layout-sm sm:[&>*]:col-start-2 sm:col-span-3 gap-x-4':
             {},
         },
       })
