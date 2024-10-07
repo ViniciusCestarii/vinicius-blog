@@ -139,7 +139,7 @@ const config: Config = {
   plugins: [
     plugin(function ({ addBase, theme, addUtilities }) {
       addBase({
-        '.layout-sm': {
+        '.layout-md': {
           'grid-template-columns': `1fr min(${theme('screens.sm')},100%) 1fr`,
         },
         '.layout-xl': {
@@ -153,7 +153,7 @@ const config: Config = {
 
       addUtilities({
         '.page-layout': {
-          '@apply sm:grid sm:!col-start-1 xl:layout-xl xl:[&>*]:col-start-3 xl:col-span-5 sm:layout-sm sm:[&>*]:col-start-2 sm:col-span-3 gap-x-4':
+          '@apply md:grid md:!col-start-1 xl:layout-xl xl:[&>*]:col-start-3 xl:col-span-5 md:layout-md md:[&>*]:col-start-2 md:col-span-3 gap-x-8':
             {},
         },
       })

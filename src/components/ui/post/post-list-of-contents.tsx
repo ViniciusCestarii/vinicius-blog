@@ -1,5 +1,6 @@
 import { getHeadings } from '@/lib/blog/utils'
 import { cn } from '@/lib/style/utils'
+import { ArrowUp } from 'lucide-react'
 import React from 'react'
 
 interface PostListOfContentsProps {
@@ -29,6 +30,14 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
           </li>
         ))}
       </ul>
+      <div className="border-t border-muted-foreground/50 flex mt-4">
+        <a
+          href="#"
+          className="text-sm text-muted-foreground/70 hover:text-foreground hover:underline py-2 flex items-center gap-1 pt-4"
+        >
+          Back to top <ArrowUp className="size-3" />
+        </a>
+      </div>
     </aside>
   )
 }
