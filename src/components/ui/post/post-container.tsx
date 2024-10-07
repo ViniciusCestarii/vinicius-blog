@@ -5,13 +5,13 @@ const BASE_PROSE = 'prose dark:prose-invert text-foreground prose-sky'
 const HEADING_PROSE =
   'prose-headings:font-geist-mono prose-headings:tracking-tighter'
 
-interface PostContarinerProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface PostContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const PostContariner = ({
+const PostContainer = ({
   className,
   children,
   ...props
-}: PostContarinerProps) => {
+}: PostContainerProps) => {
   return (
     <article
       {...props}
@@ -28,4 +28,4 @@ const PostContariner = ({
   )
 }
 
-export default PostContariner
+export default PostContainer

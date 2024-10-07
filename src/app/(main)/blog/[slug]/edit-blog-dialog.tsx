@@ -18,7 +18,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import PostContariner from '@/components/ui/post/post-container'
+import PostContainer from '@/components/ui/post/post-container'
+import PostListOfContents from '@/components/ui/post/post-list-of-contents'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -141,7 +142,7 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
             direction="horizontal"
             className="max-h-[calc(80vh_-6rem)]"
           >
-            <ResizablePanel defaultSize={60}>
+            <ResizablePanel defaultSize={40}>
               <label htmlFor="edit-content">Content</label>
               <Textarea
                 id="edit-content"
@@ -152,10 +153,11 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
               />
             </ResizablePanel>
             <ResizableHandle />
-            <ResizablePanel defaultSize={50}>
-              <PostContariner className="border-b sm:border-none h-full overflow-auto">
+            <ResizablePanel defaultSize={60}>
+              <PostContainer className="border-b sm:border-none h-full overflow-auto">
+                <PostListOfContents content={content} />
                 <ClientMdxViewer source={content} />
-              </PostContariner>
+              </PostContainer>
             </ResizablePanel>
           </ResizablePanelGroup>
           <DialogFooter>

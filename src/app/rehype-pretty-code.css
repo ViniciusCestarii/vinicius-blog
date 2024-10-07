@@ -5,7 +5,6 @@ figure[data-rehype-pretty-code-figure] {
   background-color: var(--card);
   border-radius: var(--radius);
   border: 1px solid hsl(var(--border));
-  overflow: hidden;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
