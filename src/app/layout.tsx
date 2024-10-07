@@ -41,7 +41,7 @@ export default async function RootLayout({
         >
           <QueryClientProvider>
             <AuthProvider>
-              <div className="px-4 max-w-screen-md mx-auto">{children}</div>
+              <div className="px-4 page-layout">{children}</div>
             </AuthProvider>
           </QueryClientProvider>
           <Toaster closeButton />

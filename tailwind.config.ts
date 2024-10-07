@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
 
 const config: Config = {
   darkMode: ['class'],
@@ -135,6 +136,30 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [
+    plugin(function ({ addBase, theme, addUtilities }) {
+      addBase({
+        '.layout-sm': {
+          'grid-template-columns': `1fr min(${theme('screens.sm')},100%) 1fr`,
+        },
+        '.layout-xl': {
+          'grid-template-columns': `1fr minmax(auto,${theme(
+            'spacing.60',
+          )}) min(${theme('screens.sm')},100%) minmax(auto,${theme(
+            'spacing.60',
+          )}) 1fr`,
+        },
+      })
+
+      addUtilities({
+        '.page-layout': {
+          '@apply sm:grid sm:!col-start-1 xl:layout-xl xl:[&>*]:col-start-3 xl:col-span-5 sm:layout-sm sm:[&>*]:col-start-2 sm:col-span-3':
+            {},
+        },
+      })
+    }),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+  ],
 }
 export default config

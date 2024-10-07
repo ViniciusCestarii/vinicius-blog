@@ -15,7 +15,13 @@ const PostContariner = ({
   return (
     <article
       {...props}
-      className={cn(CONTAINER_STYLE, BASE_PROSE, HEADING_PROSE, className)}
+      className={cn(
+        CONTAINER_STYLE,
+        BASE_PROSE,
+        HEADING_PROSE,
+        'max-w-full page-layout',
+        className,
+      )}
     >
       {children}
     </article>
