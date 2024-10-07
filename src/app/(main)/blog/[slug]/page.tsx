@@ -8,6 +8,10 @@ import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
 import PostContainer from '@/components/ui/post/post-container'
 import PostListOfContents from '@/components/ui/post/post-list-of-contents'
+import AdminOnly from '@/components/auth/admin-only'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 
 interface PostPageProps {
   params: {
@@ -34,13 +38,29 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <PostContainer>
       <header>
-        <div className="flex justify-end gap-2 pb-2">
-          <EditBlogDialog post={post} />
-          <DeletePostDialog
-            slug={post.metadata.slug}
-            title={post.metadata.title}
-          />
+        <div className="py-4">
+          <Button asChild variant="ghost" className="group not-prose p-2 h-fit">
+            <Link
+              href="/"
+              aria-label="Visit Vinicius Cestarii Github"
+              title="Visit Vinicius Cestarii Github"
+              className="flex gap-1"
+            >
+              <ArrowLeft className="size-4" />
+              All posts
+            </Link>
+          </Button>
         </div>
+        <AdminOnly>
+          <div className="flex justify-end gap-2 pb-2">
+            <EditBlogDialog post={post} />
+            <DeletePostDialog
+              slug={post.metadata.slug}
+              title={post.metadata.title}
+            />
+          </div>
+        </AdminOnly>
+
         <h1>{post.metadata.title}</h1>
         <div className="flex justify-between flex-wrap items-center gap-8">
           <PostViewsLikes
