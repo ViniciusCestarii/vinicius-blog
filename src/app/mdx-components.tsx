@@ -12,12 +12,14 @@ import {
 
 import Children from 'react-children-utilities'
 import CopyButton from '@/components/ui/copy-button'
+import ExternalLink from '@/components/ui/external-link'
 import { cn } from '@/lib/style/utils'
 import Aside from '@/components/ui/aside'
 
 export const mdxComponents: MDXComponents = {
   IbgeChart,
   Aside,
+  ExternalLink,
   pre: ({ children, className, ...props }) => {
     const code = Children.onlyText(children)
 

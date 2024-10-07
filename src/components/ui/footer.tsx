@@ -1,3 +1,4 @@
+import ExternalLink from './external-link'
 import GithubLink from './links/github-link'
 
 const Footer = () => {
@@ -7,14 +8,9 @@ const Footer = () => {
         <span>© 2024 Vinicius Cestari. All rights reserved</span>
         <span>
           Published under{' '}
-          <a
-            className="underline"
-            target="_blank"
-            href="https://github.com/ViniciusCestarii/vinicius-blog/blob/main/LICENSE"
-            rel="noopener noreferrer"
-          >
+          <ExternalLink href="https://github.com/ViniciusCestarii/vinicius-blog/blob/main/LICENSE">
             MIT license
-          </a>
+          </ExternalLink>
         </span>
         <address className="not-italic">
           <GithubLink />

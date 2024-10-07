@@ -1,21 +1,18 @@
 import React from 'react'
 import { Button } from '../button'
-import Link from 'next/link'
 import { Github } from '../icons'
+import ExternalLink from '../external-link'
 
 const GithubLink = () => {
   return (
     <Button asChild size="icon" variant="ghost" className="group">
-      <Link
+      <ExternalLink
         href="https://github.com/ViniciusCestarii"
-        prefetch={false}
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label="Visit Vinicius Cestarii Github"
         title="Visit Vinicius Cestarii Github"
       >
         <Github className="size-icon group-hover:animate-spin p-[0.05px]" />
-      </Link>
+      </ExternalLink>
     </Button>
   )
 }
