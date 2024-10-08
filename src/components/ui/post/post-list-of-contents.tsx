@@ -56,8 +56,10 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
           />
         ))}
         <div
-          className="absolute -left-1 w-1 rounded-md h-5 top-1 bg-primary transition-transform duration-300"
+          className="absolute -left-1 w-1 rounded-md h-5 top-1 bg-primary transition-all duration-300"
           style={{
+            transition: 'opacity 0.3s, transform 0.3s',
+            opacity: activeSlug ? 1 : 0,
             transform: `translateY(${activeSlug ? calculateIndicatorPosition(activeSlug) + 'px' : '1.75rem'})`,
           }}
         />
