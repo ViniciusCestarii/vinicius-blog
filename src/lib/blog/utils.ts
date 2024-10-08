@@ -39,15 +39,18 @@ export const slugify = (title: string) => {
 const regXHeader = /(?<flag>#{1,6})\s+(?<content>.+)/g
 
 export const getHeadings = (raw: string) => {
-  const headings = Array.from(raw.matchAll(regXHeader)).map(({ groups }) => {
-    const flag = groups?.flag
-    const content = groups?.content
-    return {
-      heading: flag?.length,
-      text: content,
-      slug: content ? slugify(content) : undefined,
-    }
-  })
+  const headings = Array.from(raw.matchAll(regXHeader)).flatMap(
+    ({ groups }) => {
+      if (!groups?.flag || groups?.content) return []
+      const flag = groups.flag
+      const content = groups.content
+      return {
+        heading: flag.length,
+        text: content,
+        slug: slugify(content),
+      }
+    },
+  )
 
   return headings
 }

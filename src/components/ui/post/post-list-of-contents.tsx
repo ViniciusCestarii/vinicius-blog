@@ -48,7 +48,7 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
       <ul>
         {headings.map((heading) => (
           <PostLink
-            key={heading.text}
+            key={heading.slug}
             heading={heading.heading}
             text={heading.text}
             slug={heading.slug}
