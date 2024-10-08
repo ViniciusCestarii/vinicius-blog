@@ -15,7 +15,7 @@ export default function PostItem({ post }: PostItemProps) {
   return (
     <li key={post.metadata.title}>
       <Link href={`/blog/${post.metadata.slug}`}>
-        <article className="flex flex-col gap-3 bg-card hover:bg-muted-foreground/10 dark:hover:bg-muted-foreground/20 p-4 rounded-md">
+        <article className="flex flex-col gap-3 bg-card hover:bg-muted-foreground/10 dark:hover:bg-muted-foreground/20 p-4 rounded-md border border-border shadow-sm">
           <header className="flex flex-col">
             <PostTitle>{post.metadata.title}</PostTitle>
             <div className="flex justify-between flex-wrap flex-col sm:flex-row sm:items-center gap-1">

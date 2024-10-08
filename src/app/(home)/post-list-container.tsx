@@ -19,7 +19,7 @@ const PostsList = async ({ search }: PostContainerProps) => {
   const posts = await getAllPostsBasedOnUser(search)
 
   return posts.length > 0 ? (
-    <ul className="flex flex-col gap-10 w-full px-4">
+    <ul className="flex flex-col gap-10 w-full">
       {posts.map((post) => (
         <PostItem key={post.metadata.title} post={post} />
       ))}
