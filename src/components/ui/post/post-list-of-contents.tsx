@@ -45,7 +45,7 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
       <h3 className="text-sm text-muted-foreground/70 uppercase pl-2 border-l border-transparent">
         On this page
       </h3>
-      <ul className="relative">
+      <ul>
         {headings.map((heading) => (
           <PostLink
             key={heading.slug}
@@ -56,11 +56,9 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
           />
         ))}
         <div
-          className="absolute left-0 top-0 w-1 h-7 bg-primary transition-transform duration-300"
+          className="absolute -left-1 w-1 rounded-md h-5 top-1 bg-primary transition-transform duration-300"
           style={{
-            transform: `translateY(calc(${headings.findIndex(
-              (heading) => heading.slug === activeSlug,
-            )} * 1.75rem))`,
+            transform: `translateY(${activeSlug ? calculateIndicatorPosition(activeSlug) + 'px' : '1.75rem'})`,
           }}
         />
       </ul>
@@ -83,11 +81,22 @@ interface PostLinkProps {
   isInView: boolean
 }
 
+const calculateIndicatorPosition = (slug: string) => {
+  const activeElement = document.querySelector(`li[data-header-slug="${slug}"]`)
+
+  if (!activeElement) return 0
+
+  const elementRect = activeElement.getBoundingClientRect()
+  const offsetTop = elementRect.top
+
+  return offsetTop
+}
+
 const PostLink = ({ heading, text, slug, isInView }: PostLinkProps) => {
   return (
     <li
-      data-spacing={heading}
-      className="pl-2 transition-colors relative overflow-hidden text-ellipsis whitespace-nowrap"
+      data-header-slug={slug}
+      className="pl-2 transition-colors relative"
       title={text}
     >
       <a
