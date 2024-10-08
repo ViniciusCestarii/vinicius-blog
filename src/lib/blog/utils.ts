@@ -41,7 +41,7 @@ const regXHeader = /(?<flag>#{1,6})\s+(?<content>.+)/g
 export const getHeadings = (raw: string) => {
   const headings = Array.from(raw.matchAll(regXHeader)).flatMap(
     ({ groups }) => {
-      if (!groups?.flag || groups?.content) return []
+      if (!groups?.flag || !groups?.content) return []
       const flag = groups.flag
       const content = groups.content
       return {
