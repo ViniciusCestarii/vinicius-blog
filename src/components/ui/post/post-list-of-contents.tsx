@@ -24,7 +24,7 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
     }
 
     const observer = new IntersectionObserver(handleObserver, {
-      rootMargin: '0px 0px -80% 0px', // Detects heading entering the viewport
+      rootMargin: '0px 0px -80% 0px',
     })
 
     headings.forEach((heading) => {
@@ -45,7 +45,7 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
       <h3 className="text-sm text-muted-foreground/70 uppercase pl-2 border-l border-transparent">
         On this page
       </h3>
-      <ul>
+      <ul className="relative">
         {headings.map((heading) => (
           <PostLink
             key={heading.slug}
@@ -55,6 +55,14 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
             isInView={activeSlug === heading.slug}
           />
         ))}
+        <div
+          className="absolute left-0 top-0 w-1 h-7 bg-primary transition-transform duration-300"
+          style={{
+            transform: `translateY(calc(${headings.findIndex(
+              (heading) => heading.slug === activeSlug,
+            )} * 1.75rem))`,
+          }}
+        />
       </ul>
       <div className="border-t border-muted-foreground/50 flex mt-4">
         <a
@@ -75,20 +83,17 @@ interface PostLinkProps {
   isInView: boolean
 }
 
-// todo: improve transition to a element that moves like https://vite.dev/guide/ table of content
 const PostLink = ({ heading, text, slug, isInView }: PostLinkProps) => {
   return (
     <li
       data-spacing={heading}
-      className={cn('border-l border-transparent pl-2 transition-colors', {
-        'border-primary border-l-2': isInView,
-      })}
+      className="pl-2 transition-colors relative overflow-hidden text-ellipsis whitespace-nowrap"
+      title={text}
     >
       <a
         className={cn('hover:underline hover:text-foreground', {
           'pl-4': heading === 3,
           'pl-8': heading === 4,
-          '-ml-[1px]': isInView,
         })}
         href={`#${slug}`}
       >
@@ -97,5 +102,7 @@ const PostLink = ({ heading, text, slug, isInView }: PostLinkProps) => {
     </li>
   )
 }
+
+PostLink.displayName = 'PostLink'
 
 export default PostListOfContents
