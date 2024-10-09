@@ -4,26 +4,30 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/context/auth-context'
 import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 export default function LoginPage() {
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
   const { login } = useAuth()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>
+    startTransition(async () => {
+      e.preventDefault()
 
-    const formData = new FormData(e.currentTarget)
-    const username = formData.get('username') as string
-    const password = formData.get('password') as string
+      const formData = new FormData(e.currentTarget)
+      const username = formData.get('username') as string
+      const password = formData.get('password') as string
 
-    const success = await login({ username, password })
+      const success = await login({ username, password })
 
-    if (success) {
-      router.push('/')
-    } else {
-      alert('Authentication failed')
-    }
-  }
+      if (success) {
+        router.push('/')
+      } else {
+        alert('Authentication failed')
+      }
+    })
 
   return (
     <main className="flex flex-col gap-8 max-w-96 mx-auto">
@@ -44,7 +48,9 @@ export default function LoginPage() {
             autoComplete="current-password"
           />
         </label>
-        <Button type="submit">Login</Button>
+        <Button disabled={isPending} type="submit">
+          Login
+        </Button>
       </form>
       <p className="text-center">Admin acess is only for Vinicius Cestari 😜</p>
     </main>
