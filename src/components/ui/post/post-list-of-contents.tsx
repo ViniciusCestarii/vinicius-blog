@@ -65,12 +65,14 @@ const PostListOfContents = ({ content }: PostListOfContentsProps) => {
         />
       </ul>
       <div className="border-t border-muted-foreground/50 flex mt-4">
-        <a
-          href="#"
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
           className="text-sm text-muted-foreground/70 hover:text-foreground hover:underline py-2 flex items-center gap-1 pt-4"
         >
           Back to top <ArrowUp className="size-3" />
-        </a>
+        </button>
       </div>
     </aside>
   )
