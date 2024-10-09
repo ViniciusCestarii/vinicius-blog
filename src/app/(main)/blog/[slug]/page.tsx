@@ -7,7 +7,7 @@ import PostViewsLikes from '@/components/ui/post/post-views-like'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
 import EditBlogDialog from './edit-blog-dialog'
 import PostContainer from '@/components/ui/post/post-container'
-import PostListOfContents from '@/components/ui/post/post-list-of-contents'
+import PostTableOfContents from '@/components/ui/post/post-table-of-contents'
 import AdminOnly from '@/components/auth/admin-only'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -71,7 +71,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostTime date={post.metadata.publishedAt} />
         </div>
       </header>
-      <PostListOfContents content={post.content} />
+      <PostTableOfContents content={post.content} />
       <MdxViewer source={post.content} />
     </PostContainer>
   )

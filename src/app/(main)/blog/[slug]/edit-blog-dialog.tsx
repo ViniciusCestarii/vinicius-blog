@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import PostContainer from '@/components/ui/post/post-container'
-import PostListOfContents from '@/components/ui/post/post-list-of-contents'
+import PostTableOfContents from '@/components/ui/post/post-table-of-contents'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -155,7 +155,7 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
             <ResizableHandle />
             <ResizablePanel defaultSize={60}>
               <PostContainer className="border-b sm:border-none h-full overflow-auto">
-                <PostListOfContents content={content} />
+                <PostTableOfContents content={content} />
                 <ClientMdxViewer source={content} />
               </PostContainer>
             </ResizablePanel>

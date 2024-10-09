@@ -6,11 +6,11 @@ import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/lib/style/utils'
 
-interface PostListOfContentsProps {
+interface PostTableOfContentsProps {
   content: string
 }
 
-const PostListOfContents = ({ content }: PostListOfContentsProps) => {
+const PostTableOfContents = ({ content }: PostTableOfContentsProps) => {
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
   const headings = getHeadings(content)
 
@@ -118,4 +118,4 @@ const PostLink = ({ heading, text, slug, isInView }: PostLinkProps) => {
 
 PostLink.displayName = 'PostLink'
 
-export default PostListOfContents
+export default PostTableOfContents
