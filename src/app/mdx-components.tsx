@@ -1,6 +1,5 @@
 import { MDXComponents } from 'next-mdx-remote-client'
 import IbgeChart from '@/components/ui/ibge-chart'
-import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -19,6 +18,17 @@ import Aside from '@/components/ui/aside'
 export const mdxComponents: MDXComponents = {
   IbgeChart,
   Aside,
+  code: ({ children, className, ...props }) => (
+    <code
+      {...props}
+      className={cn(
+        'not-prose bg-muted-foreground/20 px-1 rounded-md',
+        className,
+      )}
+    >
+      {children}
+    </code>
+  ),
   ExternalLink,
   pre: ({ children, className, ...props }) => {
     const code = Children.onlyText(children)
@@ -40,8 +50,6 @@ export const HEADING_LINK_ANCHOR =
 
 export const mdxOptions: MDXRemoteProps['options'] = {
   mdxOptions: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    remarkPlugins: [remarkGfm as any],
     rehypePlugins: [
       [rehypePrettyCode, rehypePrettyCodeOptions],
       [rehypePrettyCodeClasses],
