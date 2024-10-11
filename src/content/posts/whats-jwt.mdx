@@ -2,30 +2,160 @@
 title: "What's JWT"
 description: "A brief explanation of what JWT is and how it works."
 publishedAt: "2024-09-18"
-updatedAt: "2024-09-18"
+updatedAt: "2024-10-11T13:20:52.578Z"
 status: "draft"
 tags: 
 - "jwt"
 - "security"
 - "session"
 - "authentication"
+- "authorization"
 ---
 
+JWT, or JSON Web Token, is a compact and self-contained method for securely transmitting information between two parties as a JSON object. It's commonly used in authentication and authorization mechanisms in web applications. JWTs are used to verify the identity of users and authorize them to access certain resources without requiring their credentials to be stored or transmitted repeatedly.
 
-## Welcome to my MDX page!
+<Aside>Under construction 🚧</Aside>
 
-## This is a subheading
+## Key components of a JWT:
 
-### This is a subsubheading
- 
-This is some **bold** and _italics_ text.
- 
-This is a list in markdown:
- 
-- One
-- Two
-- Three
- 
-Checkout my iframe:
+### Header
 
-<IbgeChart url="https://ibge-dados-web.vercel.app/frame?pesquisa=ST&agregado=2072&variavel=933&periodos=202401%2C202304%2C202303%2C202302%2C202301%2C202204%2C202203%2C202202%2C202201%2C202104%2C202103%2C202102%2C202101%2C202004%2C202003%2C202002%2C202001%2C201904%2C201903%2C201902%2C201901%2C201804%2C201803%2C201802%2C201801%2C201704%2C201703%2C201702%2C201701%2C201604%2C201603%2C201602%2C201601%2C201504%2C201503%2C201502%2C201501%2C201404%2C201403%2C201402%2C201401%2C201304%2C201303%2C201302%2C201301%2C201204%2C201203%2C201202%2C201201%2C201104%2C201103%2C201102%2C201101%2C201004%2C201003%2C201002%2C201001%2C200904%2C200903%2C200902%2C200901%2C200804%2C200803%2C200802%2C200801%2C200704%2C200703%2C200702%2C200701%2C200604%2C200603%2C200602%2C200601%2C200504%2C200503%2C200502%2C200501%2C200404%2C200403%2C200402%2C200401%2C200304%2C200303%2C200302%2C200301%2C200204%2C200203%2C200202%2C200201%2C200104%2C200103%2C200102%2C200101%2C200004%2C200003%2C200002%2C200001&nivelGeografico=N1&locais=1"/>
+Contains metadata about the token, such as the type of token (JWT) and the signing algorithm being used (e.g., HS256 or RS256).
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+### Payload
+
+Contains the claims, which are the data you want to transmit. This can include user information or any other data the token needs to carry.
+
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+}
+```
+
+### Signature
+
+The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message wasn't altered along the way. The signature is created by encoding the header and payload, and then signing that string using the secret or private key and the algorithm specified in the header.
+
+```js title="generate-token.mjs" showLineNumbers 
+import crypto from "crypto"
+
+// Define the secret key
+const SECRET_KEY = 'your-very-secure-secret-key'
+
+// Function to create a base64url-encoded string
+const base64UrlEncode = (data) => {
+  return Buffer.from(JSON.stringify(data)).toString('base64url') // Using base64url for JWT
+}
+
+// Function to create a JWT
+export default const createJWT = (payload) => {
+  // Create the header
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+  }
+
+  // Base64Url encode the header and payload
+  const encodedHeader = base64UrlEncode(header)
+  const encodedPayload = base64UrlEncode(payload)
+
+  // Create the signature
+  const signatureBase = `${encodedHeader}.${encodedPayload}`
+  const signature = crypto
+    .createHmac('sha256', SECRET_KEY)
+    .update(signatureBase)
+    .digest('base64url')
+
+  // Combine the parts to create the JWT
+  const jwt = `${encodedHeader}.${encodedPayload}.${signature}`
+  return jwt
+}
+```
+
+```js title="verify-token.mjs" showLineNumbers 
+import crypto from "crypto"
+
+const base64UrlDecode = (str) => {
+  str += '='.repeat((4 - (str.length % 4)) % 4) // Add padding for Base64 decoding
+  return Buffer.from(str, 'base64').toString() // Decode Base64
+}
+
+const verifyJWT = (token) => {
+  const parts = token.split('.')
+  if (parts.length !== 3) {
+    throw new Error('Token structure is invalid') // Ensure the token has three parts
+  }
+
+  const [encodedHeader, encodedPayload, signature] = parts
+
+  // Create the signature base
+  const signatureBase = `${encodedHeader}.${encodedPayload}`
+
+  // Recreate the signature
+  const recreatedSignature = crypto
+    .createHmac('sha256', SECRET_KEY)
+    .update(signatureBase)
+    .digest('base64url')
+
+  // Check if the recreated signature matches the signature in the token
+  if (recreatedSignature !== signature) {
+    throw new Error('Invalid signature') // Signature mismatch
+  }
+
+  // Decode and return the payload
+  const decodedPayload = JSON.parse(base64UrlDecode(encodedPayload))
+
+  // Check expiration if present
+  if (
+    decodedPayload.exp &&
+    Math.floor(Date.now() / 1000) >= decodedPayload.exp
+  ) {
+    throw new Error('Token has expired') // Expired token
+  }
+
+  return decodedPayload // Return the decoded payload if verification is successful
+}
+```
+
+```js title="app.mjs" showLineNumbers 
+import createJWT from "./generate-token.mjs"
+import verifyJWT from "./verify-token.mjs"
+
+// Define the payload data
+const payload = {
+  id: 1,
+  username: 'vinicius_cestari',
+  role: 'admin',
+  exp: Math.floor(Date.now() / 1000) + 60 * 60, // Expires in 1 hour
+}
+
+// Create the JWT
+const token = createJWT(payload)
+
+// Output the token
+console.log('Generated JWT:', token) // Generated JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ2aW5pY2l1c19jZXN0YXJpIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzI4NjU0NjU5fQ.YdPCLiejG39jzG3sT8Lcx1NpZ-qNzhKL9kjfwXqybow
+
+console.log('Decoded JWT:', verifyJWT(token)) // Decoded JWT: { id: 1, username: 'vinicius_cestari', role: 'admin', exp: 1728655348 }
+```
+## How JWT works
+
+The server generates a token (usually after successful login), signs it with a secret or private key, and sends it to the client.
+
+The client stores the token, usually in <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</ExternalLink> or <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</ExternalLink>, and sends it with every request to the server.
+The server verifies the token’s authenticity using the key it was signed with and grants access to protected resources if the token is valid.
+
+## Key Use Cases
+
+- **Authentication**: After a user logs in, a JWT is issued. The client sends this token with each subsequent request, allowing the server to verify the user's identity without needing to log in again.
+
+- **Authorization**: JWTs can also carry information about what resources the user can access, allowing servers to restrict access based on user roles or permissions.
+
