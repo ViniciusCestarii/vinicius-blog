@@ -14,10 +14,12 @@ import CopyButton from '@/components/ui/copy-button'
 import ExternalLink from '@/components/ui/external-link'
 import { cn } from '@/lib/style/utils'
 import Aside from '@/components/ui/aside'
+import { LinkPreview } from '@/components/ui/link-preview'
 
 export const mdxComponents: MDXComponents = {
   IbgeChart,
   Aside,
+  LinkPreview,
   code: ({ children, className, ...props }) => (
     <code
       {...props}

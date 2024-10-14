@@ -175,7 +175,7 @@ console.log('Decoded JWT:', verifyJWT(token)) // Decoded JWT: { id: 1, username:
 
 The server generates a token (usually after successful login), signs it with a secret or private key, and sends it to the client.
 
-The client stores the token, usually in <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</ExternalLink> or <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</ExternalLink>, and sends it with every request to the server.
+The client stores the token, usually in <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</LinkPreview> or <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</LinkPreview>, and sends it with every request to the server.
 The server verifies the token’s authenticity using the key it was signed with and grants access to protected resources if the token is valid.
 
 ## Key Use Cases
