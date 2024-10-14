@@ -11,6 +11,7 @@ import {
 } from 'framer-motion'
 import Link from 'next/link'
 import { cn } from '@/lib/style/utils'
+import MediaQuery from './media-query'
 
 type LinkPreviewProps = {
   children: React.ReactNode
@@ -25,7 +26,7 @@ type LinkPreviewProps = {
   | { isStatic?: false; imageSrc?: never }
 )
 
-export const LinkPreview = ({
+const LinkPreviewBase = ({
   children,
   url,
   className,
@@ -162,5 +163,26 @@ export const LinkPreview = ({
         </HoverCardPrimitive.Content>
       </HoverCardPrimitive.Root>
     </>
+  )
+}
+
+export const LinkPreview = (props: LinkPreviewProps) => {
+  const linkProps = {
+    href: props.url,
+    rel: 'noopener noreferrer',
+    target: '_blank',
+  }
+
+  return (
+    <MediaQuery
+      minWidth="lg"
+      fallback={
+        <a {...linkProps} className={cn('underline', props.className)}>
+          {props.children}
+        </a>
+      }
+    >
+      <LinkPreviewBase {...props} />
+    </MediaQuery>
   )
 }
