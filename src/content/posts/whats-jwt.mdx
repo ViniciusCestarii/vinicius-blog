@@ -2,7 +2,7 @@
 title: "What's JWT"
 description: "A brief explanation of what JWT is and how it works."
 publishedAt: "2024-09-18"
-updatedAt: "2024-10-11T13:20:52.578Z"
+updatedAt: "2024-10-14T13:26:18.035Z"
 status: "draft"
 tags: 
 - "jwt"
@@ -12,11 +12,14 @@ tags:
 - "authorization"
 ---
 
+
 JWT, or JSON Web Token, is a compact and self-contained method for securely transmitting information between two parties as a JSON object. It's commonly used in authentication and authorization mechanisms in web applications. JWTs are used to verify the identity of users and authorize them to access certain resources without requiring their credentials to be stored or transmitted repeatedly.
 
-<Aside>Under construction 🚧</Aside>
+_Under construction 🚧_
 
-## Key components of a JWT:
+## Key components of a JWT
+
+A JWT consists of three key components header, payload and signature.
 
 ### Header
 
@@ -41,9 +44,25 @@ Contains the claims, which are the data you want to transmit. This can include u
 }
 ```
 
+Common claims include:
+
+- sub: Subject (user identifier)
+
+- name: User's name
+
+- iat: Issued at time (timestamp when the token was created)
+
+- exp: Expiration time (timestamp when the token expires)
+
+- Custom claims like user role, permissions, etc.
+
 ### Signature
 
 The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message wasn't altered along the way. The signature is created by encoding the header and payload, and then signing that string using the secret or private key and the algorithm specified in the header.
+
+## JWT in practice:  Generating and Verifying Tokens with HMAC (SHA-256)
+
+In this example, I'll show how to generate and verify a JWT using HMAC with SHA-256, a symmetric signing algorithm. We'll use a shared secret for both signing and verifying the token.
 
 ```js title="generate-token.mjs" showLineNumbers 
 import crypto from "crypto"
@@ -80,6 +99,8 @@ export default const createJWT = (payload) => {
   return jwt
 }
 ```
+
+The function `createJWT` takes a payload (user data) and signs it using the `SECRET_KEY` with HMAC SHA-256. We base64url-encode both the header and payload, then append the signature to complete the token.
 
 ```js title="verify-token.mjs" showLineNumbers 
 import crypto from "crypto"
@@ -126,6 +147,8 @@ const verifyJWT = (token) => {
 }
 ```
 
+When verifying the token, we decode the signature, check its integrity, and verify the expiration (`exp`) claim if present.
+
 ```js title="app.mjs" showLineNumbers 
 import createJWT from "./generate-token.mjs"
 import verifyJWT from "./verify-token.mjs"
@@ -146,6 +169,7 @@ console.log('Generated JWT:', token) // Generated JWT: eyJhbGciOiJIUzI1NiIsInR5c
 
 console.log('Decoded JWT:', verifyJWT(token)) // Decoded JWT: { id: 1, username: 'vinicius_cestari', role: 'admin', exp: 1728655348 }
 ```
+
 ## How JWT works
 
 The server generates a token (usually after successful login), signs it with a secret or private key, and sends it to the client.
@@ -158,4 +182,5 @@ The server verifies the token’s authenticity using the key it was signed with 
 - **Authentication**: After a user logs in, a JWT is issued. The client sends this token with each subsequent request, allowing the server to verify the user's identity without needing to log in again.
 
 - **Authorization**: JWTs can also carry information about what resources the user can access, allowing servers to restrict access based on user roles or permissions.
+
 
