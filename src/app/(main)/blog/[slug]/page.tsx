@@ -43,7 +43,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <Link
               href="/"
               aria-label="Visit Vinicius Cestarii Github"
-              title="Visit Vinicius Cestarii Github"
+              title="See all posts"
               className="flex gap-1"
             >
               <ArrowLeft className="size-4" />
