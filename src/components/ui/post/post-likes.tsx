@@ -37,22 +37,19 @@ const PostLikeable = ({
 }: PostLikeableProps) => {
   const queryClient = useQueryClient()
 
-  const { likes } = postLikesDisplayProps
+  const { likes, isLiked } = postLikesDisplayProps
 
   const mutation = useMutation({
     mutationFn: () => toggleLike(slug),
     onMutate: () => {
       const previousLikes = likes ?? 0
-      const previousIsLiked = postLikesDisplayProps.isLiked
+      const previousIsLiked = isLiked
 
       queryClient.setQueryData(['likes', slug], () =>
-        postLikesDisplayProps.isLiked ? previousLikes - 1 : previousLikes + 1,
+        isLiked ? previousLikes - 1 : previousLikes + 1,
       )
 
-      queryClient.setQueryData(
-        ['isLiked', slug],
-        () => !postLikesDisplayProps.isLiked,
-      )
+      queryClient.setQueryData(['isLiked', slug], () => !isLiked)
 
       return { previousLikes, previousIsLiked }
     },
@@ -64,12 +61,10 @@ const PostLikeable = ({
 
   return (
     <button
-      disabled={
-        mutation.isPending || postLikesDisplayProps.isLiked === undefined
-      }
+      disabled={mutation.isPending || isLiked === undefined}
       className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
       onClick={() => mutation.mutate()}
-      aria-label="Like this post"
+      aria-label={isLiked ? 'Remove like from this post' : 'Like this post'}
     >
       {mutation.isPending}
       <PostLikesDisplay {...postLikesDisplayProps} />
