@@ -1,0 +1,1 @@
+set SECRET_KEY=value && node app.mjs
