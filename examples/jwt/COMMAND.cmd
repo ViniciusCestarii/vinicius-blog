@@ -1,1 +1,1 @@
-set SECRET_KEY=value && node app.mjs
+set SECRET_KEY=secret && node app.mjs
