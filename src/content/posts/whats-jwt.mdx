@@ -2,7 +2,7 @@
 title: "What's JWT"
 description: "A brief explanation of what JWT is and how it works."
 publishedAt: "2024-09-18"
-updatedAt: "2024-10-14T13:34:07.635Z"
+updatedAt: "2024-11-01T19:13:28.014Z"
 status: "draft"
 tags: 
 - "jwt"
@@ -11,8 +11,6 @@ tags:
 - "authentication"
 - "authorization"
 ---
-
-
 
 JWT, or JSON Web Token, is a compact and self-contained method for securely transmitting information between two parties as a JSON object. It's commonly used in authentication and authorization mechanisms in web applications. JWTs are used to verify the identity of users and authorize them to access certain resources without requiring their credentials to be stored or transmitted repeatedly.
 
@@ -49,13 +47,11 @@ Common claims include:
 
 - sub: Subject (user identifier)
 
-- name: User's name
-
 - iat: Issued at time (timestamp when the token was created)
 
 - exp: Expiration time (timestamp when the token expires)
 
-- Custom claims like user role, permissions, etc.
+- Custom claims like user name, role, permissions, etc.
 
 ### Signature
 
@@ -175,8 +171,7 @@ console.log('Decoded JWT:', verifyJWT(token)) // Decoded JWT: { id: 1, username:
 
 The server generates a token (usually after successful login), signs it with a secret or private key, and sends it to the client.
 
-The client stores the token, usually in <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</LinkPreview> or <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</LinkPreview>, and sends it with every request to the server.
-The server verifies the token’s authenticity using the key it was signed with and grants access to protected resources if the token is valid.
+The client typically stores the token in <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</LinkPreview> <u>(which is generally not recommended due to potential security risks)</u> or <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</LinkPreview>.The token is then sent with each request to the server, allowing the server to verify its authenticity using the signing key. This process ensures that only valid tokens can access protected resources.
 
 ## Key Use Cases
 
@@ -184,5 +179,16 @@ The server verifies the token’s authenticity using the key it was signed with 
 
 - **Authorization**: JWTs can also carry information about what resources the user can access, allowing servers to restrict access based on user roles or permissions.
 
+## Conclusion
 
+JWTs offer a robust and stateless way to handle authentication and authorization. By securely transmitting information via a compact token, JWTs enable web applications to verify user identity and permissions efficiently. The tokens are self-contained, meaning they can carry all the necessary information without requiring repetitive access to the server for session data. This results in a more scalable and performant system.
 
+For practical implementation, it’s essential to:
+
+1. Keep your secret key secure: In symmetric algorithms like HMAC, this key is what ensures the integrity of the token. If compromised, unauthorized users could generate valid tokens.
+
+2. Use short expiration times: With sensitive data, short-lived tokens minimize risk if a token is stolen. When a token expires, clients can request a new one if they’re still authenticated.
+
+3. Store tokens safely: Store JWTs securely, preferably in httpOnly cookies to prevent JavaScript access and reduce the risk of cross-site scripting (XSS) attacks.
+
+JWTs are widely supported and compatible with many libraries and frameworks, making them a versatile choice for securing modern web applications.
