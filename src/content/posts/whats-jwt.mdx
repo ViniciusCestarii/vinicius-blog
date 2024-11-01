@@ -62,10 +62,7 @@ The signature is used to verify that the sender of the JWT is who it says it is 
 In this example, I'll show how to generate and verify a JWT using HMAC with SHA-256, a symmetric signing algorithm. We'll use a shared secret for both signing and verifying the token.
 
 ```js title="generate-token.mjs" showLineNumbers 
-import crypto from "crypto"
-
-// Define the secret key
-const SECRET_KEY = 'your-very-secure-secret-key'
+import crypto from 'crypto'
 
 // Function to create a base64url-encoded string
 const base64UrlEncode = (data) => {
@@ -73,7 +70,7 @@ const base64UrlEncode = (data) => {
 }
 
 // Function to create a JWT
-export default const createJWT = (payload) => {
+const createJWT = (payload) => {
   // Create the header
   const header = {
     alg: 'HS256',
@@ -87,7 +84,7 @@ export default const createJWT = (payload) => {
   // Create the signature
   const signatureBase = `${encodedHeader}.${encodedPayload}`
   const signature = crypto
-    .createHmac('sha256', SECRET_KEY)
+    .createHmac('sha256', process.env.SECRET_KEY)
     .update(signatureBase)
     .digest('base64url')
 
@@ -95,12 +92,14 @@ export default const createJWT = (payload) => {
   const jwt = `${encodedHeader}.${encodedPayload}.${signature}`
   return jwt
 }
+
+export default createJWT
 ```
 
 The function `createJWT` takes a payload (user data) and signs it using the `SECRET_KEY` with HMAC SHA-256. We base64url-encode both the header and payload, then append the signature to complete the token.
 
 ```js title="verify-token.mjs" showLineNumbers 
-import crypto from "crypto"
+import crypto from 'crypto'
 
 const base64UrlDecode = (str) => {
   str += '='.repeat((4 - (str.length % 4)) % 4) // Add padding for Base64 decoding
@@ -120,7 +119,7 @@ const verifyJWT = (token) => {
 
   // Recreate the signature
   const recreatedSignature = crypto
-    .createHmac('sha256', SECRET_KEY)
+    .createHmac('sha256', process.env.SECRET_KEY)
     .update(signatureBase)
     .digest('base64url')
 
@@ -142,13 +141,15 @@ const verifyJWT = (token) => {
 
   return decodedPayload // Return the decoded payload if verification is successful
 }
+
+export default verifyJWT
 ```
 
 When verifying the token, we decode the signature, check its integrity, and verify the expiration (`exp`) claim if present.
 
 ```js title="app.mjs" showLineNumbers 
-import createJWT from "./generate-token.mjs"
-import verifyJWT from "./verify-token.mjs"
+import createJWT from './generate-token.mjs'
+import verifyJWT from './verify-token.mjs'
 
 // Define the payload data
 const payload = {
