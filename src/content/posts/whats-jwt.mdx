@@ -2,7 +2,7 @@
 title: "What's JWT"
 description: "A brief explanation of what JWT is and how it works."
 publishedAt: "2024-11-01"
-updatedAt: "2024-11-01T19:48:29.503Z"
+updatedAt: "2024-11-01T20:04:10.322Z"
 status: "published"
 tags: 
 - "jwt"
@@ -11,6 +11,7 @@ tags:
 - "authentication"
 - "authorization"
 ---
+
 
 
 JWT, or JSON Web Token, is a compact and self-contained method for securely transmitting information between two parties as a JSON object. It's commonly used in authentication and authorization mechanisms in web applications. JWTs are used to verify the identity of users and authorize them to access certain resources without requiring their credentials to be stored or transmitted repeatedly.
@@ -61,7 +62,7 @@ The signature is used to verify that the sender of the JWT is who it says it is 
 In this example, I'll show how to generate and verify a JWT using HMAC with SHA-256, a symmetric signing algorithm. We'll use a shared secret for both signing and verifying the token.
 
 <Aside>
-    This example code is avaible <LinkPreview url="https://github.com/ViniciusCestarii/vinicius-blog/tree/main/examples/jwt">`here`</LinkPreview>. You can run it with `set SECRET_KEY=secret && node app.mjs`
+    <LinkPreview url="https://github.com/ViniciusCestarii/vinicius-blog/tree/main/examples/jwt">This example code is available on my github</LinkPreview>. You can run it with `set SECRET_KEY=secret && node app.mjs`
 </Aside>
 
 ```js title="generate-token.mjs" showLineNumbers 
@@ -196,4 +197,5 @@ For practical implementation, it’s essential to:
 3. Store tokens safely: Store JWTs securely, preferably in httpOnly cookies to prevent JavaScript access and reduce the risk of cross-site scripting (XSS) attacks.
 
 JWTs are widely supported and compatible with many libraries and frameworks, making them a versatile choice for securing modern web applications.
+
 
