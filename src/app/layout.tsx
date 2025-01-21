@@ -19,8 +19,9 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Vinicius Blog',
-  description: 'A blog about web development and other cool stuff',
+  title: 'Vinicius Cestari Blog',
+  description:
+    'A blog about web development and other cool stuff by Vinicius Cestari',
 }
 
 export default async function RootLayout({
