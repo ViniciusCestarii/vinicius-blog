@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vinicius Blog and CMS
+
+This project is my own blog and a a custom-built CMS and blog platform created using Next.js, MDX, React, and other modern web technologies. It allows for easy management of blog posts, including creating, editing, and deleting posts, as well as viewing and liking posts.
+
+## Features
+
+- **Next.js**: Utilizes Next.js for server-side rendering (SSR) and static site generation (SSG) for fast load times and SEO optimization.
+- **MDX**: Supports writing blog posts in Markdown with embedded React components.
+- **Tailwind CSS**: Uses Tailwind CSS for utility-first styling.
+- **Redis**: Manages post views and likes with Redis for fast reads and writes.
+- **Admin Access**: Provides an admin interface for managing posts.
+- **Authentication**: Includes authentication for admin access using JWT.
+- **Responsive Design**: Ensures a seamless experience across different devices.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js or Bun
+- npm or yarn or bun
+- Redis server (You can create a free tier instance using [Redis Cloud](https://redis.io/try-free/))
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   - `git clone https://github.com/ViniciusCestarii/vinicius-blog.git`
+3. Install dependencies:
+   - `npm i`
+   - `yarn i`
+   - `bun i`
+5. Set up environment variables:
+   - Copy `.env.example` to `.env.local` and fill in the required values.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Start the development server:
+- `npm run dev`
+- `yarn dev`
+- `bun dev`
 
-## Learn More
+Open `http://localhost:3000` with your browser to see the result.
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Creating a Post
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Log in as an admin on `/login` page with the credentials on `.env`.
+2. Use the "Create new post" button to open the post creation dialog.
+3. Fill in the post name and submit.
 
-## Deploy on Vercel
+### Editing a Post
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Log in as an admin.
+2. Navigate to the post you want to edit.
+3. Click the "Edit post" button to open the edit dialog.
+4. Make your changes and submit.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Deleting a Post
+
+1. Log in as an admin.
+2. Navigate to the post you want to delete.
+3. Click the "Delete post" button.
+4. Write the post title and click the "Delete post" button.
+
+## Deployment
+
+The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
+
+Check out the Next.js deployment documentation for more details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [MDX](https://mdxjs.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Redis](https://redis.io/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Vercel](https://vercel.com/)
