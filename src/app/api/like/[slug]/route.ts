@@ -7,7 +7,7 @@ interface Params {
 }
 
 export async function GET(request: Request, { params }: Params) {
-  const views = await getLikes(params.slug)
+  const likes = await getLikes(params.slug)
 
-  return Response.json(views)
+  return Response.json(likes)
 }

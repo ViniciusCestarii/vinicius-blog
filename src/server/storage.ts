@@ -60,10 +60,22 @@ export const incrementLikes = async (slug: string) => {
   }
 }
 
+const decrementLikesScript = `
+  local current = redis.call('GET', KEYS[1])
+  if tonumber(current) > 0 then
+    return redis.call('DECR', KEYS[1])
+  else
+    return tonumber(current) or 0
+  end
+`
+
 export const decrementLikes = async (slug: string) => {
   try {
     await connect()
-    const result = await client.decr(`likes:${slug}`)
+    console.log('decrementLikesScript', decrementLikesScript)
+    const result = await client.eval(decrementLikesScript, {
+      keys: [`likes:${slug}`],
+    })
     return result
   } finally {
     await disconnect()

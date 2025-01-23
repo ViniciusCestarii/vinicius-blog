@@ -42,6 +42,7 @@ const PostLikeable = ({
   const mutation = useMutation({
     mutationFn: () => toggleLike(slug),
     onMutate: () => {
+      if (likes === 0 && isLiked) return
       const previousLikes = likes ?? 0
       const previousIsLiked = isLiked
 
