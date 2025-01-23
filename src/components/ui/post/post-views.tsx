@@ -5,6 +5,7 @@ import { incrementViews } from '@/server/storage'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Eye } from 'lucide-react'
 import React, { useEffect } from 'react'
+import NumberSlider from './number-slider'
 
 interface PostsProps {
   slug: string
@@ -45,7 +46,7 @@ const Posts = ({ slug, increment }: PostsProps) => {
       title="Views"
     >
       <span className="sr-only">Views</span> <Eye className="size-icon" />
-      {query.data}
+      <NumberSlider value={query.data} />
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { Heart } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchIsLiked, fetchLikes } from '@/lib/blog/fetch'
 import { toggleLike } from '@/lib/blog/action'
+import NumberSlider from './number-slider'
 
 interface PostLikesDisplayProps {
   likes?: number
@@ -22,7 +23,7 @@ const PostLikesDisplay = ({ isLiked, likes }: PostLikesDisplayProps) => {
     >
       <span className="sr-only">Likes</span>
       <Heart className={cn('size-icon', isLiked && 'text-red-500')} />
-      {likes}
+      <NumberSlider value={likes} />
     </div>
   )
 }
