@@ -67,7 +67,10 @@ Open `http://localhost:3000` with your browser to see the result.
    - `yarn build`
    - `bun run build`
 
-2. Start the production server:
+2. Move static files to the `.next/standalone/.next` directory ([see doc](https://nextjs.org/docs/app/api-reference/config/next-config-js/output#automatically-copying-traced-files)):
+   - `cp -r .next/static .next/standalone/.next/`
+
+3. Start the production server:
    - `node .next/standalone/server.js`
    - `bun .next/standalone/server.js`
 
