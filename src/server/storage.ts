@@ -31,8 +31,12 @@ export const connect = async () => {
   console.log('Connected successfully.')
 }
 
-// Close connection only when there is an existing connection
 export const disconnect = async () => {
+  if (!env.IS_SERVERLESS) {
+    // If not running in serverless mode, do not disconnect
+    return
+  }
+
   if (!client.isOpen) {
     return
   }

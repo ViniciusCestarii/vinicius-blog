@@ -11,6 +11,9 @@ const envSchema = z.object({
   COMMITER_NAME: z.string().default('UPDATE-bot'),
   COMMITER_EMAIL: z.string().default('update-bot@example.com'),
   SITE_URL: z.string().url(),
+  IS_SERVERLESS: z
+    .enum(['true', 'false'])
+    .transform((value) => value === 'true'),
 })
 
 const _env = envSchema.safeParse(process.env)
