@@ -64,7 +64,7 @@ const PostLikeable = ({
   return (
     <button
       disabled={mutation.isPending || isLiked === undefined}
-      className="flex items-center gap-2 min-w-[3.75rem] min-h-6"
+      className="flex items-center gap-2 min-w-[3.75rem] min-h-6 cursor-pointer"
       onClick={() => mutation.mutate()}
       aria-label={isLiked ? 'Remove like from this post' : 'Like this post'}
     >
