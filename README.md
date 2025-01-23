@@ -60,6 +60,17 @@ Open `http://localhost:3000` with your browser to see the result.
 3. Click the "Delete post" button.
 4. Write the post title and click the "Delete post" button.
 
+## Build
+
+1. Build the project:
+   - `npm run build`
+   - `yarn build`
+   - `bun run build`
+
+2. Start the production server:
+   - `node .next/standalone/server.js`
+   - `bun .next/standalone/server.js`
+
 ## Deployment
 
 The easiest way to deploy your Next.js app is to use the Vercel Platform from the creators of Next.js.
@@ -72,6 +83,8 @@ You can also run the project using Docker. To do so, follow these steps:
 
 1. Build the Docker image:
    - `docker build -t vinicius-blog .`
+2. Run the Docker container:
+   - `docker run -p 3000:3000 vinicius-blog`
 
 ## Contributing
 
