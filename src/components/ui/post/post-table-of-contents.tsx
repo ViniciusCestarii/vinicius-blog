@@ -52,7 +52,6 @@ const PostTableOfContents = ({ content }: PostTableOfContentsProps) => {
             heading={heading.heading}
             text={heading.text}
             slug={heading.slug}
-            isInView={activeSlug === heading.slug}
           />
         ))}
         <div
@@ -82,7 +81,6 @@ interface PostLinkProps {
   heading: number
   text: string
   slug: string
-  isInView: boolean
 }
 
 const calculateIndicatorPosition = (slug: string) => {
@@ -96,7 +94,7 @@ const calculateIndicatorPosition = (slug: string) => {
   return offsetTop
 }
 
-const PostLink = ({ heading, text, slug, isInView }: PostLinkProps) => {
+const PostLink = ({ heading, text, slug }: PostLinkProps) => {
   return (
     <li
       data-header-slug={slug}
