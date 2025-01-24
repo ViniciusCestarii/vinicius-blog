@@ -7,12 +7,12 @@ import { Eye } from 'lucide-react'
 import React, { useEffect } from 'react'
 import NumberSlider from './number-slider'
 
-interface PostsProps {
+interface PostViewsProps {
   slug: string
   increment?: boolean
 }
 
-const Posts = ({ slug, increment }: PostsProps) => {
+const PostViews = ({ slug, increment }: PostViewsProps) => {
   const query = useQuery({
     queryKey: ['views', slug],
     queryFn: () => fetchViews(slug),
@@ -51,4 +51,4 @@ const Posts = ({ slug, increment }: PostsProps) => {
   )
 }
 
-export default Posts
+export default PostViews

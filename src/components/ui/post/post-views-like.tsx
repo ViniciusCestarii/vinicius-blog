@@ -1,5 +1,5 @@
 import React from 'react'
-import Posts from './post-views'
+import PostViews from './post-views'
 import PostLikes from './post-likes'
 import { Post } from '@/lib/blog/types'
 
@@ -18,7 +18,7 @@ const PostViewsLikes = ({
 
   return (
     <span className="flex gap-4">
-      <Posts slug={metadata.slug} increment={incrementViews} />
+      <PostViews slug={metadata.slug} increment={incrementViews} />
       <PostLikes slug={metadata.slug} likeable={likeable} />
     </span>
   )
