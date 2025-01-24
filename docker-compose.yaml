@@ -6,8 +6,8 @@ services:
     env_file:
       - .env.local
     environment:
-      - REDIS_URL=redis://redis:6379
-      - REDIS_PASSWORD=
+      REDIS_URL: redis://redis:6379
+      REDIS_PASSWORD: ''
     depends_on:
       - redis
 
