@@ -24,7 +24,7 @@ const PostTableOfContents = ({ content }: PostTableOfContentsProps) => {
     }
 
     const observer = new IntersectionObserver(handleObserver, {
-      rootMargin: '0px 0px -80% 0px',
+      rootMargin: '0px 0px -95% 0px',
     })
 
     headings.forEach((heading) => {
@@ -41,13 +41,14 @@ const PostTableOfContents = ({ content }: PostTableOfContentsProps) => {
   }, [headings])
 
   return (
-    <aside className="not-prose hidden xl:block xl:col-start-4 h-0 pt-8 sticky top-0 text-muted-foreground">
+    <aside className="not-prose hidden xl:block xl:col-start-4 h-0 pt-4 sticky top-0 text-muted-foreground">
       <h3 className="text-sm text-muted-foreground/70 uppercase pl-2 border-l border-transparent">
         On this page
       </h3>
-      <ul>
+      <ul className="space-y-2">
         {headings.map((heading) => (
           <PostLink
+            onClick={() => setActiveSlug(heading.slug)}
             key={heading.slug}
             heading={heading.heading}
             text={heading.text}
@@ -81,7 +82,10 @@ interface PostLinkProps {
   heading: number
   text: string
   slug: string
+  onClick?: () => void
 }
+
+const INDICATOR_OFFSET = -12
 
 const calculateIndicatorPosition = (slug: string) => {
   const activeElement = document.querySelector(`li[data-header-slug="${slug}"]`)
@@ -91,20 +95,22 @@ const calculateIndicatorPosition = (slug: string) => {
   const elementRect = activeElement.getBoundingClientRect()
   const offsetTop = elementRect.top
 
-  return offsetTop
+  return offsetTop + INDICATOR_OFFSET
 }
 
-const PostLink = ({ heading, text, slug }: PostLinkProps) => {
+const PostLink = ({ heading, text, slug, ...props }: PostLinkProps) => {
   return (
     <li
       data-header-slug={slug}
-      className="pl-2 transition-colors relative"
+      className="pl-2 transition-colors relative text-sm"
       title={text}
     >
       <a
+        {...props}
         className={cn('hover:underline hover:text-foreground', {
           'pl-4': heading === 3,
           'pl-8': heading === 4,
+          'pl-12': heading === 5,
         })}
         href={`#${slug}`}
       >

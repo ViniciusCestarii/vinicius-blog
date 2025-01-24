@@ -36,14 +36,32 @@ export const slugify = (title: string) => {
     .replace(/--+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
+
 const regXHeader = /(?<flag>#{1,6})\s+(?<content>.+)/g
 
 export const getHeadings = (raw: string) => {
+  const slugMap = new Map<string, number>()
   const headings = Array.from(raw.matchAll(regXHeader)).flatMap(
     ({ groups }) => {
       if (!groups?.flag || !groups?.content) return []
       const flag = groups.flag
       const content = groups.content
+      const slug = slugify(content)
+
+      const count = slugMap.get(slug)
+
+      if (count !== undefined) {
+        const newCount = count + 1
+        slugMap.set(slug, newCount)
+        return {
+          heading: flag.length,
+          text: content,
+          slug: `${slug}-${newCount}`,
+        }
+      }
+
+      slugMap.set(slug, 0)
+
       return {
         heading: flag.length,
         text: content,
