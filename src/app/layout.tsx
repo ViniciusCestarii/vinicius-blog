@@ -42,7 +42,7 @@ export default async function RootLayout({
         >
           <QueryClientProvider>
             <AuthProvider>
-              <div className="px-4 page-layout">{children}</div>
+              <div className="px-4 page-layout bg-noise">{children}</div>
             </AuthProvider>
           </QueryClientProvider>
           <Toaster closeButton />
