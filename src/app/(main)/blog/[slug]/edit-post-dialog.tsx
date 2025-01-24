@@ -1,6 +1,5 @@
 'use client'
 
-import AdminOnly from '@/components/auth/admin-only'
 import {
   Accordion,
   AccordionContent,
@@ -27,13 +26,15 @@ import {
 } from '@/components/ui/resizable'
 import { Textarea } from '@/components/ui/textarea'
 import { Post } from '@/lib/blog/types'
+import { ContentHeading } from '@/lib/blog/utils'
 import { updatePostCommit } from '@/lib/github/blog'
 import dynamic from 'next/dynamic'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
 
-interface EditBlogDialogProps {
+interface EditPostDialogProps {
   post: Post
+  headings: ContentHeading[]
 }
 
 const ClientMdxViewer = dynamic(() => import('@/app/client-mdx-viewer'), {
@@ -41,7 +42,7 @@ const ClientMdxViewer = dynamic(() => import('@/app/client-mdx-viewer'), {
   loading: () => <p>Loading...</p>,
 })
 
-const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
+const EditPostDialogBase = ({ post, headings }: EditPostDialogProps) => {
   const [content, setContent] = useState(post.content)
   const [description, setDescription] = useState(post.metadata.description)
   const [status, setStatus] = useState(post.metadata.status)
@@ -155,7 +156,7 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
             <ResizableHandle />
             <ResizablePanel defaultSize={60}>
               <PostContainer className="border-b sm:border-none h-full overflow-auto">
-                <PostTableOfContents content={content} />
+                <PostTableOfContents headings={headings} />
                 <ClientMdxViewer source={content} />
               </PostContainer>
             </ResizablePanel>
@@ -171,12 +172,8 @@ const EditBlogDialogBase = ({ post }: EditBlogDialogProps) => {
   )
 }
 
-const EditBlogDialog = (props: EditBlogDialogProps) => {
-  return (
-    <AdminOnly>
-      <EditBlogDialogBase {...props} />
-    </AdminOnly>
-  )
+const EditPostDialog = (props: EditPostDialogProps) => {
+  return <EditPostDialogBase {...props} />
 }
 
-export default EditBlogDialog
+export default EditPostDialog

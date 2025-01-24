@@ -1,18 +1,17 @@
 'use client'
 
-import { getHeadings } from '@/lib/blog/utils'
 import { ArrowUp } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 import { cn } from '@/lib/style/utils'
+import { ContentHeading } from '@/lib/blog/utils'
 
 interface PostTableOfContentsProps {
-  content: string
+  headings: ContentHeading[]
 }
 
-const PostTableOfContents = ({ content }: PostTableOfContentsProps) => {
+const PostTableOfContents = ({ headings }: PostTableOfContentsProps) => {
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
-  const headings = getHeadings(content)
 
   useEffect(() => {
     const handleObserver = (entries: IntersectionObserverEntry[]) => {

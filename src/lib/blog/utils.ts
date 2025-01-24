@@ -39,7 +39,13 @@ export const slugify = (title: string) => {
 
 const regXHeader = /(?<flag>#{1,6})\s+(?<content>.+)/g
 
-export const getHeadings = (raw: string) => {
+export interface ContentHeading {
+  heading: number
+  text: string
+  slug: string
+}
+
+export const getHeadings = (raw: string): ContentHeading[] => {
   const slugMap = new Map<string, number>()
   const headings = Array.from(raw.matchAll(regXHeader)).flatMap(
     ({ groups }) => {
