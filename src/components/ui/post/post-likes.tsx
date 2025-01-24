@@ -43,13 +43,15 @@ const PostLikeable = ({
   const mutation = useMutation({
     mutationFn: () => toggleLike(slug),
     onMutate: () => {
-      if (likes === 0 && isLiked) return
+      const willBeNegative = likes === 0 && isLiked
       const previousLikes = likes ?? 0
       const previousIsLiked = isLiked
 
-      queryClient.setQueryData(['likes', slug], () =>
-        isLiked ? previousLikes - 1 : previousLikes + 1,
-      )
+      if (!willBeNegative) {
+        queryClient.setQueryData(['likes', slug], () =>
+          isLiked ? previousLikes - 1 : previousLikes + 1,
+        )
+      }
 
       queryClient.setQueryData(['isLiked', slug], () => !isLiked)
 

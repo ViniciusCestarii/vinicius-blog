@@ -76,7 +76,6 @@ const decrementLikesScript = `
 export const decrementLikes = async (slug: string) => {
   try {
     await connect()
-    console.log('decrementLikesScript', decrementLikesScript)
     const result = await client.eval(decrementLikesScript, {
       keys: [`likes:${slug}`],
     })
