@@ -5,13 +5,13 @@ import PostViewsLikes from './post-views-like'
 import PostTitle from './post-title'
 import { Post } from '@/lib/blog/types'
 import PostStatus from './post-status'
-import AdminOnly from '@/components/auth/admin-only'
+import { fetchAuth } from '@/server/auth'
 
 interface PostItemProps {
   post: Post
 }
-
-export default function PostItem({ post }: PostItemProps) {
+const PostItem = async ({ post }: PostItemProps) => {
+  const isAuthenticated = await fetchAuth()
   return (
     <li key={post.metadata.title}>
       <Link href={`/blog/${post.metadata.slug}`}>
@@ -29,11 +29,11 @@ export default function PostItem({ post }: PostItemProps) {
               <Badge key={tag}>{tag}</Badge>
             ))}
           </span>
-          <AdminOnly>
-            <PostStatus status={post.metadata.status} />
-          </AdminOnly>
+          {isAuthenticated && <PostStatus status={post.metadata.status} />}
         </article>
       </Link>
     </li>
   )
 }
+
+export default PostItem

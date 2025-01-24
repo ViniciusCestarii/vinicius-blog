@@ -2,15 +2,13 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useAuth } from '@/context/auth-context'
+import { authenticate } from '@/server/auth'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 
 export default function LoginPage() {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-
-  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>
     startTransition(async () => {
@@ -20,7 +18,7 @@ export default function LoginPage() {
       const username = formData.get('username') as string
       const password = formData.get('password') as string
 
-      const success = await login({ username, password })
+      const success = await authenticate({ username, password })
 
       if (success) {
         router.push('/')

@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { isAuthenticated } from './server/auth'
+import { fetchAuth } from './server/auth'
 
 export async function middleware(request: NextRequest) {
-  const authenticated = await isAuthenticated()
+  const authenticated = await fetchAuth()
 
   if (request.nextUrl.pathname === '/login') {
     if (authenticated) {

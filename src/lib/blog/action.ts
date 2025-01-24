@@ -5,9 +5,9 @@ import path from 'path'
 import matter from 'gray-matter'
 import { decrementLikes, incrementLikes } from '@/server/storage'
 import { setLikedPosts, getLikedPosts } from '@/server/cookie'
-import { isAuthenticated } from '@/server/auth'
 import { isPostPublished } from './utils'
 import { Post, PostMetadata } from './types'
+import { fetchAuth } from '@/server/auth'
 
 const postsDirectory = path.resolve('src/content/posts')
 
@@ -70,7 +70,7 @@ export const getAllPostsBasedOnUser = async (
 ): Promise<Post[]> => {
   const allPosts = await getAllPosts(search)
 
-  if (await isAuthenticated()) {
+  if (await fetchAuth()) {
     return allPosts.sort((a, b) => {
       const isAPublished = isPostPublished(a)
       const isBPublished = isPostPublished(b)
@@ -92,7 +92,7 @@ export const getPostBasedOnUser = async (
   }
 
   if (post.metadata.status !== 'published') {
-    const authenticated = await isAuthenticated()
+    const authenticated = await fetchAuth()
 
     if (!authenticated) {
       return null

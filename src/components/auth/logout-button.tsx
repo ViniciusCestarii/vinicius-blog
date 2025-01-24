@@ -1,31 +1,18 @@
-'use client'
-
-import { useAuth } from '@/context/auth-context'
+import { removeAuthToken } from '@/server/auth'
 import { Button } from '../ui/button'
 import { DoorOpen } from 'lucide-react'
-import AdminOnly from './admin-only'
 
-const LogoutButtonBase = () => {
-  const { logout } = useAuth()
-
+const LogoutButton = () => {
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={logout}
+      onClick={removeAuthToken}
       title="Log out"
       className="group"
     >
       <DoorOpen className="size-icon group-hover:animate-ping" />
     </Button>
-  )
-}
-
-const LogoutButton = () => {
-  return (
-    <AdminOnly>
-      <LogoutButtonBase />
-    </AdminOnly>
   )
 }
 

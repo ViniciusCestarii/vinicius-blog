@@ -2,8 +2,8 @@
 
 import env from '@/env'
 import { createPostTemplate, slugify } from '../blog/utils'
-import { isAuthenticated } from '@/server/auth'
 import { Post, PostMetadata } from '../blog/types'
+import { fetchAuth } from '@/server/auth'
 
 const POST_GITHUB_URL = `${env.GITHUB_API_URL}/contents/src/content/posts`
 
@@ -143,7 +143,7 @@ const getFileJson = async (slug: string) => {
 }
 
 const checkAdmin = async () => {
-  const isAdmin = await isAuthenticated()
+  const isAdmin = await fetchAuth()
 
   if (!isAdmin) {
     throw new Error('Unauthorized')

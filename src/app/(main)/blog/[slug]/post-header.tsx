@@ -7,15 +7,16 @@ import Link from 'next/link'
 import React from 'react'
 import EditPostDialog from './edit-post-dialog'
 import { ContentHeading } from '@/lib/blog/utils'
-import AdminOnly from '@/components/auth/admin-only'
 import DeletePostDialog from '@/app/(home)/delete-post-dialog'
+import { fetchAuth } from '@/server/auth'
 
 interface PostHeaderProps {
   post: Post
   headings: ContentHeading[]
 }
 
-const PostHeader = ({ post, headings }: PostHeaderProps) => {
+const PostHeader = async ({ post, headings }: PostHeaderProps) => {
+  const isAuthenticated = await fetchAuth()
   return (
     <header>
       <div className="py-4">
@@ -31,7 +32,7 @@ const PostHeader = ({ post, headings }: PostHeaderProps) => {
           </Link>
         </Button>
       </div>
-      <AdminOnly>
+      {isAuthenticated && (
         <div className="flex justify-end gap-2 pb-2">
           <EditPostDialog post={post} headings={headings} />
           <DeletePostDialog
@@ -39,7 +40,7 @@ const PostHeader = ({ post, headings }: PostHeaderProps) => {
             title={post.metadata.title}
           />
         </div>
-      </AdminOnly>{' '}
+      )}
       <h1>{post.metadata.title}</h1>
       <div className="flex justify-between flex-wrap items-center gap-8">
         <PostViewsLikes

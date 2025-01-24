@@ -28,7 +28,7 @@ export const authenticate = async ({ password, username }: Authenticate) => {
   return true
 }
 
-export const isAuthenticated = async () => {
+export const fetchAuth = async () => {
   const token = cookies().get('token')
 
   if (!token) return false
