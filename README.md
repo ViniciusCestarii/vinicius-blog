@@ -89,6 +89,16 @@ You can also run the project using Docker. To do so, follow these steps:
 2. Run the Docker container:
    - `docker run -p 3000:3000 vinicius-blog`
 
+### Running with Docker Compose
+
+Alternatively, you can use Docker Compose to run the project with Redis. To do so, follow these steps:
+
+1. Build the Docker image:
+   - `docker-compose build`
+
+2. Run the Docker container:
+   - `docker-compose up`
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
