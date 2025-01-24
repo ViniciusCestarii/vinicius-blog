@@ -24,7 +24,9 @@ export const createPostCommit = async ({ title }: CreateBlogParams) => {
       status: 'draft',
       tags: [],
     },
-    `## First topic
+    `Basic introduction
+
+## First topic
 
 Basic paragraph`,
   )
