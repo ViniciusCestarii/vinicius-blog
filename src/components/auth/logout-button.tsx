@@ -1,3 +1,4 @@
+'use client'
 import { removeAuthToken } from '@/server/auth'
 import { Button } from '../ui/button'
 import { DoorOpen } from 'lucide-react'
