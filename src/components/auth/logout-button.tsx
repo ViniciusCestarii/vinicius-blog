@@ -7,7 +7,7 @@ const LogoutButton = () => {
     <Button
       variant="ghost"
       size="icon"
-      onClick={removeAuthToken}
+      onClick={() => removeAuthToken()}
       title="Log out"
       className="group"
     >

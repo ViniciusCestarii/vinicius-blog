@@ -42,6 +42,6 @@ export const fetchAuth = async () => {
   }
 }
 
-export const removeAuthToken = () => {
+export const removeAuthToken = async () => {
   cookies().delete('token')
 }
