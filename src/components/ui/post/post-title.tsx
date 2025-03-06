@@ -8,7 +8,7 @@ interface PostTitleProps {
 
 const PostTitle = ({ children }: PostTitleProps) => {
   return (
-    <h2 className="text-3xl font-semibold flex justify-between gap-2 capitalize">
+    <h2 className="text-3xl z-10 relative font-semibold flex justify-between gap-2 capitalize font-geist-mono max-w-2xl not-prose">
       {children}
       <AdminOnly>
         <Pencil className="flex-shrink-0" />
