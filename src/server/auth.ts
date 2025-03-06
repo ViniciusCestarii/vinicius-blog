@@ -1,7 +1,7 @@
 'use server'
 
 import env from '@/env'
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 import * as jose from 'jose'
 export interface Authenticate {
   username: string
@@ -18,7 +18,9 @@ export const authenticate = async ({ password, username }: Authenticate) => {
     .setExpirationTime('3h')
     .sign(new TextEncoder().encode(env.JWT_SECRET))
 
-  cookies().set('token', token, {
+  const cookieStore = await cookies()
+
+  cookieStore.set('token', token, {
     httpOnly: true,
     secure: true,
     sameSite: 'lax',
@@ -29,7 +31,7 @@ export const authenticate = async ({ password, username }: Authenticate) => {
 }
 
 export const isAuthenticated = async () => {
-  const token = cookies().get('token')
+  const token = (await cookies()).get('token')
 
   if (!token) return false
 
@@ -42,6 +44,7 @@ export const isAuthenticated = async () => {
   }
 }
 
-export const removeAuthToken = () => {
-  cookies().delete('token')
+export const removeAuthToken = async () => {
+  const cookieStore = await cookies()
+  cookieStore.delete('token')
 }

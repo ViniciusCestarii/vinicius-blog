@@ -1,12 +1,13 @@
 import { getLikes } from '@/server/storage'
 
 interface Params {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export async function GET(request: Request, { params }: Params) {
+export async function GET(request: Request, props: Params) {
+  const params = await props.params;
   const likes = await getLikes(params.slug)
 
   return Response.json(likes)
