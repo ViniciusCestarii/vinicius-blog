@@ -2,7 +2,12 @@
 
 import { fetchViews } from '@/lib/blog/fetch'
 import { incrementViews } from '@/server/storage'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useIsRestoring,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { Eye } from 'lucide-react'
 import React, { useEffect } from 'react'
 import NumberSlider from './number-slider'
@@ -32,12 +37,17 @@ const PostViews = ({ slug, increment }: PostViewsProps) => {
     },
   })
 
+  // isRestoring is true when it's restoring from cache (in this case it's localStorage)
+  const isRestoring = useIsRestoring()
+
+  const isGettingData = query.isLoading || isRestoring
+
   useEffect(() => {
-    if (increment && !query.isLoading) {
+    if (increment && !isGettingData) {
       mutation.mutate()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.isLoading])
+  }, [isGettingData])
 
   return (
     <div
