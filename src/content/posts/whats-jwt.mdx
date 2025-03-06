@@ -62,7 +62,7 @@ The signature is used to verify that the sender of the JWT is who it says it is 
 In this example, I'll show how to generate and verify a JWT using HMAC with SHA-256, a symmetric signing algorithm. We'll use a shared secret for both signing and verifying the token.
 
 <Aside>
-    <LinkPreview url="https://github.com/ViniciusCestarii/vinicius-blog/tree/main/examples/jwt">This example code is available on my github</LinkPreview>. You can run it with `set SECRET_KEY=secret && node app.mjs`
+    <ExternalLink href="https://github.com/ViniciusCestarii/vinicius-blog/tree/main/examples/jwt">This example code is available on my github</ExternalLink>. You can run it with `set SECRET_KEY=secret && node app.mjs`
 </Aside>
 
 ```js title="generate-token.mjs" showLineNumbers 
@@ -176,7 +176,7 @@ console.log('Decoded JWT:', verifyJWT(token)) // Decoded JWT: { id: 1, username:
 
 The server generates a token (usually after successful login), signs it with a secret or private key, and sends it to the client.
 
-The client typically stores the token in <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</LinkPreview> <u>(which is generally not recommended due to potential security risks)</u> or <LinkPreview url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</LinkPreview>.The token is then sent with each request to the server, allowing the server to verify its authenticity using the signing key. This process ensures that only valid tokens can access protected resources.
+The client typically stores the token in <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">`localStorage`</ExternalLink> <u>(which is generally not recommended due to potential security risks)</u> or <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">`cookies`</ExternalLink>.The token is then sent with each request to the server, allowing the server to verify its authenticity using the signing key. This process ensures that only valid tokens can access protected resources.
 
 ## Key Use Cases
 
