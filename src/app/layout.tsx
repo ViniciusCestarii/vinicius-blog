@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme/provider'
 import { AuthProvider } from '@/context/auth-context'
 import QueryClientProvider from '@/context/react-query-context'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -41,11 +42,13 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <QueryClientProvider>
-            <AuthProvider>
-              <div className="px-4 page-layout bg-noise before:content-[''] before:pointer-events-none before:fixed dark:before:opacity-60 before:opacity-40 before:bottom-0 before:left-0 before:right-0 before:bg-gradient-to-b before:from-transparent before:to-background before:h-16">
-                {children}
-              </div>
-            </AuthProvider>
+            <NuqsAdapter>
+              <AuthProvider>
+                <div className="px-4 page-layout bg-noise before:content-[''] before:pointer-events-none before:fixed dark:before:opacity-60 before:opacity-40 before:bottom-0 before:left-0 before:right-0 before:bg-gradient-to-b before:from-transparent before:to-background before:h-16">
+                  {children}
+                </div>
+              </AuthProvider>
+            </NuqsAdapter>
           </QueryClientProvider>
           <Toaster closeButton />
         </ThemeProvider>

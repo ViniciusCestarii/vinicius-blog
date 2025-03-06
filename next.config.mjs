@@ -2,6 +2,7 @@
 
 const nextConfig = {
   output: 'standalone',
+  devIndicators: false,
   images: {
     domains: ['api.microlink.io'],
   },
