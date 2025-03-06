@@ -85,13 +85,11 @@ const PostLikes = ({ slug, likeable }: PostLikesProps) => {
   const likesQuery = useQuery({
     queryKey: ['likes', slug],
     queryFn: () => fetchLikes(slug),
-    staleTime: 1000 * 60 * 60,
   })
 
   const isLikedQuery = useQuery({
     queryKey: ['isLiked', slug],
     queryFn: () => fetchIsLiked(slug),
-    staleTime: 1000 * 60 * 60,
   })
 
   if (likeable) {
