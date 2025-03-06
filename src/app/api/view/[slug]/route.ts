@@ -7,7 +7,7 @@ interface Params {
 }
 
 export async function GET(request: Request, props: Params) {
-  const params = await props.params;
+  const params = await props.params
   const views = await getViews(params.slug)
 
   return Response.json(views)

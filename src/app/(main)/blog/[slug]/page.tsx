@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage(props: PostPageProps) {
-  const params = await props.params;
+  const params = await props.params
   const { slug } = params
   const post = await getPostBasedOnUser(slug)
 
@@ -32,8 +32,10 @@ export default async function PostPage(props: PostPageProps) {
   return <Post post={post} headings={headings} />
 }
 
-export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
-  const params = await props.params;
+export async function generateMetadata(
+  props: PostPageProps,
+): Promise<Metadata> {
+  const params = await props.params
   const post = await getPost(params.slug)
 
   const { metadata } = post!

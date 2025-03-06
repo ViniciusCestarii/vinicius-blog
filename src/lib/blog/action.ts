@@ -103,12 +103,14 @@ export const getPostBasedOnUser = async (
 }
 
 export const toggleLike = async (slug: string) => {
-  const likedPosts = await getLikedPosts() ?? []
+  const likedPosts = (await getLikedPosts()) ?? []
   const isLiked = likedPosts.includes(slug)
 
   if (isLiked) {
     const decrement = decrementLikes(slug)
-    const updateCookie = setLikedPosts(likedPosts.filter((likedSlug) => likedSlug !== slug))
+    const updateCookie = setLikedPosts(
+      likedPosts.filter((likedSlug) => likedSlug !== slug),
+    )
     await Promise.all([decrement, updateCookie])
   } else {
     const increment = incrementLikes(slug)

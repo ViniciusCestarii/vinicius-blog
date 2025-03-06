@@ -1,7 +1,7 @@
 'use server'
 
 import env from '@/env'
-import { cookies } from 'next/headers';
+import { cookies } from 'next/headers'
 import * as jose from 'jose'
 export interface Authenticate {
   username: string
