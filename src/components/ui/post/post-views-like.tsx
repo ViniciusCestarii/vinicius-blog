@@ -1,4 +1,3 @@
-import React from 'react'
 import PostViews from './post-views'
 import PostLikes from './post-likes'
 import { Post } from '@/lib/blog/types'
