@@ -16,7 +16,6 @@ const PostViews = ({ slug, increment }: PostViewsProps) => {
   const query = useQuery({
     queryKey: ['views', slug],
     queryFn: () => fetchViews(slug),
-    staleTime: 1000 * 60 * 60,
   })
 
   const queryClient = useQueryClient()
