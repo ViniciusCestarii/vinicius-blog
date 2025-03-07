@@ -23,13 +23,9 @@ export default async function AdminPostPage(props: PostPageProps) {
   const { slug } = params
   const success = await isAuthenticated()
 
-  if (!success)
-    return {
-      redirect: {
-        destination: '/admin/login',
-        permanent: false,
-      },
-    }
+  if (!success) {
+    notFound()
+  }
 
   const post = await getPostBasedOnUser(slug)
 

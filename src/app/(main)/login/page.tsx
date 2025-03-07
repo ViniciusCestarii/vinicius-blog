@@ -23,7 +23,7 @@ export default function LoginPage() {
       const success = await login({ username, password })
 
       if (success) {
-        router.push('/')
+        router.push('/admin')
       } else {
         alert('Authentication failed')
       }
