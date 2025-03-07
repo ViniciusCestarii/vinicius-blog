@@ -1,15 +1,13 @@
 import PostListContainer from './post-list-container'
 import { searchParamsCache } from './search-params'
 
+export const dynamic = 'force-static'
+
 export default async function Home(props: {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
   const searchParams = await props.searchParams
   const parsedSearchParams = searchParamsCache.parse(searchParams)
 
-  return (
-    <main>
-      <PostListContainer search={parsedSearchParams.search} />
-    </main>
-  )
+  return <PostListContainer search={parsedSearchParams.search} />
 }
