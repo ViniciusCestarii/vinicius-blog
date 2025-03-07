@@ -60,6 +60,32 @@
   }
 }
 
+::view-transition-old(main-container) {
+  animation: 0.2s ease both slide-to-left;
+}
+
+::view-transition-new(main-container) {
+  animation: 0.2s ease both slide-from-right;
+}
+
+@keyframes slide-to-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-from-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
 
