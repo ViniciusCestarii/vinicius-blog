@@ -1,7 +1,7 @@
 import { isAuthenticated } from '@/server/auth'
 import PostListContainer from '../post-list-container'
 import { searchParamsCache } from '../search-params'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 export default async function Home(props: {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -12,7 +12,7 @@ export default async function Home(props: {
   const isAdmin = isAuthenticated()
 
   if (!isAdmin) {
-    notFound()
+    redirect('/login')
   }
 
   return <PostListContainer search={parsedSearchParams.search} />

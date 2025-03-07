@@ -1,5 +1,5 @@
 import { getAllPosts, getPostBasedOnUser } from '@/lib/blog/action'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { getHeadings } from '@/lib/blog/utils'
 import Post from '../../../components/post'
 import { isAuthenticated } from '@/server/auth'
@@ -21,10 +21,10 @@ export async function generateStaticParams() {
 export default async function AdminPostPage(props: PostPageProps) {
   const params = await props.params
   const { slug } = params
-  const success = await isAuthenticated()
+  const isAdmin = await isAuthenticated()
 
-  if (!success) {
-    notFound()
+  if (!isAdmin) {
+    redirect('/login')
   }
 
   const post = await getPostBasedOnUser(slug)
