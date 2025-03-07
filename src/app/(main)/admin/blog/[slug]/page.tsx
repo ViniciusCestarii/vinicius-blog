@@ -1,8 +1,7 @@
-import { getAllPosts, getPostBasedOnUser } from '@/lib/blog/action'
-import { notFound, redirect } from 'next/navigation'
+import { getPostBasedOnUser } from '@/lib/blog/action'
+import { notFound } from 'next/navigation'
 import { getHeadings } from '@/lib/blog/utils'
 import Post from '../../../components/post'
-import { isAuthenticated } from '@/server/auth'
 
 interface PostPageProps {
   params: Promise<{
@@ -10,22 +9,9 @@ interface PostPageProps {
   }>
 }
 
-export async function generateStaticParams() {
-  const posts = await getAllPosts()
-
-  return posts.map((post) => ({
-    slug: post.metadata.slug,
-  }))
-}
-
 export default async function AdminPostPage(props: PostPageProps) {
   const params = await props.params
   const { slug } = params
-  const isAdmin = await isAuthenticated()
-
-  if (!isAdmin) {
-    redirect('/login')
-  }
 
   const post = await getPostBasedOnUser(slug)
 
