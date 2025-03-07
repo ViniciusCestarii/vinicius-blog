@@ -2,13 +2,15 @@ import { getAllPosts, getPost, getPostBasedOnUser } from '@/lib/blog/action'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getHeadings } from '@/lib/blog/utils'
-import Post from './post'
+import Post from '../../components/post'
 
 interface PostPageProps {
   params: Promise<{
     slug: string
   }>
 }
+
+export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
