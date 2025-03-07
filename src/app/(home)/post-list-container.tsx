@@ -1,6 +1,7 @@
 import PostItem from '@/components/ui/post/post-item'
 import { getAllPostsBasedOnUser } from '@/lib/blog/action'
-import PostListHeader from './post-list-header'
+// import PostListHeader from './post-list-header' enables search but depends on ssr
+// to enable search, you will need to remove export const dynamic = 'force-static' from page.tsx
 
 interface PostContainerProps {
   search?: string
@@ -9,7 +10,7 @@ interface PostContainerProps {
 const PostListContainer = ({ search }: PostContainerProps) => {
   return (
     <div className="flex flex-col gap-8 items-center sm:items-start pb-8">
-      <PostListHeader />
+      {/* <PostListHeader /> */}
       <PostsList search={search} />
     </div>
   )
