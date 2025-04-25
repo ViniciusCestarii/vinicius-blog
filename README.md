@@ -4,7 +4,7 @@ This project is my own blog and a a custom-built CMS and blog platform created u
 
 ## Features
 
-- **Next.js**: Utilizes Next.js for server-side rendering (SSR) and static site generation (SSG) for fast load times and SEO optimization.
+- **Next.js**: Utilizes Next.js for static site generation (SSG) for fast load times and SEO optimization.
 - **MDX**: Supports writing blog posts in Markdown with embedded React components.
 - **Tailwind CSS**: Uses Tailwind CSS for utility-first styling.
 - **Redis**: Manages post views and likes with Redis for fast reads and writes.
@@ -80,6 +80,8 @@ The easiest way to deploy your Next.js app is to use the Vercel Platform from th
 
 Check out the Next.js deployment documentation for more details.
 
+> This blog is efficiently deployed on Vercel's free plan, leveraging their optimized infrastructure for performance and seamless updates. Combined with a free Redis Cloud instance, this demonstrates a cost-effective and powerful way to host projects and showcase your work without incurring hosting fees.
+
 ## Docker
 
 You can also run the project using Docker. To do so, follow these steps:
@@ -107,7 +109,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-## Acknowledgements
+## Tech Used
 
 - [Next.js](https://nextjs.org/)
 - [MDX](https://mdxjs.com/)
