@@ -105,11 +105,7 @@ Alternatively, you can use Docker Compose to run the project with Redis. To do s
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Tech Used
+## Know More
 
 - [Next.js](https://nextjs.org/)
 - [MDX](https://mdxjs.com/)
@@ -117,3 +113,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - [Redis](https://redis.io/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Vercel](https://vercel.com/)
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
