@@ -21,7 +21,7 @@ const PostHeader = ({ post, headings, editable }: PostHeaderProps) => {
       <div className="py-4">
         <Button asChild variant="ghost" className="group not-prose p-2 h-fit">
           <Link
-            href="/"
+            href={editable ? '/admin' : '/'}
             aria-label="Visit Vinicius Cestarii Github"
             title="See all posts"
             className="flex gap-1"
