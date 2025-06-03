@@ -97,10 +97,10 @@ CREATE TABLE employees (
     name VARCHAR(100),
     salary NUMERIC
 );
+CLUSTER employees USING employees_pkey;
 ```
 
-Here the sql script will create a constraint `employees_pk` that will work as an B-tree index and similar values are stored next to each
-other. That means that indexes can build clusters of rows with similar values.
+Here the sql script will create a constraint `employees_pkey` that will work as an B-tree index. The `CLUSTER` command physically reorders the table’s rows on disk based on this index. This means rows with similar `id` values are stored next to each other on disk, reducing disk I/O and improving speed of queries that scan ranges of `id`s.
 
 ### Real-World Analogy
 
